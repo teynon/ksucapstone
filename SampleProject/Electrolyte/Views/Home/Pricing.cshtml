@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Pricing & Plans";
+}
+<h2>@ViewBag.Title</h2>
+
+@if (ViewBag.PricingModel == 1)
+{
+<div class="pricingOptions">
+    <div class="pricingDivider" style="border-top-color:lightslategrey;border-top:solid;opacity:0.5"></div>
+    <div class="pricingText">
+        <p>
+            Not everyone has the same needs, and we understand that. We've tiered the cost to fit the three types of contractors that we see
+            most commonly.
+        </p>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Basic Contract</div>
+        <div class="pricingPrice">$20 / contract</div>
+        <div class="pricingSummary">Pay per contract</div>
+        <div class="pricingSummary">Only pay for what you use</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=A&choice=1"))
+        </div>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Basic</div>
+        <div class="pricingPrice">$30 / month</div>
+        <div class="pricingSummary">Up to 5 active contracts</div>
+        <div class="pricingSummary">Up to 5 users</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=A&choice=2"))
+        </div>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Pro</div>
+        <div class="pricingPrice">$100 / month</div>
+        <div class="pricingSummary">Up to 20 active contracts</div>
+        <div class="pricingSummary">Up to 15 users</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=A&choice=3"))
+        </div>
+    </div>
+</div>
+}
+else {
+<div class="pricingOptions">
+    <div class="pricingDivider" style="border-top-color:lightslategrey;border-top:solid;opacity:0.5"></div>
+    <div class="pricingText">
+        <p>
+            Not everyone has the same needs, and we understand that. We've tiered the cost to fit the three types of contractors that we see
+            most commonly.
+        </p>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Basic Contract</div>
+        <div class="pricingPrice">$10 / contract</div>
+        <div class="pricingSummary">Pay per contract</div>
+        <div class="pricingSummary">Only pay for what you use</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=B&choice=1"))
+        </div>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Basic</div>
+        <div class="pricingPrice">$15 / month</div>
+        <div class="pricingSummary">Up to 5 active contracts</div>
+        <div class="pricingSummary">Up to 5 users</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=B&choice=2"))
+        </div>
+    </div>
+    <div class="pricingPlan">
+        <div class="pricingTitle">Pro</div>
+        <div class="pricingPrice">$50 / month</div>
+        <div class="pricingSummary">Up to 20 active contracts</div>
+        <div class="pricingSummary">Up to 15 users</div>
+        <div class="pricingSummary">5mb storage per contract</div>
+        <div class="pricingSelect">
+            @Html.Raw(Strings.GetRawLink("More Info", "Home/SelectPricing?sample=B&choice=3"))
+        </div>
+    </div>
+</div>
+}

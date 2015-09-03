@@ -1,0 +1,82 @@
+﻿@model Electrolyte.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create Account";
+}
+
+<h2>@ViewBag.Title.</h2>
+<hr />
+@if (ViewBag.Success)
+{
+    <div class="registerMessageSuccess">
+        @ViewBag.Message
+    </div>
+}
+else
+{
+    <div class="registerMessage ">
+        @ViewBag.Message
+    </div>
+    <div class="registerBody">
+        <div class="registerBlock">
+            <img src="/Content/images/transparency.png" />
+            <div>
+                <h3>Full Transparency</h3>
+                Creating a secure and simple user experience for efficient contract execution and management!
+            </div>
+        </div>
+        <div class="registerBlock">
+            <img src="/Content/images/management.png" />
+            <div>
+                <h3>Management</h3>
+                Documenting interactions between parties allows for clear and concise definitions of use cases and milestones.
+            </div>
+        </div>
+        <div class="registerBlock">
+            <img src="/Content/images/efficiency_control.png" />
+            <div>
+                <h3>Efficiency Control</h3>
+                Creating a secure and simple user experience for efficient contract execution and management!
+            </div>
+        </div>
+        <div class="registerBlock">
+            <img src="/Content/images/proven_value.png" />
+            <div>
+                <h3>Proven Value</h3>
+                Creating a secure and simple user experience for efficient contract execution and management!
+            </div>
+        </div>
+        <hr />
+
+        <div class="registerContact">
+            Contact us to learn how we can improve your business
+            <div class="email">support@followthru.co</div>
+            <div class="phone">or 216.288.4132</div>
+        </div>
+    </div>
+
+
+    <div class="registerForm">
+        <h2>GET STARTED</h2>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+        
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name..." })
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name..." })
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email..." })
+            @Html.TextBoxFor(m => m.Company, new { @class = "form-control", @placeholder = "Company (optional)..." })
+            @Html.Password("Password", "", new { @class = "form-control", @placeholder = "Password..." })
+            @Html.Password("ConfirmPassword", "", new { @class = "form-control", @placeholder = "Confirm Password..." })
+
+            <input type="submit" class="btn btn-default" value="CREATE ACCOUNT" />
+        }
+    </div>
+    <div class="clearfix"></div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

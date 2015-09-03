@@ -1,0 +1,120 @@
+﻿@model Electrolyte.Models.DashboardViewModel
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+<!--
+<h2>Activity Feed</h2>
+<hr />
+
+<div>
+    <div class="activity-element"><div class="feed-icon"></div>Wingos Restaurant and Bar (Wingos - 01): Completion of front window installation - 10 hr ago // View</div>
+    <div class="activity-element"><div class="feed-icon"></div>Tony Smith (Smith - 01): First edit of homepage complete - 1 day ago // View</div>
+    <div class="activity-element"><div class="feed-icon"></div>Wingos Restaurant and Bar (Wingos - 02): Negotiated new price - 2 days ago // View</div>
+    <div class="activity-element"><div class="feed-icon"></div>Wingos Restaurant and Bar (Wingos - 03): Contract initiated! - 6 days ago // View</div>
+</div>
+
+<hr />-->
+
+<h2>Active Agreements</h2>
+<hr />
+@if (ViewBag.Agreements.Count > 0) { 
+    foreach (var agreement in ViewBag.agreements)
+    {
+        var deadline = "N/A";
+        DateTime? lastTask = null;
+        int progress = 100;
+        string progressString = "N/A";
+        int taskCount = 0;
+    
+        // Get last task.
+
+        if (agreement.Tasks.Count > 0)
+        {
+            foreach (var task in agreement.Tasks)
+            {
+                if (lastTask == null || task.datetime > lastTask)
+                {
+                    lastTask = task.datetime;
+                    deadline = ((DateTime)lastTask).ToString("MM/dd/yyyy");
+                }
+
+                if (DateTime.Compare(task.datetime, DateTime.Now) <= 0)
+                {
+                    taskCount++;
+                }
+            }
+            progress = (int)(((double)taskCount / (double)agreement.Tasks.Count) * 100);
+            progressString = progress.ToString() + "%";
+        }
+    
+        <div class="contract-item" onclick="document.location.href = '@Strings.GetBaseURL()Agreement/Manage?id=@agreement.id'">
+            <div class="contract-item-body">
+                <div class="item-status-green"></div>
+                <div class="contract-item-block">
+                    <div class="item-label">Title:</div>
+                    <div class="item-value">@agreement.title</div>
+                </div>
+                <div class="contract-item-block">
+                    <div class="item-label">Start Date:</div>
+                    <div class="item-value">@agreement.createddate.ToString("MM/dd/yyyy")</div>
+                    <div class="item-label">Deadline:</div>
+                    <div class="item-value">@deadline</div>
+                </div>
+                <div class="contract-item-block">
+                    <div class="item-label">Project Number:</div>
+                    <div class="item-value">@(agreement.id.ToString().PadLeft(6,'0'))</div>
+                </div>
+                <div class="contract-item-block">
+                    <div class="progress-bar">
+                        <div class="progress-bar-green" style="width: @(progress)%;">@(progressString)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="contract-arrow-right"></div>
+            <div class="clearfix"></div>
+        </div>
+    }
+}
+else
+{
+    <text>
+    No active agreements.
+    </text>
+}
+<!--
+
+
+<h2>Pending Agreements</h2>
+
+<div class="contract-item">
+    <div class="contract-item-body">
+        <div class="item-status-yellow"></div>
+        <div class="contract-item-block">
+            <div class="item-label">Client Name:</div>
+            <div class="item-value">Wingos Restaurant and Bar</div>
+        </div>
+        <div class="contract-item-block">
+            <div class="item-label">Start Date:</div>
+            <div class="item-value">8/14/13</div>
+            <div class="item-label">Deadline:</div>
+            <div class="item-value">9/28/13</div>
+        </div>
+        <div class="contract-item-block">
+            <div class="item-label">Project Number:</div>
+            <div class="item-value">Wingos - 01</div>
+        </div>
+        <div class="contract-item-block">
+            <div class="progress-bar">
+                <div class="progress-bar-yellow" style="width: 60%;">60%</div>
+            </div>
+        </div>
+    </div>
+    <div class="contract-arrow-right"></div>
+    <div class="clearfix"></div>
+</div>
+    -->
+
+<hr />
+
+<!-- <h2>Account History</h2> -->

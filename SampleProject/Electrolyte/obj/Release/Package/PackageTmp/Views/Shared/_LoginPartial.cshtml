@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "accountBar" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <div class="myaccount">
+        @User.Identity.GetUserName()
+    </div>
+    
+    <div class="ResetPassword">
+        @Html.ActionLink("Change Password", "PasswordReset", "Account", routeValues: null, htmlAttributes: new { title = "Change Password" })
+    </div>
+    
+    <div class="logoff">
+        <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+    </div>
+    }
+}
+else
+{
+    // Present short login form
+    using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="sidebar_login">
+            <hr />
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <h2>LOGIN</h2>
+            @Html.TextBox("Username", "", new { Placeholder = "Email..." })
+            @Html.Password("Password", "", new { Placeholder = "Password..." })
+            <input type="submit" name="signin" value="SIGN IN" />
+            <div class="clearfix"></div>
+            @Html.Raw(Strings.GetRawLink("Forgot password //", "Account/Forgot"))
+            <br />            
+            @Html.Raw(Strings.GetRawLink("Create an account //", "Account/Register"))
+        </div>
+    }
+}

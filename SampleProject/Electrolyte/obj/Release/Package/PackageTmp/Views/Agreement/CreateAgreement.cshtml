@@ -1,0 +1,38 @@
+﻿@model Electrolyte.Models.AgreementViewModel
+
+@{
+    ViewBag.Title = "CreateAgreement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Contract Title</h4>
+<div class="agreement-delete">DELETE</div>
+<div class="agreement-invite">INVITE SECOND PARTY<img src="/Content/blue_dropdown.png" style="vertical-align: baseline; margin-left: 4px;" /></div>
+<hr />
+
+<div class="agreement-section">
+    <h3>SECTION ONE: Authorization</h3>
+    <div id="questions">
+        <ul>
+            <li><div class="section-item">Who will be known as the client?</div> <input type="text" name="client" placeholder="type here..." /><span class="section-item-remove">x</span></li>
+            <li><div class="section-item">Who will be known as the developer?</div> <input type="text" name="developer" placeholder="type here..." /><span class="section-item-remove">x</span></li>
+            <li><div class="section-item">Who will be hosting the website?</div> <input type="text" name="hoster" placeholder="type here..." /><span class="section-item-remove">x</span></li>
+        </ul>
+    </div>
+
+    <div id="preview" style="display: none;">
+        Hereafter, %%client%% will be known as the "Client and %%developer%% will be known as the "Developer."  Client is engaging Developer as an independent contractor for the specific purpose of developing a software “Project” to be installed on %%hoster%%'s server. The Developer will establish a Web server account for hosting. The Client hereby authorizes the Developer to access its account, and authorizes the Developer with "write permission" for the Client’s Web page directories.
+    </div>
+
+    <div class="section-view-official" onclick="com.cohandshake.showOfficial();">VIEW SECTION IN OFFICIAL FORMAT</div>
+</div>
+
+<div class="agreement-messages">
+    <h3>MESSAGE LOG</h3>
+    <div id="message-area">
+
+    </div>
+    <div><input type="text" name="message" id="msgbox" placeholder="type message here..." /><div class="agreement-message-send" onclick="com.cohandshake.addMessage();">SEND</div></div>
+</div>
+
+

@@ -1,0 +1,20 @@
+﻿<div style="width: 600px; border: 2px solid #e5e5e5;">
+  <table border=0 cellspacing=0 cellpadding=0 style="width: 100%; background: #4fa5f2; border: none; height: 60px; font-size: 24px; color: #FFFFFF; border-bottom: 10px solid #e5e5e5;">
+    <tr>
+      <td width="100%">
+        {0}
+      </td>
+      <td>
+        <img src="http://followthru.co/Content/images/Email/logo_blue.png" />
+      </td>
+    </tr>
+  </table>
+
+  <div style="padding: 20px;">
+     {1}
+  </div>
+
+  <div style="background: #e5e5e5;">
+        <img src="http://followthru.co/Content/images/Email/logo_gray.png" />
+  </div>
+</div>

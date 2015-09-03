@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - FollowThru</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    @Scripts.Render("~/Content/main.js")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body class="fileUploadBody">
+    <form action="AgreementUploadForm?id=@(ViewBag.agreement.id)" method="post" enctype="multipart/form-data" id="fileUploadForm">
+        <div class="fileUpload">
+            <input type="file" name="file" id="fileUpload" onchange="$('#fileUploadForm').submit();" />
+            <img src="/Content/images/btnUploadDocuments.png" class="uploadDocuments" onclick="$('#fileUpload').click();">
+        </div>
+    </form>
+
+    <script>
+        var files = [];
+        @if (ViewBag.agreement.Files != null) {
+            foreach (var file in ViewBag.agreement.Files)
+            {
+                <text>
+            files.push({ filename : '@file.filename', id : @file.id });
+                </text>
+            }
+        }
+        window.parent.com.CreateAgreement.updateFiles(files);
+    </script>
+</body>
+</html>

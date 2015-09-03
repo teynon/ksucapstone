@@ -1,0 +1,22 @@
+﻿@model Electrolyte.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Forgot Password";
+}
+
+<h2>@ViewBag.Title.</h2>
+<hr />
+
+@ViewBag.Message
+
+@if (!ViewBag.EmailSent) {
+    using (Html.BeginForm("Forgot", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+
+        @Html.TextBoxFor(m => m.UserName, new { @class = "forgotPasswordBox", @placeholder = "Email..." })
+        
+        <input type="submit" value="Recover Password" />
+    }
+}
+<div class="clearfix"></div>

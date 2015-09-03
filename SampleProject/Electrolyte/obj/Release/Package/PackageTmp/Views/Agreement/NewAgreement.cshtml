@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="newAgreement">
+    <div class="agreementLeft">
+        <h2>New Contract: <span class="normal">Step One</span></h2>
+        <input type="text" name="title" id="contractTitle" placeholder="What is the title?" />
+        <textarea name="description" id="contractDescription" placeholder=" short description..."></textarea>
+
+        <iframe class="fileUploadFrame" src="@Strings.GetBaseURL()/Agreement/AgreementUploadForm?id=0"></iframe>
+        <!--<div class="fileUpload"><input type="file" id="fileUpload" /><img src="/Content/images/btnUploadDocuments.png" class="uploadDocuments" onclick="$('#fileUpload').click();"></div>-->
+
+        <h3>Who's involved?</h3>
+        <input type="text" name="contactName" id="contactName" placeholder="Name..." />
+        <input type="text" name="contactPhone" id="contactPhone" placeholder="Phone Number..." />
+        <input type="text" name="contactEmail" id="contactEmail" placeholder="Email Address..." />
+        <input type="text" name="contactStreet" id="contactStreet" placeholder="Street Address..." />
+        <input type="text" name="contactCity" id="contactCity" placeholder="City..." class="contactCity" />
+        <input type="text" name="contactState" id="contactState" placeholder="State..." class="contactState" />
+    
+        <div class="addAnother" onclick="com.CreateAgreement.addContact(com.CreateAgreement.getContactFromAjaxForm);">+ Add another person to this project</div>
+        <!--<img src="/Content/images/btnSaveToContacts.png" class="saveToContacts" onclick="com.CreateAgreement.saveContact();" />-->
+    </div>
+    <div class="agreementRight">
+        <h2>Associated Files</h2>
+        <div id="associatedFiles">
+
+        </div>
+        <h2>Associated Contacts</h2>
+        <div id="associatedContacts">
+
+        </div>
+    </div>
+    <div class="clearfix">
+        <img src="/Content/images/btnNextStep.png" class="nextStep" onclick="com.CreateAgreement.create(com.CreateAgreement.getCreateFromAjaxForm);" />
+    </div>
+</div>

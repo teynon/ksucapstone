@@ -1,0 +1,63 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="newAgreement">
+    <div class="agreementLeft">
+        <h2>Step Two:<span class="normal">Establish Tasks</span></h2>
+
+        <div class="typeTask">
+             <div id="selectedTask" data-id="0"><input typeof="text" id="taskType" placeholder="What is the type of task..." /></div>
+            <div class="taskSelector" id="taskSelector">
+                @Html.Partial("AutocompleteItem")
+            </div>
+        </div>
+
+        <div class="divInput">
+            <div class="inputTitle">TITLE</div>
+            <input type="text" id="taskTitle" value="" />
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="divText">
+            <div class="inputTitle">DETAILS</div>
+            <textarea id="taskDescr"></textarea>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="divInput">
+            <div class="inputTitle">DATE</div>
+            <input type="text" id="taskDate" value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="divInput">
+            <div class="inputTitle">TIME</div>
+            <input type="text" id="taskTime" value="8:00 AM" />
+            <div class="clearfix"></div>
+        </div>
+
+        <div id="datePicker"></div>
+
+        <div class="clearfix">
+            <img src="/Content/images/btnSaveTask.png" class="nextStep" onclick="com.CreateAgreement.addTask(com.CreateAgreement.getTaskFromAjaxForm);" />
+        </div>
+    </div>
+    <div class="tasksRight">
+        <h3>Current Tasks</h3>
+        <div id="currentTasks">
+            @foreach (var task in ViewBag.Agreement.Tasks) {
+                <div class="agreementTask" data-id="@task.id">
+                    <div class="redDot"></div>
+                    <span class="taskTitle">@task.title</span>
+                    <span class="taskDetails"> - @task.description</span>
+                    <div class="taskDate">@task.datetime.ToString("MMMM d, yyyy h:mm tt")</div>
+                </div>
+            }
+        </div>
+
+        <div class="clearfix">
+            <img src="/Content/images/btnFinish.png" class="nextStep" onclick="com.CreateAgreement.FinishAgreement(com.CreateAgreement.getTaskFromAjaxForm);" />
+        </div>
+    </div>
+</div>
