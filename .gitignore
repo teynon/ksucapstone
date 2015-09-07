@@ -1,3 +1,5 @@
 *.pdb
-bin/
-obj/
+bin\
+obj\
+server\KSUCapstone2015\bin\
+server\KSUCapstone2015\obj\
