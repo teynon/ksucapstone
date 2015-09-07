@@ -38,3 +38,43 @@ c:\users\gabriella\documents\visual studio 2015\Projects\KSUCapstone2015\KSUCaps
 c:\users\gabriella\documents\visual studio 2015\Projects\KSUCapstone2015\KSUCapstone2015\obj\Debug\KSUCapstone2015.csprojResolveAssemblyReference.cache
 c:\users\gabriella\documents\visual studio 2015\Projects\KSUCapstone2015\KSUCapstone2015\obj\Debug\KSUCapstone2015.dll
 c:\users\gabriella\documents\visual studio 2015\Projects\KSUCapstone2015\KSUCapstone2015\obj\Debug\KSUCapstone2015.pdb
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\csc.exe
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\vbc.exe
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\VBCSCompiler.exe
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\KSUCapstone2015.dll.config
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\KSUCapstone2015.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\KSUCapstone2015.pdb
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Antlr3.Runtime.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Newtonsoft.Json.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Helpers.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Mvc.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Optimization.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Razor.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.Razor.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\WebGrease.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Helpers.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Mvc.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Optimization.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.Razor.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\System.Web.WebPages.Razor.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Antlr3.Runtime.pdb
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\bin\Newtonsoft.Json.xml
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\obj\Debug\KSUCapstone2015.csprojResolveAssemblyReference.cache
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\obj\Debug\KSUCapstone2015.dll
+C:\Users\Evun\Desktop\ksucapstone\server\KSUCapstone2015\obj\Debug\KSUCapstone2015.pdb
