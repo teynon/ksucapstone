@@ -11,6 +11,7 @@ namespace KSUCapstone2015.Controllers
     {
         public ActionResult Index()
         {
+            List<Models.Data.Example> examples = new BLL.Example().GetExamples();
             return View();
         }
 

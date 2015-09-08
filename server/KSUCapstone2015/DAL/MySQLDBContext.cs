@@ -8,6 +8,7 @@ using System.Web;
 
 namespace KSUCapstone2015.DAL
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class MySQLDBContext : DbContext
     {
 
