@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="MySQLServer-Web.config Connection String" description="MySQLServer Connection String used in web.config by the application to access the database." defaultValue="Datasource=23.253.46.5;&#xD;&#xA;                          uid=websys;&#xD;&#xA;                          Pwd=apples12;&#xD;&#xA;                          Database=electrolyte;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\gabriella\\Documents\\root\\branches\\alpha1\.0\\Electrolyte\\Electrolyte\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MySQLServer']/@connectionString" />
-  </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="DefaultConnection_ConnectionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\gabriella\\Documents\\root\\branches\\alpha1\.0\\Electrolyte\\Electrolyte\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-</parameters>

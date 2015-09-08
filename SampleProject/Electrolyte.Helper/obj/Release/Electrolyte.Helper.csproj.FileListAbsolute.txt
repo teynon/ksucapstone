@@ -1,5 +1,0 @@
-C:\Users\gabriella\Documents\root\branches\alpha1.0\Electrolyte\Electrolyte.Helper\bin\Helper.dll.config
-C:\Users\gabriella\Documents\root\branches\alpha1.0\Electrolyte\Electrolyte.Helper\bin\Helper.dll
-C:\Users\gabriella\Documents\root\branches\alpha1.0\Electrolyte\Electrolyte.Helper\bin\Helper.pdb
-C:\Users\gabriella\Documents\root\branches\alpha1.0\Electrolyte\Electrolyte.Helper\obj\Release\Helper.dll
-C:\Users\gabriella\Documents\root\branches\alpha1.0\Electrolyte\Electrolyte.Helper\obj\Release\Helper.pdb
