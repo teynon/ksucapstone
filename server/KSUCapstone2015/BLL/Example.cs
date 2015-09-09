@@ -11,7 +11,7 @@ namespace KSUCapstone2015.BLL
         {
             using (var context = new DAL.MySQLDBContext())
             {
-                return context.Examples.Where(o => 1 == 1).ToList();
+                return context.Examples.Where(o => o.ID == 1).ToList();
             }
         }
     }
