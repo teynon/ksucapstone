@@ -17,7 +17,7 @@ namespace KSUCapstone2015.DAL
             Database.SetInitializer<MySQLDBContext>(new MySQLDBInitializer());
         }
 
-        public DbSet<Example> Examples { get; set; }
+        public DbSet<Trip> Trips { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

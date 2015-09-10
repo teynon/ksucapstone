@@ -132,7 +132,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BLL\Example.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\MySQLDBContext.cs" />
@@ -140,7 +139,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Data\Example.cs" />
+    <Compile Include="Migrations\201509100254337_AddedTrips.cs" />
+    <Compile Include="Migrations\201509100254337_AddedTrips.Designer.cs">
+      <DependentUpon>201509100254337_AddedTrips.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509100305508_TripsMaxLengthsForIDS.cs" />
+    <Compile Include="Migrations\201509100305508_TripsMaxLengthsForIDS.Designer.cs">
+      <DependentUpon>201509100305508_TripsMaxLengthsForIDS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509100324396_TripIndexes.cs" />
+    <Compile Include="Migrations\201509100324396_TripIndexes.Designer.cs">
+      <DependentUpon>201509100324396_TripIndexes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Data\Trip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,14 +176,18 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -180,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BLL\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +206,17 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201509100254337_AddedTrips.resx">
+      <DependentUpon>201509100254337_AddedTrips.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509100305508_TripsMaxLengthsForIDS.resx">
+      <DependentUpon>201509100305508_TripsMaxLengthsForIDS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509100324396_TripIndexes.resx">
+      <DependentUpon>201509100324396_TripIndexes.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
