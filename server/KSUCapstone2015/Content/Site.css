@@ -15,7 +15,7 @@
     right: 0px;
     bottom: 0px;
     min-height: calc(100% - 60px);
-    min-width: 100%;
+    width: 100%;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -30,4 +30,25 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+
+.main_overlay {
+    position: absolute;
+    z-index: 1000000000;
+    width: 200px;
+    height: 50px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f0f9ff+0,cbebff+47,a1dbff+100&amp;0.4+0,0.4+100;Blue+3D+%2313 */
+    background: -moz-linear-gradient(top,  rgba(240,249,255,0.4) 0%, rgba(203,235,255,0.4) 47%, rgba(161,219,255,0.4) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(240,249,255,0.4)), color-stop(47%,rgba(203,235,255,0.4)), color-stop(100%,rgba(161,219,255,0.4))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(240,249,255,0.4) 0%,rgba(203,235,255,0.4) 47%,rgba(161,219,255,0.4) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(240,249,255,0.4) 0%,rgba(203,235,255,0.4) 47%,rgba(161,219,255,0.4) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(240,249,255,0.4) 0%,rgba(203,235,255,0.4) 47%,rgba(161,219,255,0.4) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(240,249,255,0.4) 0%,rgba(203,235,255,0.4) 47%,rgba(161,219,255,0.4) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#66f0f9ff', endColorstr='#66a1dbff',GradientType=0 ); /* IE6-9 */
+
+    border: 1px solid #000000;
+    border-radius: 5px;
+    left: 5px;
+    bottom: 5px;
 }
