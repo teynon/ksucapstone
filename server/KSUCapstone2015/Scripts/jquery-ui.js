@@ -15006,6 +15006,3 @@ $.effects.effect.transfer = function( o, done ) {
 };
 
 })(jQuery);
-
-
-console.log(jQuery.ui);

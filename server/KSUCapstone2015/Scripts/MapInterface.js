@@ -9,8 +9,39 @@ com.capstone.StopPropogation = function (e) {
 };
 
 com.capstone.MapController = function (mapid) {
+    var self = this;
     this.mapID = mapid;
     this.map = null;
+    this.selectedPoints = null;
+    this.resultPoints = null;
+    // This property will be removed / changed in the future.
+    // Using purely for dev / testing.
+    this.radius = 125;
+
+    // Get the change in lat/long from meters
+    // Earth is 360 degrees with a circumference of 400075km
+    this.metersToLatitude = function (meters) {
+        return (meters / 6378000) * (180 / Math.PI);
+    }
+
+    this.metersToLongitude = function (meters, latitude) {
+        return (meters / 6378000) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
+    }
+
+    this.metersToLatLong = function (meters) {
+
+        return (360 * meters) / 400075000;
+    }
+
+    this.getBoundingBox = function(latlng, meters) {
+        var b1 = L.latLng(latlng.lat, latlng.lng);
+        var b2 = L.latLng(latlng.lat, latlng.lng);
+        b1.lat -= self.metersToLatitude(self.radius);
+        b1.lng -= self.metersToLongitude(self.radius, latlng.lat);
+        b2.lat += self.metersToLatitude(self.radius);
+        b2.lng += self.metersToLongitude(self.radius, latlng.lat);
+        return L.latLngBounds(b1, b2);
+    }
 
     this.InitMap = function () {
         this.map = L.map(this.mapID).setView([40.7127, -74.0059], 13);
@@ -20,34 +51,54 @@ com.capstone.MapController = function (mapid) {
             id: 'mapbox.streets'
         }).addTo(this.map);
 
-        circlegroup = L.layerGroup();
-        circlegroup.addTo(this.map);
+        this.selectedPoints = L.layerGroup();
+        this.selectedPoints.addTo(this.map);
+
+        this.resultPoints = L.layerGroup();
+        this.resultPoints.addTo(this.map);
 
         this.map.on('click', this.onMapClick);
     };
 
     this.onMapClick = function (e) {
-        if (circlegroup.getLayers().length == 0) {
-            circlegroup.addLayer(L.circle(e.latlng, 125, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.25
-            }));
-        } else if (circlegroup.getLayers().length == 1) {
-            circlegroup.addLayer(L.circle(e.latlng, 125, {
-                color: 'blue',
-                fillColor: '#00BFFF',
-                fillOpacity: 0.25
-            }));
-        } else if (circlegroup.getLayers().length == 2) {
-            circlegroup.clearLayers();
-            circlegroup.addLayer(L.circle(e.latlng, 125, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.25
-            }));
-        }
-        console.log("You clicked the map at " + e.latlng.toString());
+        var boundingBox = self.getBoundingBox(e.latlng);
+
+        self.selectedPoints.clearLayers();
+        self.selectedPoints.addLayer(L.rectangle(boundingBox, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.25
+        }));
+
+        var start = new Date($("#datestart").val()).toISOString();
+        var stop = new Date($("#dateend").val()).toISOString();
+        
+        var data = {
+            start : start, 
+            stop: stop,
+            latitude1 : boundingBox.getNorthWest().lat, 
+            longitude1: boundingBox.getNorthWest().lng,
+            latitude2: boundingBox.getSouthEast().lat,
+            longitude2: boundingBox.getSouthEast().lng
+        };
+
+        self.resultPoints.clearLayers();
+
+        $.getJSON("http://localhost:63061/Query/PickupsAtLocation", data, function (result) {
+            console.log(result);
+            if (result.Data && result.Data.length > 0) {
+                var points = [];
+                for (var i = 0; i < result.Data.length; i++) {
+                    console.log(result.Data[i]);
+                    var latlng = L.latLng(result.Data[i].PickupLatitude, result.Data[i].PickupLongitude);
+                    self.resultPoints.addLayer(L.circle(latlng, 2, {
+                        color: 'green',
+                        fillColor: '#f03',
+                        fillOpacity: 0.25
+                    }));
+                }
+            }
+        });
     };
 
     this.toggleReportView = function () {
