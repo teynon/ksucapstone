@@ -18,19 +18,12 @@ com.capstone.MapController = function (mapid) {
     // Using purely for dev / testing.
     this.radius = 125;
 
-    // Get the change in lat/long from meters
-    // Earth is 360 degrees with a circumference of 400075km
     this.metersToLatitude = function (meters) {
         return (meters / 6378000) * (180 / Math.PI);
     }
 
     this.metersToLongitude = function (meters, latitude) {
         return (meters / 6378000) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
-    }
-
-    this.metersToLatLong = function (meters) {
-
-        return (360 * meters) / 400075000;
     }
 
     this.getBoundingBox = function(latlng, meters) {
