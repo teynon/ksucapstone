@@ -35,20 +35,51 @@ textarea {
 
 .main_overlay {
     position: absolute;
-    display: flex;
-    flex-direction: row;
     padding: 10px;
-    z-index: 1000000000;
+    z-index: 1000;
     min-width: 200px;
     max-width: 50%;
-    min-height: 50px;
-    background: rgba(0, 148, 255, 0.4);
+    min-height: 40px;
+    background: rgba(0, 148, 255, 0.7);
     border: 1px solid #000088;
     border-radius: 5px;
     left: 5px;
     bottom: 5px;
     cursor: default;
+}
+
+.main_overlay > section {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-around;
+    margin-bottom: 5px;
+}
+
+.dateselect {
+    margin-bottom: 4px;
+    margin-left: 5px;
+}
+
+.dateselect:first-child {
+    margin-left: 0px;
+}
+
+.main_overlay > section:last-child {
+    margin-bottom: 0px;
+}
+
+.main_overlay input[type=text] {
+    width: 125px;
+    font-size: 11px;
+    padding: 0px 2px;
+    background-color: #80aed9;
+    border: 1px solid #000000;
+    color: #FFFFFF;
+}
+
+.main_overlay input[type=number] {
+    width: 36px;
 }
 
 .main_overlay > button {

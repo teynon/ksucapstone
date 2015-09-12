@@ -14,6 +14,10 @@ namespace KSUCapstone2015
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui.js",
+                        "~/Scripts/jquery.datetimepicker.js"));
+
             bundles.Add(new ScriptBundle("~/MapInterface").Include(
                 "~/Scripts/MapInterface.js",
                 "~/Scripts/leaflet.js"));
@@ -30,7 +34,9 @@ namespace KSUCapstone2015
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/leaflet.css"));
+                      "~/Content/leaflet.css",
+                      "~/Content/jquery-ui.css",
+                      "~/Content/jquery.datetimepicker.css"));
         }
     }
 }
