@@ -1,4 +1,6 @@
 ﻿using KSUCapstone2015.Controllers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,13 @@ namespace KSUCapstone2015
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat
+            };
         }
 
+        /*
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
@@ -33,6 +40,6 @@ namespace KSUCapstone2015
             IController errorController = new ErrorController();
             errorController.Execute(new RequestContext(
                 new HttpContextWrapper(Context), routeData));
-        }
+        }*/
     }
 }
