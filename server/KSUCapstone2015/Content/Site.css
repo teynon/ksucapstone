@@ -14,7 +14,6 @@
     left: 0px;
     right: 0px;
     bottom: 0px;
-    min-height: calc(100% - 60px);
     width: 100%;
 }
 
@@ -32,15 +31,37 @@ textarea {
     max-width: 280px;
 }
 
-
-.main_overlay {
+.main_hud {
     position: absolute;
     padding: 10px;
     z-index: 1000;
     min-width: 200px;
     max-width: 50%;
     min-height: 40px;
-    background: rgba(0, 148, 255, 0.7);
+    left: 5px;
+    bottom: 5px;
+    cursor: default;
+}
+
+#main_status {
+    padding: 10px;
+    margin-bottom: 4px;
+    min-width: 200px;
+    min-height: 40px;
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid #000088;
+    border-radius: 5px;
+    cursor: default;
+}
+
+
+.main_overlay {
+    padding: 10px;
+    z-index: 1000;
+    min-width: 200px;
+    min-height: 40px;
+    background: #80aed9;
     border: 1px solid #000088;
     border-radius: 5px;
     left: 5px;
@@ -88,4 +109,19 @@ textarea {
 
 .main_overlay > button:first-child {
     margin-left: 0px;
+}
+
+#area {
+    width: 70px;
+
+}
+
+#report {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    width: 0%;
+    background: #FF0000;
+    display: none;
 }

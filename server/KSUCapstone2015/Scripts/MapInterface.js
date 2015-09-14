@@ -18,6 +18,14 @@ com.capstone.MapController = function (mapid) {
     // Using purely for dev / testing.
     this.radius = 125;
 
+    this.metersToMiles = function (meters) {
+        return meters * 0.00062137;
+    }
+
+    this.milesToMeters = function (miles) {
+        return miles / 0.00062137;
+    }
+
     this.metersToLatitude = function (meters) {
         return (meters / 6378000) * (180 / Math.PI);
     }
@@ -77,12 +85,14 @@ com.capstone.MapController = function (mapid) {
 
         self.resultPoints.clearLayers();
 
+        self.setStatus("Loading data...");
+
         $.getJSON("http://localhost:63061/Query/PickupsAtLocation", data, function (result) {
-            console.log(result);
             if (result.Data && result.Data.length > 0) {
+                self.setStatus("Rendering " + result.Count + " results.");
+
                 var points = [];
                 for (var i = 0; i < result.Data.length; i++) {
-                    console.log(result.Data[i]);
                     var latlng = L.latLng(result.Data[i].PickupLatitude, result.Data[i].PickupLongitude);
                     self.resultPoints.addLayer(L.circle(latlng, 2, {
                         color: 'green',
@@ -90,19 +100,33 @@ com.capstone.MapController = function (mapid) {
                         fillOpacity: 0.25
                     }));
                 }
+
+                self.setStatus("Displaying " + result.Count + " results.");
             }
         });
     };
 
     this.toggleReportView = function () {
-        var width = (com.capstone.mapStateOpen) ? "50%" : "100%";
+        var mapWidth = (com.capstone.mapStateOpen) ? "50%" : "100%";
+        var reportWidth = (com.capstone.mapStateOpen) ? "50%" : "0%";
+        var displayReport = (com.capstone.mapStateOpen) ? "block" : "none";
         com.capstone.mapStateOpen = !com.capstone.mapStateOpen;
 
+        if (displayReport == "block") $("#report").css("display", displayReport);
+
         // Stop any active animation and begin the new animation.
-        $('#map').stop().animate({ "width": width }, 1000, function () {
+        $("#report").stop().animate({ "width" : reportWidth }, 1000, function() {
+            $("#report").css("display", displayReport);
+        });
+
+        $('#map').stop().animate({ "width": mapWidth }, 1000, function () {
 
         });
     };
+
+    this.setStatus = function (status) {
+        $("#main_status").text(status);
+    }
 
     this.showReportView = function () {
         $('#map').stop().animate({ "width": "50%" }, 1000, function () {
@@ -140,6 +164,12 @@ $(document).ready(function () {
         format: "m/d/Y h:i:s a",
         step: 10,
         closeMonitors: [ $("#map").get(0), $(".main_overlay").get(0) ]
+    });
+
+    $("#area").val(com.capstone.mapController.radius);
+
+    $("#area").on("change", function () {
+        com.capstone.mapController.radius = $(this).val();
     });
 
     $(".autopad").on("change", function () {
