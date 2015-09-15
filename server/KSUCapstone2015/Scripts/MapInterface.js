@@ -59,6 +59,10 @@ com.capstone.MapController = function (mapid) {
         this.resultPoints.addTo(this.map);
 
         this.map.on('click', this.onMapClick);
+        //this.map.on('contextmenu', this.OnMapContextMenu);
+        //Right click on the map activated
+        this.map.on('contextmenu', this.onMapRightClick);
+
     };
 
     this.onMapClick = function (e) {
@@ -105,6 +109,10 @@ com.capstone.MapController = function (mapid) {
             }
         });
     };
+
+    this.onMapRightClick = function (e) {
+        self.selectedPoints.clearLayers();
+    }
 
     this.toggleReportView = function () {
         var mapWidth = (com.capstone.mapStateOpen) ? "50%" : "100%";
