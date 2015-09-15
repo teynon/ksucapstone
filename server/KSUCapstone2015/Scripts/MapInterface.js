@@ -112,6 +112,7 @@ com.capstone.MapController = function (mapid) {
 
     this.onMapRightClick = function (e) {
         self.selectedPoints.clearLayers();
+        self.resultPoints.clearLayers();
     }
 
     this.toggleReportView = function () {
