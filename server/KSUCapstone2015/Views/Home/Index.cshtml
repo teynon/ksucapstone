@@ -14,11 +14,16 @@
             <div class="main_overlay">
                 <section>
                     <div class="dateselect">
-                        From <input type="text" name="datestart" id="datestart" value="01/01/2013 12:00:00 am" />
+                        <label>From</label> <input type="text" name="datestart" id="datestart" value="01/01/2013 12:00:00 am" />
                     </div>
                     <div class="dateselect">
-                        to <input type="text" name="dateend" id="dateend" value="01/01/2013 01:00:00 am" />
+                        <label>to</label> <input type="text" name="dateend" id="dateend" value="01/01/2013 01:00:00 am" />
                     </div>
+                    <label style="margin-left:5px">Area Selection Mode:</label>
+                    <select id="selectMode" style="margin-top: -5px; padding: 0px; display:inline;">
+                        <option value="single">Single</option>
+                        <option value="multi">Multi</option>
+                    </select>
                 </section>
                 <section>
                     <!-- This goes away when they can adjust the width / height via mouse. -->
@@ -28,6 +33,7 @@
                     <button id="btnReport">Report</button>
                     <button id="btnReport2">Report 2</button>
                     <button id="btnReport3">Report 3</button>
+                    <button id="btnClear">Clear Map</button>
                 </section>
             </div>
         </section>

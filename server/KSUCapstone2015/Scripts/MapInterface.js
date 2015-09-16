@@ -44,6 +44,12 @@ com.capstone.MapController = function (mapid) {
         return L.latLngBounds(b1, b2);
     }
 
+    this.clear = function () {
+        self.selectedPoints.clearLayers();
+        self.resultPoints.clearLayers();
+        self.setStatus("Ready.");
+    }
+
     this.InitMap = function () {
         this.map = L.map(this.mapID).setView([40.7127, -74.0059], 13);
 
@@ -64,7 +70,9 @@ com.capstone.MapController = function (mapid) {
     this.onMapClick = function (e) {
         var boundingBox = self.getBoundingBox(e.latlng);
 
-        self.selectedPoints.clearLayers();
+        if ($("#selectMode").val().toString() == "single") {
+            self.selectedPoints.clearLayers();
+        }
         self.selectedPoints.addLayer(L.rectangle(boundingBox, {
             color: 'red',
             fillColor: '#f03',
@@ -83,7 +91,9 @@ com.capstone.MapController = function (mapid) {
             longitude2: boundingBox.getSouthEast().lng
         };
 
-        self.resultPoints.clearLayers();
+        if ($("#selectMode").val().toString() == "single") {
+            self.resultPoints.clearLayers();
+        }
 
         self.setStatus("Loading data...");
 
@@ -103,6 +113,8 @@ com.capstone.MapController = function (mapid) {
 
                 self.setStatus("Displaying " + result.Count + " results.");
             }
+            else
+                self.setStatus("No Results.");
         });
     };
 
@@ -113,7 +125,7 @@ com.capstone.MapController = function (mapid) {
         com.capstone.mapStateOpen = !com.capstone.mapStateOpen;
 
         if (displayReport == "block") $("#report").css("display", displayReport);
-
+        
         // Stop any active animation and begin the new animation.
         $("#report").stop().animate({ "width" : reportWidth }, 1000, function() {
             $("#report").css("display", displayReport);
@@ -122,15 +134,28 @@ com.capstone.MapController = function (mapid) {
         $('#map').stop().animate({ "width": mapWidth }, 1000, function () {
 
         });
+        
     };
+
+    this.overlaySize = function (){
+        var width_split = $(document).width();
+        width_split = Math.floor(width_split / 2 - 20)
+        $('.main_overlay').css("width", width_split.toString() + "px");
+        $('#main_status').css("width", width_split.toString() + "px");
+        
+    }
 
     this.setStatus = function (status) {
         $("#main_status").text(status);
     }
 
+    this.getStatus = function () {
+        return $("#main_status").text().toString();
+    }
+
     this.showReportView = function () {
         $('#map').stop().animate({ "width": "50%" }, 1000, function () {
-
+            
         });
     };
 
@@ -144,6 +169,7 @@ com.capstone.MapController = function (mapid) {
 }
 
 $(document).ready(function () {
+
     // Prevent the map from taking commands when user clicks on the overlay.
     $(".main_overlay").on("click", com.capstone.StopPropogation)
     .on("dblclick", com.capstone.StopPropogation)
@@ -154,6 +180,9 @@ $(document).ready(function () {
 
     // Bind the button's click event. (SAMPLE)
     $('#btnReport,#btnReport2,#btnReport3').on("click", com.capstone.mapController.toggleReportView);
+
+    $('#btnClear').on("click", com.capstone.mapController.clear);
+    com.capstone.mapController.overlaySize();
 
     $("#datestart, #dateend").datetimepicker({
         changeMonth: false,
