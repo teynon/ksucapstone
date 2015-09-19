@@ -20,6 +20,7 @@ namespace KSUCapstone2015
 
             bundles.Add(new ScriptBundle("~/MapInterface").Include(
                 "~/Scripts/MapInterface.js",
+                "~/Scripts/QueryController.js",
                 "~/Scripts/MapHelpers.js",
                 "~/Scripts/UI.js",
                 "~/Scripts/leaflet.js"));
