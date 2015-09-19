@@ -13,10 +13,12 @@ namespace KSUCapstone2015.Models.Data
 
         [Column("medallion")]
         [MaxLength(40)]
+        [Index]
         public string VehicleID { get; set; }
 
         [Column("hack_license")]
         [MaxLength(40)]
+        [Index]
         public string DriverID { get; set; }
 
         [Column("vendor_id")]

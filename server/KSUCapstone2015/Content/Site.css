@@ -35,8 +35,7 @@ textarea {
     position: absolute;
     padding: 10px;
     z-index: 1000;
-    min-width: 200px;
-    max-width: 50%;
+    width: calc(50vw - 20px);
     min-height: 40px;
     left: 5px;
     bottom: 5px;

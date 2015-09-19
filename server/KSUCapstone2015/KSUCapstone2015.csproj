@@ -157,6 +157,10 @@
     <Compile Include="Migrations\201509100324396_TripIndexes.Designer.cs">
       <DependentUpon>201509100324396_TripIndexes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509182307142_IndexedDriverVendor.cs" />
+    <Compile Include="Migrations\201509182307142_IndexedDriverVendor.Designer.cs">
+      <DependentUpon>201509182307142_IndexedDriverVendor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data\Trip.cs" />
     <Compile Include="Models\JsonResponse.cs" />
@@ -199,10 +203,12 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\MapHelpers.js" />
     <Content Include="Scripts\MapInterface.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\UI.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -244,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509100324396_TripIndexes.resx">
       <DependentUpon>201509100324396_TripIndexes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509182307142_IndexedDriverVendor.resx">
+      <DependentUpon>201509182307142_IndexedDriverVendor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

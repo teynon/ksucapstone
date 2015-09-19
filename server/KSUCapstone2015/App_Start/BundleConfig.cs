@@ -20,6 +20,8 @@ namespace KSUCapstone2015
 
             bundles.Add(new ScriptBundle("~/MapInterface").Include(
                 "~/Scripts/MapInterface.js",
+                "~/Scripts/MapHelpers.js",
+                "~/Scripts/UI.js",
                 "~/Scripts/leaflet.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

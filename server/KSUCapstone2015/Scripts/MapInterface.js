@@ -1,5 +1,5 @@
 ﻿var com = com || {};
-com.capstone = {};
+com.capstone = com.capstone || {};
 com.capstone.mapStateOpen = true;
 com.capstone.mapAnimation = null;
 com.capstone.mapController = null;
@@ -9,48 +9,38 @@ com.capstone.StopPropogation = function (e) {
 };
 
 com.capstone.MapController = function (mapid) {
+    // Closure
     var self = this;
+
+    // DIV ID for Map
     this.mapID = mapid;
+
+    // Leaflet MAP Object
     this.map = null;
+
+    // Current selection mode for map.
+    this.selectionMode = "rectangle";
+    this.selectionData = {};
+
+    // This is unused at the moment, but may become the "holding" object for actively drawing polygons
     this.selectedPoints = null;
-    this.resultPoints = null;
+
+    // Current function to be used for queries against the server. Should be changeable via a user-selection in the future.
+    this.queryMode = com.capstone.Query.PickupsInRange;
+
+    // Contains a list of queries being displayed on the map.
+    this.activeMapQueries = [];
+
     // This property will be removed / changed in the future.
     // Using purely for dev / testing.
     this.radius = 125;
 
-    this.metersToMiles = function (meters) {
-        return meters * 0.00062137;
-    }
-
-    this.milesToMeters = function (miles) {
-        return miles / 0.00062137;
-    }
-
-    this.metersToLatitude = function (meters) {
-        return (meters / 6378000) * (180 / Math.PI);
-    }
-
-    this.metersToLongitude = function (meters, latitude) {
-        return (meters / 6378000) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
-    }
-
-    this.getBoundingBox = function(latlng, meters) {
-        var b1 = L.latLng(latlng.lat, latlng.lng);
-        var b2 = L.latLng(latlng.lat, latlng.lng);
-        b1.lat -= self.metersToLatitude(self.radius);
-        b1.lng -= self.metersToLongitude(self.radius, latlng.lat);
-        b2.lat += self.metersToLatitude(self.radius);
-        b2.lng += self.metersToLongitude(self.radius, latlng.lat);
-        return L.latLngBounds(b1, b2);
-    }
-
-    this.clear = function () {
-        self.selectedPoints.clearLayers();
-        self.resultPoints.clearLayers();
-        self.setStatus("Ready.");
-    }
+    // -------------------------------------------
+    // INITIALIZATION
+    // -------------------------------------------
 
     this.InitMap = function () {
+        // Build the Leaftlet Map object.
         this.map = L.map(this.mapID).setView([40.7127, -74.0059], 13);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
@@ -58,63 +48,116 @@ com.capstone.MapController = function (mapid) {
             id: 'mapbox.streets'
         }).addTo(this.map);
 
+        // Initialize the default layer group.
         this.selectedPoints = L.layerGroup();
         this.selectedPoints.addTo(this.map);
 
-        this.resultPoints = L.layerGroup();
-        this.resultPoints.addTo(this.map);
-
+        // Bind the map click event.
         this.map.on('click', this.onMapClick);
     };
 
+    // -------------------------------------------
+    // MAP EVENTS
+    // -------------------------------------------
+
     this.onMapClick = function (e) {
-        var boundingBox = self.getBoundingBox(e.latlng);
+        // Clear the last selection area. It should be stored in the map query already anyways.
+        self.selectedPoints.clearLayers();
 
+        // If we only allow one selection at a time, remove all query points.
         if ($("#selectMode").val().toString() == "single") {
-            self.selectedPoints.clearLayers();
+            self.clear();
         }
-        self.selectedPoints.addLayer(L.rectangle(boundingBox, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.25
-        }));
 
-        var start = new Date($("#datestart").val()).toISOString();
-        var stop = new Date($("#dateend").val()).toISOString();
-        
-        var data = {
-            start : start, 
-            stop: stop,
-            latitude1 : boundingBox.getNorthWest().lat, 
+        switch (self.selectionMode) {
+            default: // Square
+                self.selectRectangle(e);
+                break;
+        }
+    };
+
+    // -------------------------------------------
+    // MAP CONTROLS
+    // -------------------------------------------
+
+    this.clear = function () {
+        // Abort and clear layers for all queries. Abort prevents pending server queries from being drawn later on.
+        for (var i = 0; i < self.activeMapQueries.length; i++) {
+            self.activeMapQueries[i].Abort = true;
+            self.activeMapQueries[i].MapSelectionLayer.clearLayers();
+            self.activeMapQueries[i].MapResultsLayer.clearLayers();
+            self.map.removeLayer(self.activeMapQueries[i].MapSelectionLayer);
+            self.map.removeLayer(self.activeMapQueries[i].MapResultsLayer);
+        }
+
+        // Reset the map query list.
+        self.activeMapQueries = [];
+
+        self.selectedPoints.clearLayers();
+        com.capstone.UI.setStatus("Ready.");
+    }
+
+    // -------------------------------------------
+    // MAP SELECTION
+    // -------------------------------------------
+
+    // Creates a new mapQuery object that launches the active query mode for the selected point.
+    this.selectRectangle = function (e) {
+        var boundingBox = com.capstone.helpers.getBoundingBox(e.latlng, this.radius);
+        this.selectionData = {
+            latitude1: boundingBox.getNorthWest().lat,
             longitude1: boundingBox.getNorthWest().lng,
             latitude2: boundingBox.getSouthEast().lat,
             longitude2: boundingBox.getSouthEast().lng
         };
 
-        if ($("#selectMode").val().toString() == "single") {
-            self.resultPoints.clearLayers();
-        }
+        var selection = L.layerGroup();
+        selection.addTo(this.map);
 
-        self.setStatus("Loading data...");
+        selection.addLayer(L.rectangle(boundingBox, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.25
+        }));
 
-        $.getJSON("http://localhost:63061/Query/PickupsAtLocation", data, function (result) {
-            if (result.Data && result.Data.length > 0) {
-                self.setStatus("Rendering " + result.Count + " results.");
+        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), selection));
+    }
 
-                var points = [];
-                for (var i = 0; i < result.Data.length; i++) {
-                    var latlng = L.latLng(result.Data[i].PickupLatitude, result.Data[i].PickupLongitude);
-                    self.resultPoints.addLayer(L.circle(latlng, 2, {
-                        color: 'green',
-                        fillColor: '#f03',
-                        fillOpacity: 0.25
-                    }));
-                }
+    // -------------------------------------------
+    // QUERY FUNCTIONS
+    // -------------------------------------------
 
-                self.setStatus("Displaying " + result.Count + " results.");
-            }
-            else
-                self.setStatus("No Results.");
+    // Get the current query data.
+    this.getQueryData = function () {
+        var data = {
+            start: $("#datestart").val(),
+            stop: $("#dateend").val(),
+            selectionMode: this.selectionMode
+        };
+        data.start = $("#datestart").val();
+        data.stop = $("#dateend").val();
+
+
+        data.Display = [];
+
+        // Default to pickup. We should be able to select this in the future.
+        data.Display.push("pickup");
+
+        return data;
+    }
+
+    // ---------------------------------------
+    // REPORT FUNCTIONS
+    // ---------------------------------------
+    this.showReportView = function () {
+        $('#map').stop().animate({ "width": "50%" }, 1000, function () {
+
+        });
+    };
+
+    this.hideReportView = function () {
+        $('#map').stop().animate({ "width": "100%" }, 1000, function () {
+
         });
     };
 
@@ -125,44 +168,16 @@ com.capstone.MapController = function (mapid) {
         com.capstone.mapStateOpen = !com.capstone.mapStateOpen;
 
         if (displayReport == "block") $("#report").css("display", displayReport);
-        
+
         // Stop any active animation and begin the new animation.
-        $("#report").stop().animate({ "width" : reportWidth }, 1000, function() {
+        $("#report").stop().animate({ "width": reportWidth }, 1000, function () {
             $("#report").css("display", displayReport);
         });
 
         $('#map').stop().animate({ "width": mapWidth }, 1000, function () {
 
         });
-        
-    };
 
-    this.overlaySize = function (){
-        var width_split = $(document).width();
-        width_split = Math.floor(width_split / 2 - 20)
-        $('.main_overlay').css("width", width_split.toString() + "px");
-        $('#main_status').css("width", width_split.toString() + "px");
-        
-    }
-
-    this.setStatus = function (status) {
-        $("#main_status").text(status);
-    }
-
-    this.getStatus = function () {
-        return $("#main_status").text().toString();
-    }
-
-    this.showReportView = function () {
-        $('#map').stop().animate({ "width": "50%" }, 1000, function () {
-            
-        });
-    };
-
-    this.hideReportView = function () {
-        $('#map').stop().animate({ "width": "100%" }, 1000, function () {
-
-        });
     };
 
     this.InitMap();
@@ -182,7 +197,6 @@ $(document).ready(function () {
     $('#btnReport,#btnReport2,#btnReport3').on("click", com.capstone.mapController.toggleReportView);
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
-    com.capstone.mapController.overlaySize();
 
     $("#datestart, #dateend").datetimepicker({
         changeMonth: false,
@@ -199,12 +213,5 @@ $(document).ready(function () {
 
     $("#area").on("change", function () {
         com.capstone.mapController.radius = $(this).val();
-    });
-
-    $(".autopad").on("change", function () {
-        // Convert to string.
-        var number = $(this).val() + "";
-        while (number.length < 2) number = "0" + number;
-        $(this).val(number);
     });
 });

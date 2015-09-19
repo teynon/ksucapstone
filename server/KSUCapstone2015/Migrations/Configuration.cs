@@ -9,7 +9,7 @@ namespace KSUCapstone2015.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(KSUCapstone2015.DAL.MySQLDBContext context)
