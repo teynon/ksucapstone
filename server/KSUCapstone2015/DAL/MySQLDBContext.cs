@@ -15,6 +15,7 @@ namespace KSUCapstone2015.DAL
         public MySQLDBContext() : base("MySQLContext")
         {
             Database.SetInitializer<MySQLDBContext>(new MySQLDBInitializer());
+            this.Database.CommandTimeout = 300;
         }
 
         public DbSet<Trip> Trips { get; set; }

@@ -27,6 +27,21 @@ com.capstone.MapController = function (mapid) {
 
     // Current function to be used for queries against the server. Should be changeable via a user-selection in the future.
     this.queryMode = com.capstone.Query.PickupsInRange;
+    this.displayMode = "timespan";
+
+    // Total number of playback frames
+    this.PlaybackFrames = 60;
+
+    // The number of milliseconds before updating the map to the next playback option.
+    this.PlaybackRate = 200;
+
+    // Current position of playback.
+    this.PlaybackPosition = 0;
+
+    // The interval that updates the map playback.
+    this.PlaybackInterval = null;
+
+    this.PlaybackPlaying = false;
 
     // Contains a list of queries being displayed on the map.
     this.activeMapQueries = [];
@@ -55,6 +70,46 @@ com.capstone.MapController = function (mapid) {
         // Bind the map click event.
         this.map.on('click', this.onMapClick);
     };
+
+    // -------------------------------------------
+    // QUERY PLAYBACK
+    // -------------------------------------------
+    // Get an object containing the beginning date and 
+    // end date to show results for.
+
+    this.startPlayback = function () {
+        clearInterval(this.PlaybackInterval);
+        this.PlaybackPlaying = true;
+        this.PlaybackInterval = setInterval(function () {
+
+            for (var i = 0; i < self.activeMapQueries.length; i++) {
+                self.activeMapQueries[i].DrawFrame();
+            }
+
+            self.PlaybackPosition++;
+            if (self.PlaybackPosition >= self.PlaybackFrames) {
+                self.PlaybackPosition = 0;
+                //clearInterval(self.PlaybackInterval);
+            }
+
+            // Update playback bar position.
+            $("#playbackScroller").prop("max", self.PlaybackFrames).val(self.PlaybackPosition);
+            }, this.PlaybackRate);
+    }
+
+    this.stopPlayback = function () {
+        clearInterval(this.PlaybackInterval);
+        this.PlaybackPlaying = false;
+    }
+
+    this.updatePlaybackPosition = function () {
+        self.PlaybackPosition = $("#playbackScroller").val();
+
+        // Update all the queries.
+        for (var i = 0; i < self.activeMapQueries.length; i++) {
+            self.activeMapQueries[i].DrawFrame();
+        }
+    }
 
     // -------------------------------------------
     // MAP EVENTS
@@ -186,7 +241,7 @@ com.capstone.MapController = function (mapid) {
 $(document).ready(function () {
 
     // Prevent the map from taking commands when user clicks on the overlay.
-    $(".main_overlay").on("click", com.capstone.StopPropogation)
+    $(".hud").on("click", com.capstone.StopPropogation)
     .on("dblclick", com.capstone.StopPropogation)
     .on("mousedown", com.capstone.StopPropogation);
 
@@ -197,6 +252,19 @@ $(document).ready(function () {
     $('#btnReport,#btnReport2,#btnReport3').on("click", com.capstone.mapController.toggleReportView);
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
+
+    $("#playbackBtn").on("click", function () {
+        if (com.capstone.mapController.PlaybackPlaying) {
+            com.capstone.mapController.stopPlayback();
+            $(this).text("Play");
+        }
+        else {
+            com.capstone.mapController.startPlayback();
+            $(this).text("Pause");
+        }
+    });
+
+    $("#playbackScroller").on("input", com.capstone.mapController.updatePlaybackPosition);
 
     $("#datestart, #dateend").datetimepicker({
         changeMonth: false,

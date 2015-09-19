@@ -8,10 +8,17 @@
 <body>
     <div id="map">
         <section class="main_hud">
-            <div id="main_status">
+            <div class="main_status hud" id="main_status">
                 Ready.
             </div>
-            <div class="main_overlay">
+            <div class="playback hud">
+                <span>Playback:</span>
+                <div>
+                    <input id="playbackScroller" type="range" steps="5" min="0" max="100" value="0" />
+                </div>
+                <button id="playbackBtn">Play</button>
+            </div>
+            <div class="main_overlay hud">
                 <section>
                     <div class="dateselect">
                         <label>From</label> <input type="text" name="datestart" id="datestart" value="01/01/2013 12:00:00 am" />

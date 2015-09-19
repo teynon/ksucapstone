@@ -42,7 +42,7 @@ textarea {
     cursor: default;
 }
 
-#main_status {
+.main_status {
     padding: 10px;
     margin-bottom: 4px;
     min-width: 200px;
@@ -54,6 +54,35 @@ textarea {
     cursor: default;
 }
 
+.playback {
+    padding: 10px;
+    margin-bottom: 4px;
+    min-width: 200px;
+    min-height: 30px;
+    background: #80aed9;
+    border: 1px solid #000088;
+    border-radius: 5px;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    align-items: stretch;
+}
+
+.playback span {
+    flex-grow: 0;
+}
+
+.playback div {
+    flex-grow: 1;
+    text-align: center;
+    padding: 0px 15px;
+}
+
+.playback div > input[type=range] {
+    width: 100%;
+    max-width: unset;
+}
 
 .main_overlay {
     padding: 10px;
