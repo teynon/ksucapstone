@@ -8,6 +8,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.QueryFunction = queryFunction;
     this.QueryData = queryData;
     this.QueryResults = [];
+    this.SpawnedQueries = 0;
+    this.CompletedQueries = 0;
     this.ResultCount = 0;
     this.MapController = controller;
     this.MapSelectionLayer = selectionMap;
@@ -92,14 +94,16 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     // When the results come back, display it on the map.
     this.OnQuery = function (result) {
         if (!query.Abort) {
-
+            query.CompletedQueries++;
+            var remaining = (query.SpawnedQueries - query.CompletedQueries);
+            var remainingText = (remaining > 0) ? " (" + remaining + " queries remaining)" : "";
             // Draw the query data on the map.
             //query.MapResultsLayer.clearLayers();
 
             if (result.Data && result.Data.length > 0) {
                 query.QueryResults = $.merge(query.QueryResults, result.Data);
                 query.ResultCount += result.Count;
-                com.capstone.UI.setStatus("Rendering " + query.ResultCount + " results.");
+                com.capstone.UI.setStatus("Rendering " + query.ResultCount + " results." + remainingText);
                 setTimeout(function () {
                     query.UpdateMap(result.Data);
                     clearInterval(query.LoadingTimer);
@@ -110,7 +114,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
                     query.MapSelectionShown = true;
 
-                    com.capstone.UI.setStatus("Displaying " + query.ResultCount + " results.");
+                    com.capstone.UI.setStatus("Displaying " + query.ResultCount + " results." + remainingText);
                 }, 100);
             }
             else
@@ -135,7 +139,8 @@ com.capstone.Query.PickupsInRange = function (data, callback) {
     var endDate = new Date(data.stop);
 
     while (startDate < endDate) {
-        var stopTime = new Date(startDate.getTime()).addHours(1);
+        this.SpawnedQueries++;
+        var stopTime = new Date(startDate.getTime()).addHours(12);
 
         if (stopTime > endDate)
             stopTime = endDate;
@@ -145,9 +150,9 @@ com.capstone.Query.PickupsInRange = function (data, callback) {
         dataToSend.stop = stopTime.toISOString();
 
         $.getJSON("http://localhost:63061/Query/PickupsAtLocation", dataToSend, function (result) {
-            callback(result);
+            callback.call(this, result);
         });
 
-        startDate = startDate.addHours(1);
+        startDate = startDate.addHours(12);
     }
 }
