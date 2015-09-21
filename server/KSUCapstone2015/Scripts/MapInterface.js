@@ -135,9 +135,6 @@ com.capstone.MapController = function (mapid) {
     this.onMapRightClick = function (e) {
         for (var i = 0; i < self.activeMapQueries.length; i++) {
             self.activeMapQueries[i].MapSelectionLayer.eachLayer(function (layer) {
-                console.log("e.latlngs = " + e.latlng);
-                console.log(layer.getLatLngs()[1]);
-                console.log(layer.getLatLngs()[3]);
                 if (e.latlng.lat <= layer.getLatLngs()[1].lat && e.latlng.lat >= layer.getLatLngs()[3].lat && e.latlng.lng >= layer.getLatLngs()[1].lng && e.latlng.lng <= layer.getLatLngs()[3].lng){
                     self.activeMapQueries[i].MapSelectionLayer.removeLayer(layer);
                     self.activeMapQueries[i].MapResultsLayer.clearLayers();
