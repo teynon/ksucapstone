@@ -140,11 +140,10 @@ com.capstone.MapController = function (mapid) {
                 console.log(layer.getLatLngs()[3]);
                 if (e.latlng.lat <= layer.getLatLngs()[1].lat && e.latlng.lat >= layer.getLatLngs()[3].lat && e.latlng.lng >= layer.getLatLngs()[1].lng && e.latlng.lng <= layer.getLatLngs()[3].lng){
                     self.activeMapQueries[i].MapSelectionLayer.removeLayer(layer);
+                    self.activeMapQueries[i].MapResultsLayer.clearLayers();
                 }
             });
         }
-        //self.selectedPoints.clearLayers();
-        //self.resultPoints.clearLayers();
     }
     // -------------------------------------------
     // MAP CONTROLS
