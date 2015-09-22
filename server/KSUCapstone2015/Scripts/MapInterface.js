@@ -43,6 +43,8 @@ com.capstone.MapController = function (mapid) {
 
     this.PlaybackPlaying = false;
 
+    this.mapFeatureGroup = null;
+
     // Contains a list of queries being displayed on the map.
     this.activeMapQueries = [];
 
@@ -63,12 +65,16 @@ com.capstone.MapController = function (mapid) {
             id: 'mapbox.streets'
         }).addTo(this.map);
 
-        var drawnItems = new L.FeatureGroup().addTo(this.map);
+        this.mapFeatureGroup = new L.FeatureGroup();
+        this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
         var drawControl = new L.Control.Draw({
+            add: {
+
+            },
             edit: {
-                featureGroup: drawnItems,
+                featureGroup: this.mapFeatureGroup,
                 edit: {
                     moveMarkers: false
                 }
@@ -84,6 +90,7 @@ com.capstone.MapController = function (mapid) {
         // Bind the map click event.
         this.map.on('click', this.onMapClick);
         this.map.on('contextmenu', this.onMapRightClick);
+        this.map.on('draw:created', this.onMapDraw);
     };
 
     // -------------------------------------------
@@ -160,6 +167,18 @@ com.capstone.MapController = function (mapid) {
                 i--;
             }
         }
+    }
+
+    this.onMapDraw = function (e) {
+        var type = e.layerType,
+        layer = e.layer;
+
+        if (type === 'marker') {
+            // Do marker specific actions 
+        }
+
+        // Do whatever else you need to. (save to db, add to map etc) 
+        self.mapFeatureGroup.addLayer(layer);
     }
     // -------------------------------------------
     // MAP CONTROLS
