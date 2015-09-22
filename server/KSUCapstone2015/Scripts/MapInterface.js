@@ -52,6 +52,8 @@ com.capstone.MapController = function (mapid) {
     // Using purely for dev / testing.
     this.radius = 125;
 
+    this.draw_selection = false;
+
     // -------------------------------------------
     // INITIALIZATION
     // -------------------------------------------
@@ -146,11 +148,15 @@ com.capstone.MapController = function (mapid) {
             self.clear();
         }
 
-        switch (self.selectionMode) {
-            default: // Square
-                self.selectRectangle(e);
-                break;
-        }
+        console.log(self.draw_selection);
+        if (!self.draw_selection) self.selectRectangle(e);
+
+
+        //switch (self.selectionMode) {
+        //    default: // Square
+        //        self.selectRectangle(e);
+        //        break;
+        //}
     };
 
     this.onMapRightClick = function (e) {
@@ -170,6 +176,23 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
+        var type = e.layerType,
+        layer = e.layer;
+        console.log(layer.getLatLngs());
+
+        this.selectionData = {
+            latitude1: layer.getLatLngs()[1].lat,
+            longitude1: layer.getLatLngs()[1].lng,
+            latitude2: layer.getLatLngs()[3].lat,
+            longitude2: layer.getLatLngs()[3].lng
+        };
+
+        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer));
+        // Do whatever else you need to. (save to db, add to map etc) 
+        self.mapFeatureGroup.addLayer(layer);
+    }
+
+    this.onMapDrawx = function (e) {
         var type = e.layerType,
         layer = e.layer;
 
@@ -226,6 +249,7 @@ com.capstone.MapController = function (mapid) {
 
         this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), selection));
     }
+
 
     // -------------------------------------------
     // QUERY FUNCTIONS
@@ -330,5 +354,11 @@ $(document).ready(function () {
 
     $("#area").on("change", function () {
         com.capstone.mapController.radius = $(this).val();
+    });
+
+    $("#draw_selection").val(com.capstone.mapController.draw_selection);
+
+    $("#draw_selection").on("change", function () {
+        com.capstone.mapController.draw_selection = $(this).is(':checked');
     });
 });

@@ -144,6 +144,11 @@ textarea {
 
 }
 
+#draw_selection {
+    width: 10px;
+
+}
+
 #report {
     position: absolute;
     right: 0px;
