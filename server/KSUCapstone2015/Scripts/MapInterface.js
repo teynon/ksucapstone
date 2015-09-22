@@ -134,12 +134,17 @@ com.capstone.MapController = function (mapid) {
 
     this.onMapRightClick = function (e) {
         for (var i = 0; i < self.activeMapQueries.length; i++) {
-            self.activeMapQueries[i].MapSelectionLayer.eachLayer(function (layer) {
-                if (e.latlng.lat <= layer.getLatLngs()[1].lat && e.latlng.lat >= layer.getLatLngs()[3].lat && e.latlng.lng >= layer.getLatLngs()[1].lng && e.latlng.lng <= layer.getLatLngs()[3].lng){
-                    self.activeMapQueries[i].MapSelectionLayer.removeLayer(layer);
-                    self.activeMapQueries[i].MapResultsLayer.clearLayers();
-                }
-            });
+            // Hit test the query object.
+            if (self.activeMapQueries[i].SelectionHitTest(e)) {
+                // Let the query object dispose itself.
+                self.activeMapQueries[i].Dispose();
+
+                // Remove from map queries list.
+                self.activeMapQueries.splice(i, 1);
+
+                // Set the index back one, since the current index is now the next index.
+                i--;
+            }
         }
     }
     // -------------------------------------------

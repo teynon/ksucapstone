@@ -122,6 +122,24 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         }
     }
 
+    this.SelectionHitTest = function (e) {
+        var hitTest = false;
+        this.MapSelectionLayer.eachLayer(function (layer) {
+            if (e.latlng.lat <= layer.getLatLngs()[1].lat && e.latlng.lat >= layer.getLatLngs()[3].lat && e.latlng.lng >= layer.getLatLngs()[1].lng && e.latlng.lng <= layer.getLatLngs()[3].lng) {
+                hitTest = true;
+            }
+        });
+
+        return hitTest;
+    }
+
+    this.Dispose = function () {
+        this.MapSelectionLayer.clearLayers();
+        this.MapResultsLayer.clearLayers();
+        this.MapController.map.removeLayer(this.MapSelectionLayer);
+        this.MapController.map.removeLayer(this.MapResultsLayer);
+    }
+
     this.Play();
 }
 
