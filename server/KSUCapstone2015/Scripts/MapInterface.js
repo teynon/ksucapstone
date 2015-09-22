@@ -63,6 +63,20 @@ com.capstone.MapController = function (mapid) {
             id: 'mapbox.streets'
         }).addTo(this.map);
 
+        var drawnItems = new L.FeatureGroup().addTo(this.map);
+
+        // Initialize the draw drag controls.
+        var drawControl = new L.Control.Draw({
+            edit: {
+                featureGroup: drawnItems,
+                edit: {
+                    moveMarkers: false
+                }
+            }
+        });
+
+        this.map.addControl(drawControl);
+
         // Initialize the default layer group.
         this.selectedPoints = L.layerGroup();
         this.selectedPoints.addTo(this.map);

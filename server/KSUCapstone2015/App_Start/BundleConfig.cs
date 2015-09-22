@@ -23,7 +23,10 @@ namespace KSUCapstone2015
                 "~/Scripts/QueryController.js",
                 "~/Scripts/MapHelpers.js",
                 "~/Scripts/UI.js",
-                "~/Scripts/leaflet.js"));
+                "~/Scripts/leaflet.js",
+                "~/Scripts/leaflet.draw.js",
+                "~/Scripts/L.Path.Drag.js",
+                "~/Scripts/leaflet.draw.drag.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -38,6 +41,7 @@ namespace KSUCapstone2015
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/leaflet.css",
+                      "~/Content/leaflet.draw.css",
                       "~/Content/jquery-ui.css",
                       "~/Content/jquery.datetimepicker.css"));
         }
