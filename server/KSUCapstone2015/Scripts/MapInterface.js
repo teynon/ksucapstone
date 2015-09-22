@@ -303,9 +303,12 @@ com.capstone.MapController = function (mapid) {
         });
 
         $('#map').stop().animate({ "width": mapWidth }, 1000, function () {
-
+            
+        }).promise().done(function() {
+            self.map.invalidateSize(true);
         });
-
+        
+        
     };
 
     this.InitMap();
