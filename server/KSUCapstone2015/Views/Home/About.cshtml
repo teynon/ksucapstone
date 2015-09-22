@@ -1,1 +1,208 @@
-﻿
+﻿<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+    <div id="pieChart"></div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.4/d3.min.js"></script>
+    <script src="d3pie.min.js"></script>
+    <script>
+var pie = new d3pie("pieChart", {
+	"header": {
+		"title": {
+			"text": "Pickups per Neighborhood",
+			"fontSize": 24,
+			"font": "open sans"
+		},
+		"subtitle": {
+			"color": "#999999",
+			"fontSize": 12,
+			"font": "open sans"
+		},
+		"titleSubtitlePadding": 9
+	},
+	"footer": {
+		"color": "#999999",
+		"fontSize": 10,
+		"font": "open sans",
+		"location": "bottom-left"
+	},
+	"size": {
+		"canvasHeight": 600,
+		"canvasWidth": 590,
+		"pieInnerRadius": "63%",
+		"pieOuterRadius": "81%"
+	},
+	"data": {
+		"sortOrder": "value-desc",
+		"content": [
+			{
+				"label": "Upper Manhattan",
+				"value": 43,
+				"color": "#f5c2c2"
+			},
+			{
+				"label": "Harlem",
+				"value": 32,
+				"color": "#f5c2cb"
+			},
+			{
+				"label": "Upper West Side",
+				"value": 12,
+				"color": "#f5c2d4"
+			},
+			{
+				"label": "Central Park",
+				"value": 56,
+				"color": "#f5c2de"
+			},
+			{
+				"label": "Upper East Side",
+				"value": 231,
+				"color": "#f5c2e7"
+			},
+			{
+				"label": "Midtown West",
+				"value": 32,
+				"color": "#f5c2f2"
+			},
+			{
+				"label": "Midtown East",
+				"value": 67,
+				"color": "#eec2f5"
+			},
+			{
+				"label": "Clinton",
+				"value": 65,
+				"color": "#e7c2f5"
+			},
+			{
+				"label": "Chelsea",
+				"value": 87,
+				"color": "#dbc2f5"
+			},
+			{
+				"label": "Flat Iron",
+				"value": 65,
+				"color": "#d5c2f5"
+			},
+			{
+				"label": "Murray Hill",
+				"value": 12,
+				"color": "#cac2f5"
+			},
+			{
+				"label": "Gramercy Park",
+				"value": 45,
+				"color": "#c2c2f5"
+			},
+			{
+				"label": "East Village",
+				"value": 67,
+				"color": "#c2ccf5"
+			},
+			{
+				"label": "Greenwich Village",
+				"value": 112,
+				"color": "#c2d8f5"
+			},
+			{
+				"label": "West Village",
+				"value": 87,
+				"color": "#c2e4f5"
+			},
+			{
+				"label": "SoHo",
+				"value": 94,
+				"color": "#c2ecf5"
+			},
+			{
+				"label": "China Town",
+				"value": 65,
+				"color": "#c2f5f1"
+			},
+			{
+				"label": "Lower East SIde",
+				"value": 87,
+				"color": "#c2f5e8"
+			},
+			{
+				"label": "Tribeca",
+				"value": 90,
+				"color": "#c2f5df"
+			},
+			{
+				"label": "Battery Part City",
+				"value": 11,
+				"color": "#c2f5d4"
+			},
+			{
+				"label": "Financial District",
+				"value": 123,
+				"color": "#c2f5ca"
+			}
+		]
+	},
+	"labels": {
+		"outer": {
+			"format": "none",
+			"hideWhenLessThanPercentage": 10,
+			"pieDistance": 12
+		},
+		"inner": {
+			"format": "value"
+		},
+		"mainLabel": {
+			"color": "#000000",
+			"fontSize": 11
+		},
+		"percentage": {
+			"color": "#ffffff",
+			"decimalPlaces": 0
+		},
+		"value": {
+			"color": "#5d2727",
+			"fontSize": 11
+		},
+		"lines": {
+			"enabled": true
+		},
+		"truncation": {
+			"enabled": true
+		}
+	},
+	"tooltips": {
+		"enabled": true,
+		"type": "placeholder",
+		"string": "{label}: {value}",
+		"styles": {
+			"fadeInSpeed": 927,
+			"backgroundColor": "#ffffff",
+			"backgroundOpacity": 1,
+			"color": "#000000",
+			"borderRadius": 6
+		}
+	},
+	"effects": {
+		"pullOutSegmentOnClick": {
+			"effect": "linear",
+			"speed": 400,
+			"size": 28
+		}
+	},
+	"misc": {
+		"colors": {
+			"segmentStroke": "#693333"
+		},
+		"gradient": {
+			"enabled": true,
+			"percentage": 84
+		}
+	}
+});
+    </script>
+
+</body>
+</html>
