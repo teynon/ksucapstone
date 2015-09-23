@@ -53,6 +53,7 @@ com.capstone.MapController = function (mapid) {
     this.radius = 125;
 
     this.draw_selection = false;
+    this.uniqueMapID = 0;
 
     // -------------------------------------------
     // INITIALIZATION
@@ -60,12 +61,8 @@ com.capstone.MapController = function (mapid) {
 
     this.InitMap = function () {
         // Build the Leaftlet Map object.
-        this.map = L.map(this.mapID).setView([40.7127, -74.0059], 13);
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
-            maxZoom: 18,
-            id: 'mapbox.streets'
-        }).addTo(this.map);
+        this.map = this.getMap(this.mapID, [40.7127, -74.0059], 13);
 
         this.mapFeatureGroup = new L.FeatureGroup();
         this.map.addLayer(this.mapFeatureGroup);
@@ -90,7 +87,21 @@ com.capstone.MapController = function (mapid) {
         this.map.on('click', this.onMapClick);
         this.map.on('contextmenu', this.onMapRightClick);
         this.map.on('draw:created', this.onMapDraw);
+        this.map.on('move', this.onMapMove);
     };
+
+    this.getMap = function (container, center, zoom) {
+
+        // Build the Leaftlet Map object.
+        var map = L.map(container).setView([40.7127, -74.0059], zoom);
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
+            maxZoom: 18,
+            id: 'mapbox.streets'
+        }).addTo(map);
+
+        return map;
+    }
 
     // -------------------------------------------
     // QUERY PLAYBACK
@@ -165,9 +176,9 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
+        console.log(e);
         var type = e.layerType,
         layer = e.layer;
-        console.log(layer.getLatLngs());
 
         this.selectionData = {
             latitude1: layer.getLatLngs()[1].lat,
@@ -177,7 +188,28 @@ com.capstone.MapController = function (mapid) {
         };
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer));
+        if (self.sideBySide) {
+            var newLayer = self.cloneLayer(e);
+            self.sideBySideMap.addLayer(newLayer);
+        }
         // Do whatever else you need to. (save to db, add to map etc) 
+    }
+
+    this.onMapMove = function (e) {
+        if (self.sideBySide) {
+            self.updateMap2();
+
+            // The lat/lng gets messed up when zooming only.
+            setTimeout(function () {
+                self.updateMap2();
+            }, 200);
+        }
+    }
+
+    this.updateMap2 = function () {
+        var targetPoint = self.sideBySideMap.project(self.map.getCenter()).subtract([$('#mapCloneContainer').offset().left / 2, 0]);
+        var target = self.sideBySideMap.unproject(targetPoint, self.map.getZoom());
+        self.sideBySideMap.setView(target, self.map.getZoom(), { animate: false });
     }
 
     this.onMapDrawx = function (e) {
@@ -261,8 +293,57 @@ com.capstone.MapController = function (mapid) {
     }
 
     // ---------------------------------------
+    // SIDE BY SIDE FUNCTIONS
+    // ---------------------------------------
+    this.sideBySide = false;
+    this.sideBySideMap = null;
+    this.sideBySideMapContainer = null;
+
+    this.toggleSideBySide = function () {
+        if (!self.sideBySide)
+            self.enableSideBySide();
+        else
+            self.disableSideBySide();
+    }
+
+    this.enableSideBySide = function () {
+        self.sideBySideMapContainer = $("#mapClone");
+
+
+        self.sideBySide = true;
+        $("#mapCloneContainer").animate({ "width": "50%" }, 500)
+            .promise().done(function () {
+                console.log(self.map.getZoom());
+                self.sideBySideMap = self.getMap("mapClone", self.map.getCenter(), self.map.getZoom());
+                self.updateMapPosition();
+            });
+
+    }
+
+    this.cloneLayer = function (layerWrapper) {
+        switch (layerWrapper.layerType) {
+            case "rectangle":
+                return this.cloneRectangle(layerWrapper.layer);
+                break;
+        }
+    };
+
+    this.cloneRectangle = function (layer) {
+        var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
+        return L.rectangle(bounds, layer.options);
+    }
+
+    // ---------------------------------------
     // REPORT FUNCTIONS
     // ---------------------------------------
+    this.updateMapPosition = function () {
+        self.map.invalidateSize(true);
+
+        if (self.sideeBySide) {
+            self.sideBySideMap.invalidateSize(true);
+        }
+    }
+
     this.showReportView = function () {
         $('#map').stop().animate({ "width": "50%" }, 1000, function () {
 
@@ -284,15 +365,14 @@ com.capstone.MapController = function (mapid) {
         if (displayReport == "block") $("#report").css("display", displayReport);
 
         // Stop any active animation and begin the new animation.
-        $("#report").stop().animate({ "width": reportWidth }, 1000, function () {
+        $("#report").stop().animate({ "width": reportWidth }, 400, function () {
             $("#report").css("display", displayReport);
         });
 
-        $('#map').stop().animate({ "width": mapWidth }, 1000, function () {
-            
-        }).promise().done(function() {
-            self.map.invalidateSize(true);
-        });
+        $('#map').stop().animate({ "width": mapWidth }, 400)
+            .promise().done(function () {
+                self.updateMapPosition();
+            });
         
         
     };
@@ -311,7 +391,9 @@ $(document).ready(function () {
     com.capstone.mapController = new com.capstone.MapController('map');
 
     // Bind the button's click event. (SAMPLE)
-    $('#btnReport,#btnReport2,#btnReport3').on("click", com.capstone.mapController.toggleReportView);
+    $('#btnReport').on("click", com.capstone.mapController.toggleReportView);
+
+    $('#sideBySide').on("click", com.capstone.mapController.toggleSideBySide);
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
 

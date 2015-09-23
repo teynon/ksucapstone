@@ -17,6 +17,22 @@
     width: 100%;
 }
 
+#mapCloneContainer {
+    position: absolute;
+    top: 50px;
+    right: 0px;
+    bottom: 0px;
+    width: 0%;
+    background-color: #EEEEEE;
+}
+
+.mapClone {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-left: 5px dashed #000000;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */

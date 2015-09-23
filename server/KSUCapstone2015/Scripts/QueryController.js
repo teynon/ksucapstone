@@ -14,6 +14,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapController = controller;
     this.MapSelectionLayer = selectionMap;
     this.MapResultsLayer = L.layerGroup();
+    this.MapResults2Layer = L.layerGroup();
     this.MapSelectionShown = true;
     this.LoadingTimer = null;
     this.Abort = false;
@@ -24,6 +25,9 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.Playback.End = new Date(queryData.stop);
 
     this.MapController.map.addLayer(this.MapResultsLayer);
+    if (this.MapController.sideBySide) {
+        this.MapController.sideBySideMap.addLayer(this.MapResults2Layer);
+    }
 
     this.getPlaybackSpan = function () {
         var segments = this.MapController.PlaybackFrames;
@@ -84,11 +88,20 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         
         for (var i = 0; i < points.length; i++) {
             var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+            var circle = 
             query.MapResultsLayer.addLayer(L.circle(latlng, 2, {
                 color: 'green',
                 fillColor: '#f03',
                 fillOpacity: 0.25
             }));
+
+            if (query.MapController.sideBySide) {
+                query.MapResults2Layer.addLayer(L.circle(latlng, 2, {
+                    color: 'green',
+                    fillColor: '#f03',
+                    fillOpacity: 0.25
+                }));
+            }
         }
     };
 
@@ -107,20 +120,27 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 com.capstone.UI.setStatus("Rendering " + query.ResultCount + " results." + remainingText);
                 setTimeout(function () {
                     query.UpdateMap(result.Data);
-                    clearInterval(query.LoadingTimer);
-                    query.LoadingTimer = null;
-
-                    if (!query.MapSelectionShown)
-                        query.MapController.map.addLayer(query.MapSelectionLayer);
-
-                    query.MapSelectionShown = true;
 
                     com.capstone.UI.setStatus("Displaying " + query.ResultCount + " results." + remainingText);
+
+                    query.stopFlashingSelection();
                 }, 100);
             }
-            else
+            else {
                 com.capstone.UI.setStatus("No Results.");
+                query.stopFlashingSelection();
+            }
         }
+    }
+
+    this.stopFlashingSelection = function () {
+        clearInterval(query.LoadingTimer);
+        query.LoadingTimer = null;
+
+        if (!query.MapSelectionShown)
+            query.MapController.map.addLayer(query.MapSelectionLayer);
+
+        query.MapSelectionShown = true;
     }
 
     this.SelectionHitTest = function (e) {
