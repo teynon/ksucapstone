@@ -17,6 +17,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapSelectionShown = true;
     this.LoadingTimer = null;
     this.Abort = false;
+    this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
 
     this.Playback = {};
     this.Playback.Start = new Date(queryData.start);

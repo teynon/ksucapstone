@@ -72,9 +72,6 @@ com.capstone.MapController = function (mapid) {
 
         // Initialize the draw drag controls.
         var drawControl = new L.Control.Draw({
-            add: {
-
-            },
             edit: {
                 featureGroup: this.mapFeatureGroup,
                 edit: {
@@ -148,15 +145,7 @@ com.capstone.MapController = function (mapid) {
             self.clear();
         }
 
-        console.log(self.draw_selection);
         if (!self.draw_selection) self.selectRectangle(e);
-
-
-        //switch (self.selectionMode) {
-        //    default: // Square
-        //        self.selectRectangle(e);
-        //        break;
-        //}
     };
 
     this.onMapRightClick = function (e) {
@@ -189,7 +178,6 @@ com.capstone.MapController = function (mapid) {
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer));
         // Do whatever else you need to. (save to db, add to map etc) 
-        self.mapFeatureGroup.addLayer(layer);
     }
 
     this.onMapDrawx = function (e) {
@@ -260,11 +248,9 @@ com.capstone.MapController = function (mapid) {
         var data = {
             start: $("#datestart").val(),
             stop: $("#dateend").val(),
-            selectionMode: this.selectionMode
+            selectionMode: this.selectionMode,
+            getPickups: $("#showPickups").is(":checked")
         };
-        data.start = $("#datestart").val();
-        data.stop = $("#dateend").val();
-
 
         data.Display = [];
 
