@@ -87,7 +87,12 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.UpdateMap = function (points) {
         
         for (var i = 0; i < points.length; i++) {
-            var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+            if (this.QueryData.filterSelection == "pick") {
+                var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+            }
+            else if (this.QueryData.filterSelection == "drop") {
+                var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+            }
             var circle = 
             query.MapResultsLayer.addLayer(L.circle(latlng, 2, {
                 color: 'green',
@@ -173,7 +178,7 @@ Date.prototype.addHours = function (h) {
 }
 
 com.capstone.Query = {};
-com.capstone.Query.PickupsInRange = function (data, callback) {
+com.capstone.Query.TaxisInRange = function (data, callback) {
     var startDate = new Date(data.start);
     var endDate = new Date(data.stop);
 

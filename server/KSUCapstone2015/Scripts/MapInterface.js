@@ -26,7 +26,7 @@ com.capstone.MapController = function (mapid) {
     this.selectedPoints = null;
 
     // Current function to be used for queries against the server. Should be changeable via a user-selection in the future.
-    this.queryMode = com.capstone.Query.PickupsInRange;
+    this.queryMode = com.capstone.Query.TaxisInRange;
     this.displayMode = "timespan";
 
     // Total number of playback frames
@@ -155,6 +155,9 @@ com.capstone.MapController = function (mapid) {
         if ($("#selectMode").val().toString() == "single") {
             self.clear();
         }
+        if (self.sideBySide) {
+            self.sideBySideMap.clear();
+        }
 
         if (!self.draw_selection) self.selectRectangle(e);
     };
@@ -227,6 +230,10 @@ com.capstone.MapController = function (mapid) {
     // MAP CONTROLS
     // -------------------------------------------
 
+    this.startTimeValidation = function () {
+
+    }
+
     this.clear = function () {
         // Abort and clear layers for all queries. Abort prevents pending server queries from being drawn later on.
         for (var i = 0; i < self.activeMapQueries.length; i++) {
@@ -267,7 +274,23 @@ com.capstone.MapController = function (mapid) {
             fillOpacity: 0.25
         }));
 
-        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), selection));
+        if (self.sideBySide) {
+            self.sideBySideMap.addLayer(L.rectangle(boundingBox, {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.25
+            }));
+        }
+        var data = this.getQueryData();
+        //if (data.filterSelection == "both") {
+        //    data.filterSelection = "pick";
+        //    this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
+        //    data.filterSelection = "drop";
+        //    this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
+        //}
+        //else {
+            this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
+        //}
     }
 
 
@@ -281,7 +304,7 @@ com.capstone.MapController = function (mapid) {
             start: $("#datestart").val(),
             stop: $("#dateend").val(),
             selectionMode: this.selectionMode,
-            getPickups: $("#showPickups").is(":checked")
+            filterSelection: $("#filterSelection").val()
         };
 
         data.Display = [];

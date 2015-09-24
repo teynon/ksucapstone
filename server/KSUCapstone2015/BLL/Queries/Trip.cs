@@ -8,7 +8,7 @@ namespace KSUCapstone2015.BLL.Queries
 {
     public class Trip
     {
-        public List<Models.Data.Trip> PickupsInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2, out List<string> errors)
+        public List<Models.Data.Trip> TaxiInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2, out List<string> errors, string filter)
         {
             errors = new List<string>();
 
@@ -28,8 +28,18 @@ namespace KSUCapstone2015.BLL.Queries
                     topLeft.Longitude = p2.Longitude;
                     bottomRight.Longitude = p1.Longitude;
                 }
-
-                results = new DAL.Trips().GetTripsInSector(start, stop, topLeft, bottomRight);
+                if (filter == "pick")
+                {
+                    results = new DAL.Trips().GetPickupsInSector(start, stop, topLeft, bottomRight);
+                }
+                else if(filter == "drop")
+                {
+                    results = new DAL.Trips().GetDropoffsInSector(start, stop, topLeft, bottomRight);
+                }
+                else
+                {
+                    throw new Exception("Error in filter selection mode please try again");
+                }
             }
             catch (Exception e)
             {

@@ -26,12 +26,23 @@
                     <div class="dateselect">
                         <label>to</label> <input type="text" name="dateend" id="dateend" value="01/01/2013 01:00:00 am" />
                     </div>
-                    Show Pickups: <input type="checkbox" id="showPickups" value="1" />
-                    <label style="margin-left:5px">Area Selection Mode:</label>
-                    <select id="selectMode" style="margin-top: -5px; padding: 0px; display:inline;">
-                        <option value="single">Single</option>
-                        <option value="multi">Multi</option>
-                    </select>
+                    <div>
+                        <label>
+                            Filter Area Selection:
+                        </label>
+                            <select id="filterSelection" style="margin-top: -5px; padding: 0px; display:inline;">
+                                <option value="pick">Pickups</option>
+                                <option value="drop">Dropoffs</option>
+                                <option value="both">Pickups & Dropoffs</option>
+                            </select>
+                    </div>
+                    <div>
+                        <label style="margin-left:5px">Area Selection Mode:</label>
+                        <select id="selectMode" style="margin-top: -5px; padding: 0px; display:inline;">
+                            <option value="single">Single</option>
+                            <option value="multi">Multi</option>
+                        </select>
+                    </div>
                 </section>
                 <section>
                     <!-- This goes away when they can adjust the width / height via mouse. -->
