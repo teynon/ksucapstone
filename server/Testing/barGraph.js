@@ -43,7 +43,68 @@ function BarGraph(ctx){
 	ctx.fillStyle = that.backgroundColor;
 	ctx.fillRect(0, 0, that.width, that.height);
 	
+	//Makes room for x-axis label if it exists
+	if(that.xAsisLabelArr.length){
+		graphAreaHeight -= 40;
+		}
 	
+	//Calculate size of the bars
+	barWidth = graphAreaWidth / numofBars - that.margin * 2;
+	maxBarHeight = graphAreaHeight - 25;
+	
+	//Determine largest balue in the bar array
+	var largestValue = 0;
+	for (i = 0; i < arr.length; i ++){
+		if(arr[i] > largestValue){
+			largestValue = arr[i];
+		}
+	}
+	
+	//For Each Bar 
+	for(i = 0; i < arr.length; i++){
+		//Set the ratio of current bar compared to the maximum
+		if (that.maxValue){
+			ratio = arr[i] / that.maxValue;
+		}else {
+			ratio = arr[i] / largestValue;
+		}
+		
+	}
+	
+	//Turn on shadows
+	ctx.shadowOffsetX = 2;
+	ctx.shadowOffsetY = 2;
+	ctx.shadowBlur = 2;
+	ctx.shadowColor = "#999";
+	
+	//Draw bar background
+	ctx.fillStyle = "#333";
+	ctx.fillRect(that.margin + i * that.width / numofBars, graphAreaHeight - barHeight, barWidth, barHeight);
+	
+	//Turn off shadows
+	ctx.shadowOffsetX = 0;
+	ctx.shadowOffsetY = 0;
+	ctx.shadowBlur = 0;
+	
+	//Create gradients
+	gradient = ctx.createLinearGradient(0, 0, 0, graphAreaHeight);
+	gradient = ctx.addColorStop(1-ratio, that.colors[i % that.colors.length]);
+	gradient = ctx.addColorStop(1, "#ffffff");
+	
+	ctx.fillStyle = gradient;
+	//Fill rectangle with the gradient
+	ctx.fillRect(that.margin + i * that.width / numofBars + border, graphAreaHeight - barHeight + border, barWidth - border * 2, barHeight - border * 2);
+	
+	//Write bar value
+	ctx.fillStyle ="#333";
+	ctx.font = "bold 12px sans-serif";
+	ctx.textAlign = "center";
+	// Use try / catch to stop IE 8 from going to error town
+    try {
+      ctx.fillText(parseInt(arr[i],10),
+        i * that.width / numOfBars + (that.width / numOfBars) / 2,
+        graphAreaHeight - barHeight - 10);
+    } catch (ex) {}
 	
 	
 	//Public properties and methods
