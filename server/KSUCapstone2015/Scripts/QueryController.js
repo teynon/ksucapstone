@@ -19,6 +19,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.LoadingTimer = null;
     this.Abort = false;
     this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
+    this.DrawMode = queryData.filterSelection;
 
     this.Playback = {};
     this.Playback.Start = new Date(queryData.start);
@@ -87,18 +88,45 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.UpdateMap = function (points) {
         
         for (var i = 0; i < points.length; i++) {
+            switch (this.DrawMode) {
+                case "pick":
+                    var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+                    this.AddPoint(latlng, 2, {
+                        color: 'green',
+                        fillColor: '#f03',
+                        fillOpacity: 0.25
+                    });
+                    break;
+                case "drop":
+                    var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+                    this.AddPoint(latlng, 2, {
+                        color: 'orange',
+                        fillColor: '#A03',
+                        fillOpacity: 0.25
+                    });
+                    break;
+                case "both":
+                default:
+                    var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+                    this.AddPoint(latlng, 2, {
+                        color: 'green',
+                        fillColor: '#f03',
+                        fillOpacity: 0.25
+                    });
+                    var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+                    this.AddPoint(latlng, 2, {
+                        color: 'orange',
+                        fillColor: '#FF9900',
+                        fillOpacity: 0.25
+                    });
+                    break;
+            }
             if (this.QueryData.filterSelection == "pick") {
                 var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
             }
             else if (this.QueryData.filterSelection == "drop") {
                 var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
             }
-            var circle = 
-            query.MapResultsLayer.addLayer(L.circle(latlng, 2, {
-                color: 'green',
-                fillColor: '#f03',
-                fillOpacity: 0.25
-            }));
 
             if (query.MapController.sideBySide) {
                 query.MapResults2Layer.addLayer(L.circle(latlng, 2, {
@@ -109,6 +137,10 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             }
         }
     };
+
+    this.AddPoint = function (latlng, radius, properties) {
+        query.MapResultsLayer.addLayer(L.circle(latlng, radius, properties));
+    }
 
     // When the results come back, display it on the map.
     this.OnQuery = function (result) {
@@ -148,19 +180,17 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         query.MapSelectionShown = true;
     }
 
-    this.SelectionHitTest = function (e) {
+    this.SelectionHitTest = function (latlng) {
         var hitTest = false;
-        this.MapSelectionLayer.eachLayer(function (layer) {
-            if (e.latlng.lat <= layer.getLatLngs()[1].lat && e.latlng.lat >= layer.getLatLngs()[3].lat && e.latlng.lng >= layer.getLatLngs()[1].lng && e.latlng.lng <= layer.getLatLngs()[3].lng) {
-                hitTest = true;
-            }
-        });
+        var layerlatLng = query.MapSelectionLayer._latlngs;
+        if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
+            hitTest = true;
+        }
 
         return hitTest;
     }
 
     this.Dispose = function () {
-        this.MapSelectionLayer.clearLayers();
         this.MapResultsLayer.clearLayers();
         this.MapController.map.removeLayer(this.MapSelectionLayer);
         this.MapController.map.removeLayer(this.MapResultsLayer);
@@ -193,7 +223,7 @@ com.capstone.Query.TaxisInRange = function (data, callback) {
         dataToSend.start = startDate.toISOString();
         dataToSend.stop = stopTime.toISOString();
 
-        $.getJSON("http://localhost:63061/Query/PickupsAtLocation", dataToSend, function (result) {
+        $.getJSON("http://localhost:63061/Query/GetTaxisAtLocation", dataToSend, function (result) {
             callback.call(this, result);
         });
 

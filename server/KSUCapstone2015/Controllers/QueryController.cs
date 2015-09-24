@@ -10,37 +10,17 @@ namespace KSUCapstone2015.Controllers
 {
     public class QueryController : BaseController
     {
-        [ActionName("PickupsAtLocation")]
+        
+        [ActionName("GetTaxisAtLocation")]
         [HttpGet]
-        public JsonResult PickupsAtLocation_GET(DateTime start, DateTime stop, string filterSelection, float latitude1, float longitude1, float latitude2, float longitude2)
-        {
-            List<string> errors;
-            var data = GetTaxisAtLocation(start, stop, latitude1, longitude1, latitude2, longitude2, out errors, filterSelection);
-            Models.JsonResponse<List<Models.Data.Trip>> response = new Models.JsonResponse<List<Models.Data.Trip>>(errors, data, true);
-            response.Count = data.Count;
-
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
-        [ActionName("PickupsAtLocation")]
-        [HttpPost]
-        public JsonResult PickupsAtLocation_POST(DateTime start, DateTime stop, string filterSelection, float latitude1, float longitude1, float latitude2, float longitude2)
-        {
-            List<string> errors;
-            var data = GetTaxisAtLocation(start, stop, latitude1, longitude1, latitude2, longitude2, out errors, filterSelection);
-
-            Models.JsonResponse<List<Models.Data.Trip>> response = new Models.JsonResponse<List<Models.Data.Trip>>(errors, data, true);
-            response.Count = data.Count;
-
-            return Json(response, JsonRequestBehavior.AllowGet);
-        }
-
-        private List<Models.Data.Trip> GetTaxisAtLocation(DateTime start, DateTime stop, float latitude1, float longitude1, float latitude2, float longitude2, out List<string> errors, string filter)
+        public JsonResult GetTaxisAtLocation(DateTime start, DateTime stop, string filterSelection, float latitude1, float longitude1, float latitude2, float longitude2)
         {
             GeoCoordinate coords1 = new GeoCoordinate(latitude1, longitude1);
             GeoCoordinate coords2 = new GeoCoordinate(latitude2, longitude2);
-            
-            return new BLL.Queries.Trip().TaxiInSector(start, stop, coords1, coords2, out errors, filter);
+            List<string> errors;
+            var data = new BLL.Queries.Trip().TaxiInSector(start, stop, coords1, coords2, out errors, filterSelection);
+            Models.JsonResponse<List<Models.Data.Trip>> response = new Models.JsonResponse<List<Models.Data.Trip>>(errors, data, true);
+            return Json(response, JsonRequestBehavior.AllowGet);
         }
     }
 }

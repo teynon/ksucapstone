@@ -165,7 +165,7 @@ com.capstone.MapController = function (mapid) {
     this.onMapRightClick = function (e) {
         for (var i = 0; i < self.activeMapQueries.length; i++) {
             // Hit test the query object.
-            if (self.activeMapQueries[i].SelectionHitTest(e)) {
+            if (self.activeMapQueries[i].SelectionHitTest(e.latlng)) {
                 // Let the query object dispose itself.
                 self.activeMapQueries[i].Dispose();
 
@@ -238,10 +238,7 @@ com.capstone.MapController = function (mapid) {
         // Abort and clear layers for all queries. Abort prevents pending server queries from being drawn later on.
         for (var i = 0; i < self.activeMapQueries.length; i++) {
             self.activeMapQueries[i].Abort = true;
-            self.activeMapQueries[i].MapSelectionLayer.clearLayers();
-            self.activeMapQueries[i].MapResultsLayer.clearLayers();
-            self.map.removeLayer(self.activeMapQueries[i].MapSelectionLayer);
-            self.map.removeLayer(self.activeMapQueries[i].MapResultsLayer);
+            self.activeMapQueries[i].Dispose();
         }
 
         // Reset the map query list.
