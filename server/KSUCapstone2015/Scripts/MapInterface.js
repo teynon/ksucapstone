@@ -278,16 +278,7 @@ com.capstone.MapController = function (mapid) {
                 fillOpacity: 0.25
             }));
         }
-        var data = this.getQueryData();
-        //if (data.filterSelection == "both") {
-        //    data.filterSelection = "pick";
-        //    this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
-        //    data.filterSelection = "drop";
-        //    this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
-        //}
-        //else {
-            this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(data, this.selectionData), selection));
-        //}
+        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), selection));
     }
 
 

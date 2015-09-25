@@ -11,7 +11,6 @@ namespace KSUCapstone2015.BLL.Queries
         public List<Models.Data.Trip> TaxiInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2, out List<string> errors, string filter)
         {
             errors = new List<string>();
-
             List<Models.Data.Trip> results = new List<Models.Data.Trip>();
             try {
                 GeoCoordinate topLeft = new GeoCoordinate(p1.Latitude, p1.Longitude);
@@ -35,6 +34,10 @@ namespace KSUCapstone2015.BLL.Queries
                 else if(filter == "drop")
                 {
                     results = new DAL.Trips().GetDropoffsInSector(start, stop, topLeft, bottomRight);
+                }
+                else if (filter == "both")
+                {
+                    results = new DAL.Trips().GetPickupsAndDropoffsInSector(start, stop, topLeft, bottomRight);
                 }
                 else
                 {

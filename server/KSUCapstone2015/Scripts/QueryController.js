@@ -106,28 +106,27 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                     });
                     break;
                 case "both":
-                default:
                     var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
-                    this.AddPoint(latlng, 2, {
-                        color: 'green',
-                        fillColor: '#f03',
-                        fillOpacity: 0.25
-                    });
-                    var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
-                    this.AddPoint(latlng, 2, {
-                        color: 'orange',
-                        fillColor: '#FF9900',
-                        fillOpacity: 0.25
-                    });
+                    if (this.SelectionHitTest(latlng)) {
+                        latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+                        this.AddPoint(latlng, 2, {
+                            color: 'green',
+                            fillColor: '#f03',
+                            fillOpacity: 0.25
+                        });
+                    }
+                    else if(!this.SelectionHitTest(latlng)){
+                        latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+                        this.AddPoint(latlng, 2, {
+                            color: 'orange',
+                            fillColor: '#FF9900',
+                            fillOpacity: 0.25
+                        });
+                    }
+                default:
                     break;
             }
-            if (this.QueryData.filterSelection == "pick") {
-                var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
-            }
-            else if (this.QueryData.filterSelection == "drop") {
-                var latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
-            }
-
+            
             if (query.MapController.sideBySide) {
                 query.MapResults2Layer.addLayer(L.circle(latlng, 2, {
                     color: 'green',
@@ -212,7 +211,7 @@ com.capstone.Query.TaxisInRange = function (data, callback) {
     var startDate = new Date(data.start);
     var endDate = new Date(data.stop);
 
-    while (startDate < endDate) {
+    if(startDate < endDate) {
         this.SpawnedQueries++;
         var stopTime = new Date(startDate.getTime()).addHours(12);
 
@@ -228,5 +227,10 @@ com.capstone.Query.TaxisInRange = function (data, callback) {
         });
 
         startDate = startDate.addHours(12);
+    }
+    else {
+        window.alert("The From date and time must be before the To date and time");
+        stopFlashingSelection();
+        return;
     }
 }
