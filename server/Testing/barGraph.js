@@ -11,8 +11,31 @@ function BarGraph(ctx){
 	//adjusts the height of bar and redraws if necessary
 	var loop = funtion(){
 		
+		var delta;
+		var animationComplete = true;
 		
-	};
+		//Boolean to preven update function from looping if already looping
+		looping = true;
+		
+		//For each bar
+		for (var i = 0; i < endArr.length; i ++){
+			//Change the current bar height toward its target heightdelta = (endArr[i] - startArr[i]) / that.animationSteps;
+			that.curArr[i] += delta;
+			//If any change is made the flip a switch
+			if (delta){
+				animationComplete = false;
+			}
+		}
+		
+		//If no change was made to any obars then we are done
+		if (animationComplete) {
+			looping = false;
+		} else {
+			//Draw and call loop again
+			draw(that.curArr);
+			setTimeout(loop, that.animationInterval / that.animationSteps);
+		}
+	}; //End loop function
 	
 	//updates canvas with current display
 	var draw = function(arr){
@@ -123,7 +146,7 @@ function BarGraph(ctx){
 	this.maxValue;
 	this.margin = 5;
 	this.colors = ["purple", "red", "green", "yellow"];
-	this.currArr = [];
+	this.curArr = [];
 	this.backgroundColor = "#fff";
 	this.xAxisLabelArr = [];
 	this.yAxisLabelArr = [];
@@ -132,7 +155,19 @@ function BarGraph(ctx){
 	
 	//sets end bar array and starts the animation
 	this.update = function(newArr){
-		
+		//If length of target and current array is different
+		if (that.curArr.length !== newArr.length) {
+			that.curArr = newArr;
+			draw(newArr);
+		} else {
+			//Set the starting array to the current array
+			startArr = that.curArr;
+			endArr = newArr;
+			//Animate from the start array to the end array
+			if(!looping){
+				loop();
+			}
+		}
 		
 	};
 	
