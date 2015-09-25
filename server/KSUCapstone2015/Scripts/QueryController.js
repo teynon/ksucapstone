@@ -14,6 +14,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapController = controller;
     this.MapSelectionLayer = selectionMap;
     this.MapResultsLayer = L.layerGroup();
+    this.MapLabelLayer = L.layerGroup();
     this.MapResults2Layer = L.layerGroup();
     this.MapSelectionShown = true;
     this.LoadingTimer = null;
@@ -21,11 +22,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
     this.DrawMode = queryData.filterSelection;
 
+    this.LabelLatLng = this.MapSelectionLayer._latlngs[0];
+
     this.Playback = {};
     this.Playback.Start = new Date(queryData.start);
     this.Playback.End = new Date(queryData.stop);
 
     this.MapController.map.addLayer(this.MapResultsLayer);
+    this.MapController.map.addLayer(this.MapLabelLayer);
     if (this.MapController.sideBySide) {
         this.MapController.sideBySideMap.addLayer(this.MapResults2Layer);
     }
@@ -40,10 +44,13 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
         var endTime = startTime + dateRangePerSegment;
 
-        startTime = this.ConvertUTC(new Date(startTime));
-        endTime = this.ConvertUTC(new Date(endTime));
+        var startEST = new Date(startTime);
+        var endEST = new Date(endTime);
 
-        return { start: startTime, stop: endTime };
+        startTime = this.ConvertUTC(startEST);
+        endTime = this.ConvertUTC(endEST);
+
+        return { start: startTime, startEST: startEST, stop: endTime, stopEST: endEST };
     }
 
     this.ConvertUTC = function (date) {
@@ -54,8 +61,18 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         var timeRange = this.getPlaybackSpan();
 
         this.MapResultsLayer.clearLayers();
+        this.MapLabelLayer.clearLayers();
 
         var points = [];
+
+        var icon = L.icon({
+            iconUrl: 'Content/images/invisible_marker.png',
+            iconSize: [0, 0],
+            labelAnchor: [-10, 20]
+        });
+
+        var textRange = timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
+        this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer._latlngs[0], { "icon": icon } ).bindLabel(textRange, { noHide: true }));
 
         //console.log("Range: " + timeRange.start + ":" + new Date(timeRange.start).toISOString() + " to " + timeRange.stop + ":" + new Date(timeRange.stop).toISOString());
 

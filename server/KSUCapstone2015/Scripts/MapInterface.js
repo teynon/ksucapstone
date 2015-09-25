@@ -179,7 +179,6 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
-        console.log(e);
         var type = e.layerType,
         layer = e.layer;
 
@@ -189,12 +188,21 @@ com.capstone.MapController = function (mapid) {
             latitude2: layer.getLatLngs()[3].lat,
             longitude2: layer.getLatLngs()[3].lng
         };
+        var newLayer = self.cloneLayer(e);
+
+        var layerGroup = L.layerGroup();
+        layerGroup.addTo(self.map);
+        layerGroup.addLayer(newLayer);
+
+        if (self.sideBySide) {
+            var newLayer2 = self.cloneLayer(e);
+            self.sideBySideMap.addLayer(newLayer2);
+        }
+
+        self.map.removeLayer(layer);
+
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer));
-        if (self.sideBySide) {
-            var newLayer = self.cloneLayer(e);
-            self.sideBySideMap.addLayer(newLayer);
-        }
         // Do whatever else you need to. (save to db, add to map etc) 
     }
 

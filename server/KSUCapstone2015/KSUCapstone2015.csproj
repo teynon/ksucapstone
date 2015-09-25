@@ -172,6 +172,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\invisible_marker.png" />
+    <Content Include="Content\images\layers-2x.png" />
+    <Content Include="Content\images\layers.png" />
+    <Content Include="Content\images\marker-icon-2x.png" />
+    <Content Include="Content\images\marker-icon.png" />
+    <Content Include="Content\images\marker-shadow.png" />
     <Content Include="Content\images\spritesheet-2x.png" />
     <Content Include="Content\images\spritesheet.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
@@ -192,6 +198,7 @@
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\leaflet.css" />
     <Content Include="Content\leaflet.draw.css" />
+    <Content Include="Scripts\jacwright.date.format.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\L.Path.Drag.js" />
@@ -211,6 +218,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\leaflet.label.js" />
     <Content Include="Scripts\MapHelpers.js" />
     <Content Include="Scripts\MapInterface.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

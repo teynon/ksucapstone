@@ -174,3 +174,13 @@ textarea {
     background: #FF0000;
     display: none;
 }
+
+.leaflet-label {
+    width: auto;
+    font-size: 11px;
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.70);
+    border-radius: 4px;
+    white-space:nowrap;
+    padding: 2px;
+}
