@@ -84,7 +84,7 @@ com.capstone.MapController = function (mapid) {
         this.selectedPoints.addTo(this.map);
 
         // Bind the map click event.
-        this.map.on('click', this.onMapClick);
+        //this.map.on('click', this.onMapClick);
         this.map.on('contextmenu', this.onMapRightClick);
         this.map.on('draw:created', this.onMapDraw);
         this.map.on('move', this.onMapMove);
@@ -179,6 +179,11 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
+        // If we only allow one selection at a time, remove all query points.
+        if ($("#selectMode").val().toString() == "single") {
+            self.clear();
+        }
+
         var type = e.layerType,
         layer = e.layer;
 
@@ -189,10 +194,6 @@ com.capstone.MapController = function (mapid) {
             longitude2: layer.getLatLngs()[3].lng
         };
         var newLayer = self.cloneLayer(e);
-
-        var layerGroup = L.layerGroup();
-        layerGroup.addTo(self.map);
-        layerGroup.addLayer(newLayer);
 
         if (self.sideBySide) {
             var newLayer2 = self.cloneLayer(e);

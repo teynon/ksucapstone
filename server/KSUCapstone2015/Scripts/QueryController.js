@@ -3,8 +3,10 @@ com.capstone = com.capstone || {};
 
 // MapQuery uses a QueryFunction object. The query function object will need to be
 // standardized so that they all accept the same arguments.
+com.capstone.queryCount = 0;
 com.capstone.MapQuery = function (controller, queryFunction, queryData, selectionMap) {
     var query = this;
+    this.queryID = com.capstone.queryCount++;
     this.QueryFunction = queryFunction;
     this.QueryData = queryData;
     this.QueryResults = [];
@@ -19,7 +21,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapSelectionShown = true;
     this.LoadingTimer = null;
     this.Abort = false;
-    this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
+    //this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
     this.DrawMode = queryData.filterSelection;
 
     this.LabelLatLng = this.MapSelectionLayer._latlngs[0];
@@ -89,17 +91,20 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     // Play the query.
     this.Play = function () {
         com.capstone.UI.setStatus("Loading results...");
-        this.QueryFunction.call(this, queryData, this.OnQuery);
+        if (this.QueryFunction.call(this, queryData, this.OnQuery)) {
+            // Start blinking the selection layer until results are processed.
+            this.LoadingTimer = setInterval(function () {
+                if (query.MapSelectionShown)
+                    query.MapController.map.removeLayer(query.MapSelectionLayer);
+                else
+                    query.MapController.map.addLayer(query.MapSelectionLayer);
 
-        // Start blinking the selection layer until results are processed.
-        this.LoadingTimer = setInterval(function () {
-            if (query.MapSelectionShown)
-                query.MapController.map.removeLayer(query.MapSelectionLayer);
-            else
-                query.MapController.map.addLayer(query.MapSelectionLayer);
-
-            query.MapSelectionShown = !query.MapSelectionShown;
-        }, 250);
+                query.MapSelectionShown = !query.MapSelectionShown;
+            }, 250);
+        }
+        else {
+            this.Dispose();
+        }
     };
 
     this.UpdateMap = function (points) {
@@ -160,7 +165,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
     // When the results come back, display it on the map.
     this.OnQuery = function (result) {
-        if (!query.Abort) {
+        if (!query.Abort && result != -1) {
             query.CompletedQueries++;
             var remaining = (query.SpawnedQueries - query.CompletedQueries);
             var remainingText = (remaining > 0) ? " (" + remaining + " queries remaining)" : "";
@@ -184,16 +189,20 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 query.stopFlashingSelection();
             }
         }
+        else if (result == -1) {
+            query.stopFlashingSelection();
+            query.Dispose();
+        }
     }
 
     this.stopFlashingSelection = function () {
         clearInterval(query.LoadingTimer);
-        query.LoadingTimer = null;
+        this.LoadingTimer = null;
 
-        if (!query.MapSelectionShown)
-            query.MapController.map.addLayer(query.MapSelectionLayer);
+        if (!this.MapSelectionShown)
+            this.MapController.map.addLayer(this.MapSelectionLayer);
 
-        query.MapSelectionShown = true;
+        this.MapSelectionShown = true;
     }
 
     this.SelectionHitTest = function (latlng) {
@@ -208,6 +217,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
     this.Dispose = function () {
         this.MapResultsLayer.clearLayers();
+        this.MapLabelLayer.clearLayers();
+        this.MapController.map.removeLayer(this.MapLabelLayer);
         this.MapController.map.removeLayer(this.MapSelectionLayer);
         this.MapController.map.removeLayer(this.MapResultsLayer);
     }
@@ -228,9 +239,14 @@ com.capstone.Query.TaxisInRange = function (data, callback) {
     var startDate = new Date(data.start);
     var endDate = new Date(data.stop);
 
-    if(startDate < endDate) {
+    if (startDate > endDate) {
+        window.alert("The From date and time must be before the To date and time");
+        return false;
+    }
+
+    while (startDate < endDate) {
         this.SpawnedQueries++;
-        var stopTime = new Date(startDate.getTime()).addHours(12);
+        var stopTime = new Date(startDate.getTime()).addHours(4);
 
         if (stopTime > endDate)
             stopTime = endDate;
@@ -245,9 +261,6 @@ com.capstone.Query.TaxisInRange = function (data, callback) {
 
         startDate = startDate.addHours(12);
     }
-    else {
-        window.alert("The From date and time must be before the To date and time");
-        stopFlashingSelection();
-        return;
-    }
+
+    return true;
 }
