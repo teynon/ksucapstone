@@ -13,24 +13,18 @@ function BarGraph(ctx) {
 	  var delta;
 	  var animationComplete = true;
 
-	  // Boolean to prevent update function from looping if already looping
 	  looping = true;
 	  
-	  // For each bar
 	  for (var i = 0; i < endArr.length; i += 1) {
-		// Change the current bar height toward its target height
 		delta = (endArr[i] - startArr[i]) / that.animationSteps;
 		that.curArr[i] += delta;
-		// If any change is made then flip a switch
 		if (delta) {
 		  animationComplete = false;
 		}
 	  }
-	  // If no change was made to any bars then we are done
 	  if (animationComplete) {
 		looping = false;
 	  } else {
-		// Draw and call loop again
 		draw(that.curArr);
 		setTimeout(loop, that.animationInterval / that.animationSteps);
 	  }
@@ -65,7 +59,7 @@ function BarGraph(ctx) {
 					
 	  // If x axis labels exist then make room	
 	  if (that.xAxisLabelArr.length) {
-		graphAreaHeight -= 40;
+		graphAreaHeight -= 20;
 	  }
 				
 	  // Calculate dimensions of the bar
@@ -128,15 +122,13 @@ function BarGraph(ctx) {
 		ctx.fillStyle = "#333";
 		ctx.font = "bold 12px sans-serif";
 		ctx.textAlign = "center";
-		// Use try / catch to stop IE 8 from going to error town
 		try {
 		  ctx.fillText(parseInt(arr[i],10),
 			i * that.width / numOfBars + (that.width / numOfBars) / 2,
 			graphAreaHeight - barHeight - 10);
 		} catch (ex) {}
 		// Draw bar label if it exists
-		if (that.xAxisLabelArr[i]) {					
-		  // Use try / catch to stop IE 8 from going to error town				
+		if (that.xAxisLabelArr[i]) {									
 		  ctx.fillStyle = "#333";
 		  ctx.font = "bold 12px sans-serif";
 		  ctx.textAlign = "center";
@@ -151,7 +143,7 @@ function BarGraph(ctx) {
 
   // Public properties and methods
 	
-  this.width = 300;
+  this.width = 450;
   this.height = 150;	
   this.maxValue;
   this.margin = 2;
@@ -163,19 +155,14 @@ function BarGraph(ctx) {
   this.animationInterval = 100;
   this.animationSteps = 10;
 	
-  // Update method sets the end bar array and starts the animation
+  //Animates changes to the graph bars
 	this.update = function (newArr) {
-
-	  // If length of target and current array is different 
 	  if (that.curArr.length !== newArr.length) {
 		that.curArr = newArr;
 		draw(newArr);
 	  } else {
-		// Set the starting array to the current array
 		startArr = that.curArr;
-		// Set the target array to the new array
 		endArr = newArr;
-		// Animate from the start array to the end array
 		if (!looping) {	
 		  loop();
 		}
