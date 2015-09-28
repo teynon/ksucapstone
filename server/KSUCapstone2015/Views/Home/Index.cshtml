@@ -60,12 +60,41 @@
                 <section>
                     <!-- This goes away when they can adjust the width / height via mouse. -->
                     <span>
-                        <input type="checkbox" id="draw_selection" value="false"/> draw selection &nbsp;&nbsp;
+                        <input type="checkbox" id="draw_selection" value="true"/> <label for="draw_selection">Advanced Query Mode</label>
+                    </span>
+                    <span id="simpleQueryRange">
                         <input type="number" step="50" id="area" min="1" value="" max="5000" /> meters
                     </span>
                     <button id="sideBySide">Side By Side</button>
                     <button id="btnReport">Report</button>
                     <button id="btnClear">Clear Map</button>
+                </section>
+            </div>
+        </section>
+
+        <section id="sideBySideHud">
+            
+            <div class="sideBySideMain_Hud hud">
+                <section class="hudFlex">
+                    <div class="dateselect">
+                        <label>From</label> <input type="text" name="datestart" id="sbsdatestart" value="01/01/2013 12:00:00 am" />
+                    </div>
+                    <div class="dateselect">
+                        <label>To</label> <input type="text" name="datestart" id="sbsdateend" value="01/01/2013 1:00:00 am" />
+                    </div>
+                    <div>
+                        <label>
+                            Filter Area Selection:
+                        </label>
+                        <select id="filterSelectionSBS" style="margin-top: -5px; padding: 0px; display:inline;">
+                            <option value="pick">Pickups</option>
+                            <option value="drop">Dropoffs</option>
+                            <option value="both">Pickups & Dropoffs</option>
+                        </select>
+                    </div>
+                    <span>
+                        <input type="checkbox" id="lock_view" value="true" /> <label for="lock_view">Lock View</label>
+                    </span>
                 </section>
             </div>
         </section>

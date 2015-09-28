@@ -18,6 +18,7 @@
 }
 
 #mapCloneContainer {
+    display: none;
     position: absolute;
     top: 50px;
     right: 0px;
@@ -31,6 +32,7 @@
     width: 100%;
     height: 100%;
     border-left: 5px dashed #000000;
+
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -45,6 +47,16 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.hud {
+    padding: 10px;
+    min-width: 200px;
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid #000088;
+    border-radius: 5px;
+    cursor: default;
 }
 
 .main_hud {
@@ -122,7 +134,6 @@ textarea {
 }
 
 .dateselect {
-    margin-bottom: 4px;
     margin-left: 5px;
 }
 
@@ -160,9 +171,9 @@ textarea {
 
 }
 
-#draw_selection {
-    width: 10px;
-
+#draw_selection, #lock_view {
+    vertical-align: middle;
+    margin: 0px 0px 0px 0px;
 }
 
 #report {
@@ -183,4 +194,36 @@ textarea {
     border-radius: 4px;
     white-space:nowrap;
     padding: 2px;
+}
+
+#sideBySideHud {
+    position: absolute;
+    padding: 10px;
+    z-index: 1000;
+    width: calc(50vw - 20px);
+    right: 5px;
+    bottom: 5px;
+    cursor: default;
+    display: none;
+}
+
+.sideBySideMain_Hud {
+    background: #80aed9;
+}
+
+.hudFlex {
+    display: flex;
+    flex-direction: row;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    margin-bottom: 0px;
+}
+
+.hudFlex input[type=text] {
+    width: 125px;
+    font-size: 11px;
+    padding: 0px 2px;
+    background-color: #80aed9;
+    border: 1px solid #000000;
+    color: #FFFFFF;
 }

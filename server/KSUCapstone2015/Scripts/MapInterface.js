@@ -19,7 +19,8 @@ com.capstone.MapController = function (mapid) {
     this.map = null;
 
     // Current selection mode for map.
-    this.selectionMode = "rectangle";
+    this.queryType = "rectangle";
+    this.SelectMode = "single";
     this.selectionData = {};
 
     // This is unused at the moment, but may become the "holding" object for actively drawing polygons
@@ -55,12 +56,25 @@ com.capstone.MapController = function (mapid) {
     this.draw_selection = false;
     this.uniqueMapID = 0;
 
+    this.drawingControls = null;
+
+    this.sideBySide = false;
+    this.sideBySideMap = null;
+    this.sideBySideMapContainer = null;
+    this.sideBySideInitialized = false;
+    this.sideBySideLocked = true;
+    this.sideBySideHovered = false;
+
+    this.activeMoveSync = false;
+
+
     // -------------------------------------------
     // INITIALIZATION
     // -------------------------------------------
 
     this.InitMap = function () {
         // Build the Leaftlet Map object.
+        self.sideBySideMapContainer = $("#mapClone");
 
         this.map = this.getMap(this.mapID, [40.7127, -74.0059], 13);
 
@@ -68,7 +82,7 @@ com.capstone.MapController = function (mapid) {
         this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
-        var drawControl = new L.Control.Draw({
+        this.drawingControls = new L.Control.Draw({
             edit: {
                 featureGroup: this.mapFeatureGroup,
                 edit: {
@@ -77,14 +91,15 @@ com.capstone.MapController = function (mapid) {
             }
         });
 
-        this.map.addControl(drawControl);
+        if (this.draw_selection)
+            this.map.addControl(this.drawingControls);
 
         // Initialize the default layer group.
         this.selectedPoints = L.layerGroup();
         this.selectedPoints.addTo(this.map);
 
         // Bind the map click event.
-        //this.map.on('click', this.onMapClick);
+        this.map.on('click', this.onMapClick);
         this.map.on('contextmenu', this.onMapRightClick);
         this.map.on('draw:created', this.onMapDraw);
         this.map.on('move', this.onMapMove);
@@ -147,16 +162,14 @@ com.capstone.MapController = function (mapid) {
     // MAP EVENTS
     // -------------------------------------------
 
+
     this.onMapClick = function (e) {
         // Clear the last selection area. It should be stored in the map query already anyways.
         self.selectedPoints.clearLayers();
 
         // If we only allow one selection at a time, remove all query points.
-        if ($("#selectMode").val().toString() == "single") {
+        if (self.SelectMode == "single") {
             self.clear();
-        }
-        if (self.sideBySide) {
-            self.sideBySideMap.clear();
         }
 
         if (!self.draw_selection) self.selectRectangle(e);
@@ -180,7 +193,7 @@ com.capstone.MapController = function (mapid) {
 
     this.onMapDraw = function (e) {
         // If we only allow one selection at a time, remove all query points.
-        if ($("#selectMode").val().toString() == "single") {
+        if (self.SelectMode == "single") {
             self.clear();
         }
 
@@ -195,33 +208,90 @@ com.capstone.MapController = function (mapid) {
         };
         var newLayer = self.cloneLayer(e);
 
+        var newLayer2 = null;
         if (self.sideBySide) {
-            var newLayer2 = self.cloneLayer(e);
+            newLayer2 = self.cloneLayer(e);
             self.sideBySideMap.addLayer(newLayer2);
         }
 
         self.map.removeLayer(layer);
 
 
-        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer));
+        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
         // Do whatever else you need to. (save to db, add to map etc) 
     }
 
     this.onMapMove = function (e) {
-        if (self.sideBySide) {
-            self.updateMap2();
-
-            // The lat/lng gets messed up when zooming only.
-            setTimeout(function () {
+        if (!self.activeMoveSync) {
+            if (self.sideBySide && self.sideBySideLocked) {
                 self.updateMap2();
+
+                // The lat/lng gets messed up when zooming only.
+                setTimeout(function () {
+                    self.updateMap2();
+                }, 200);
+            }
+        }
+    }
+
+    this.onMapMoveSBS = function (e) {
+        if (self.activeMoveSync) {
+            if (self.sideBySide && self.sideBySideLocked) {
+                self.syncMap1ToMap2(false);
+            }
+        }
+    }
+
+    this.onMapMoveStartSBS = function (e) {
+        self.activeMoveSync = true;
+    }
+
+    this.onMapMoveEndSBS = function (e) {
+        self.activeMoveSync = false;
+    }
+
+    this.onMapMouseoverSBS = function (e) {
+        self.sideBySideHovered = true;
+    }
+
+    this.onMapZoomSBS = function (e) {
+        if (self.sideBySideHovered && self.sideBySideLocked) {
+            setTimeout(function () {
+                self.syncMap1ToMap2(true);
             }, 200);
         }
     }
 
+    this.onMapMouseoutSBS = function (e) {
+        self.sideBySideHovered = false;
+    }
+
     this.updateMap2 = function () {
-        var targetPoint = self.sideBySideMap.project(self.map.getCenter()).subtract([$('#mapCloneContainer').offset().left / 2, 0]);
-        var target = self.sideBySideMap.unproject(targetPoint, self.map.getZoom());
-        self.sideBySideMap.setView(target, self.map.getZoom(), { animate: false });
+        if (self.sideBySideMap != null) {
+            var targetPoint = self.sideBySideMap.project(self.map.getCenter()).subtract([$('#mapCloneContainer').offset().left / 2, 0]);
+            var target = self.sideBySideMap.unproject(targetPoint, self.map.getZoom());
+            self.sideBySideMap.setView(target, self.map.getZoom(), { animate: false });
+        }
+    }
+
+    this.syncMap1ToMap2 = function (lock) {
+        if (self.sideBySideMap != null) {
+            var unlock = false;
+            if (lock && !self.activeMoveSync) {
+                unlock = true;
+                self.activeMoveSync = true;
+            }
+
+            self.map.setView(self.sideBySideMap.getCenter(), self.sideBySideMap.getZoom(), { animate: false });
+            var targetPoint = self.map.project(self.sideBySideMap.getCenter()).add([$('#mapCloneContainer').offset().left / 2, 0]);
+            var target = self.map.unproject(targetPoint, self.sideBySideMap.getZoom());
+
+            self.map.setView(target, self.sideBySideMap.getZoom(), { animate: false });
+
+            if (unlock) {
+                self.activeMoveSync = false;
+            }
+        }
     }
 
     this.onMapDrawx = function (e) {
@@ -241,6 +311,39 @@ com.capstone.MapController = function (mapid) {
 
     this.startTimeValidation = function () {
 
+    }
+
+    this.setDrawingMode = function (drawing) {
+        this.draw_selection = drawing;
+        
+        if (this.draw_selection) {
+            $("#simpleQueryRange").css("display", "none");
+            this.map.addControl(this.drawingControls);
+        }
+        else {
+            $("#simpleQueryRange").css("display", "block");
+            this.map.removeControl(this.drawingControls);
+        }
+    }
+
+    this.updateSelectionMode = function (mode) {
+        this.SelectMode = mode;
+
+        switch (this.SelectMode) {
+            case "single":
+                $("#sideBySide").css("display", "block");
+                break;
+            case "multi":
+            default:
+                $("#sideBySide").css("display", "none");
+                this.disableSideBySide();
+                break;
+        }
+    }
+
+    this.setSideBySideLocked = function (locked) {
+        this.sideBySideLocked = locked;
+        this.updateMap2();
     }
 
     this.clear = function () {
@@ -271,23 +374,19 @@ com.capstone.MapController = function (mapid) {
             longitude2: boundingBox.getSouthEast().lng
         };
 
-        var selection = L.layerGroup();
-        selection.addTo(this.map);
-
-        selection.addLayer(L.rectangle(boundingBox, {
+        var layer = L.rectangle(boundingBox, {
             color: 'red',
             fillColor: '#f03',
             fillOpacity: 0.25
-        }));
+        });
 
-        if (self.sideBySide) {
-            self.sideBySideMap.addLayer(L.rectangle(boundingBox, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.25
-            }));
-        }
-        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), selection));
+        var clonedLayer = L.rectangle(boundingBox, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.25
+        });
+
+        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), layer, clonedLayer));
     }
 
 
@@ -300,8 +399,9 @@ com.capstone.MapController = function (mapid) {
         var data = {
             start: $("#datestart").val(),
             stop: $("#dateend").val(),
-            selectionMode: this.selectionMode,
-            filterSelection: $("#filterSelection").val()
+            selectionMode: this.queryType,
+            filterSelection: $("#filterSelection").val(),
+            filterSelectionSBS: $("#filterSelectionSBS").val()
         };
 
         data.Display = [];
@@ -315,9 +415,6 @@ com.capstone.MapController = function (mapid) {
     // ---------------------------------------
     // SIDE BY SIDE FUNCTIONS
     // ---------------------------------------
-    this.sideBySide = false;
-    this.sideBySideMap = null;
-    this.sideBySideMapContainer = null;
 
     this.toggleSideBySide = function () {
         if (!self.sideBySide)
@@ -327,16 +424,40 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.enableSideBySide = function () {
+        self.sideBySide = true;
+        $("#mapCloneContainer").stop().css("display", "block").animate({ "width": "50%" }, 500)
+            .promise().done(function () {
+                if (!self.sideBySideInitialized) {
+                    self.sideBySideMap = self.getMap("mapClone", self.map.getCenter(), self.map.getZoom());
+                    self.sideBySideInitialized = true;
+
+                    self.sideBySideMap.on("mousedown", self.onMapMoveStartSBS);
+                    self.sideBySideMap.on('move', self.onMapMoveSBS);
+                    self.sideBySideMap.on("dragend", self.onMapMoveEndSBS);
+                    self.sideBySideMap.on("mouseover", self.onMapMouseoverSBS);
+                    self.sideBySideMap.on("mouseout", self.onMapMouseoutSBS);
+                    self.sideBySideMap.on("zoomend", self.onMapZoomSBS);
+                }
+                self.updateMapPosition();
+            });
+
+        $("#sideBySideHud").stop(true).hide().delay(500).fadeIn(200);
+
+        self.hideReportView();
+
+    }
+
+    this.disableSideBySide = function () {
         self.sideBySideMapContainer = $("#mapClone");
 
 
-        self.sideBySide = true;
-        $("#mapCloneContainer").animate({ "width": "50%" }, 500)
+        self.sideBySide = false;
+        $("#mapCloneContainer").stop().animate({ "width": "0%" }, 500)
             .promise().done(function () {
-                console.log(self.map.getZoom());
-                self.sideBySideMap = self.getMap("mapClone", self.map.getCenter(), self.map.getZoom());
-                self.updateMapPosition();
+                $("#mapCloneContainer").css("display", "none");
             });
+
+        $("#sideBySideHud").stop(true).fadeOut(200);
 
     }
 
@@ -359,42 +480,50 @@ com.capstone.MapController = function (mapid) {
     this.updateMapPosition = function () {
         self.map.invalidateSize(true);
 
-        if (self.sideeBySide) {
-            self.sideBySideMap.invalidateSize(true);
+        if (self.sideBySide) {
+            self.updateMap2();
+
+            // The lat/lng gets messed up when zooming only.
+            setTimeout(function () {
+                self.updateMap2();
+            }, 200);
         }
     }
 
     this.showReportView = function () {
-        $('#map').stop().animate({ "width": "50%" }, 1000, function () {
+        com.capstone.mapStateOpen = false;
+        $("#report").css("display", "block");
+        self.disableSideBySide();
 
+        // Stop any active animation and begin the new animation.
+        $("#report").stop().animate({ "width": "50%" }, 400, function () {
+            $("#report").css("display", "block");
+        });
+
+        $('#map').stop().animate({ "width": "50%" }, 400, function () {
+            self.updateMapPosition();
         });
     };
 
     this.hideReportView = function () {
-        $('#map').stop().animate({ "width": "100%" }, 1000, function () {
+        com.capstone.mapStateOpen = true;
+        $('#map').stop().animate({ "width": "100%" }, 400, function () {
+            self.updateMapPosition();
+        });
 
+        // Stop any active animation and begin the new animation.
+        $("#report").stop().animate({ "width": "0%" }, 400, function () {
+            $("#report").css("display", "none");
         });
     };
 
     this.toggleReportView = function () {
-        var mapWidth = (com.capstone.mapStateOpen) ? "50%" : "100%";
-        var reportWidth = (com.capstone.mapStateOpen) ? "50%" : "0%";
-        var displayReport = (com.capstone.mapStateOpen) ? "block" : "none";
-        com.capstone.mapStateOpen = !com.capstone.mapStateOpen;
-
-        if (displayReport == "block") $("#report").css("display", displayReport);
-
-        // Stop any active animation and begin the new animation.
-        $("#report").stop().animate({ "width": reportWidth }, 400, function () {
-            $("#report").css("display", displayReport);
-        });
-
-        $('#map').stop().animate({ "width": mapWidth }, 400)
-            .promise().done(function () {
-                self.updateMapPosition();
-            });
-        
-        
+        if (!com.capstone.mapStateOpen) {
+            self.hideReportView();
+        }
+        else {
+            self.showReportView();
+        }
     };
 
     this.InitMap();
@@ -430,7 +559,12 @@ $(document).ready(function () {
 
     $("#playbackScroller").on("input", com.capstone.mapController.updatePlaybackPosition);
 
-    $("#datestart, #dateend").datetimepicker({
+    var excludeElements = [$("#map").get(0), $(".main_overlay").get(0)];
+    $(".hud").each(function () {
+        excludeElements.push($(this).get(0));
+    });
+
+    $("#datestart, #dateend, #sbsdatestart, #sbsdateend").datetimepicker({
         changeMonth: false,
         changeYear: false,
         closeOnWithoutClick: true,
@@ -438,7 +572,7 @@ $(document).ready(function () {
         minDate: new Date(2013, 0, 1, 0, 0, 0, 0, 0),
         format: "m/d/Y h:i:s a",
         step: 10,
-        closeMonitors: [ $("#map").get(0), $(".main_overlay").get(0) ]
+        closeMonitors: excludeElements
     });
 
     $("#area").val(com.capstone.mapController.radius);
@@ -447,9 +581,19 @@ $(document).ready(function () {
         com.capstone.mapController.radius = $(this).val();
     });
 
-    $("#draw_selection").val(com.capstone.mapController.draw_selection);
+    $("#draw_selection").prop('checked', com.capstone.mapController.draw_selection);
+
+    $("#lock_view").prop('checked', com.capstone.mapController.sideBySideLocked);
+
+    $("#selectMode").on("change", function () {
+        com.capstone.mapController.updateSelectionMode($(this).val());
+    });
 
     $("#draw_selection").on("change", function () {
-        com.capstone.mapController.draw_selection = $(this).is(':checked');
+        com.capstone.mapController.setDrawingMode($(this).is(':checked'));
+    });
+
+    $("#lock_view").on("change", function () {
+        com.capstone.mapController.setSideBySideLocked($(this).is(':checked'));
     });
 });
