@@ -164,15 +164,16 @@ com.capstone.MapController = function (mapid) {
 
 
     this.onMapClick = function (e) {
-        // Clear the last selection area. It should be stored in the map query already anyways.
-        self.selectedPoints.clearLayers();
 
-        // If we only allow one selection at a time, remove all query points.
-        if (self.SelectMode == "single") {
-            self.clear();
+        if (!self.draw_selection) {
+            // Clear the last selection area. It should be stored in the map query already anyways.
+            self.selectedPoints.clearLayers();
+
+            // If we only allow one selection at a time, remove all query points.
+            if (self.SelectMode == "single") {
+                self.clear();
+            } self.selectRectangle(e);
         }
-
-        if (!self.draw_selection) self.selectRectangle(e);
     };
 
     this.onMapRightClick = function (e) {
@@ -493,6 +494,8 @@ com.capstone.MapController = function (mapid) {
     this.showReportView = function () {
         com.capstone.mapStateOpen = false;
         $("#report").css("display", "block");
+        var recenterMap = true;
+        if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
 
         // Stop any active animation and begin the new animation.
@@ -501,14 +504,14 @@ com.capstone.MapController = function (mapid) {
         });
 
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
-            self.updateMapPosition();
+            if (recenterMap) self.updateMapPosition();
         });
     };
 
     this.hideReportView = function () {
         com.capstone.mapStateOpen = true;
         $('#map').stop().animate({ "width": "100%" }, 400, function () {
-            self.updateMapPosition();
+            if (!self.sideBySide) self.updateMapPosition();
         });
 
         // Stop any active animation and begin the new animation.

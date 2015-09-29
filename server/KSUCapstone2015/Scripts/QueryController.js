@@ -87,9 +87,6 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         this.MapResultsLayer.clearLayers();
         this.MapLabelLayer.clearLayers();
 
-        var textRange = timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
-        this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer._latlngs[0], { "icon": icon } ).bindLabel(textRange, { noHide: true }));
-
         //console.log("Range: " + timeRange.start + ":" + new Date(timeRange.start).toISOString() + " to " + timeRange.stop + ":" + new Date(timeRange.stop).toISOString());
 
         for (var i = 0; i < this.QueryResults.length; i++) {
@@ -98,6 +95,9 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 points.push(this.QueryResults[i]);
             }
         }
+
+        var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
+        this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
 
         this.UpdateMap(points, false);
 
@@ -110,17 +110,15 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             this.MapResults2Layer.clearLayers();
             this.MapLabelLayerSBS.clearLayers();
 
-            var textRange = timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
-            this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
-
-            //console.log("Range: " + timeRange.start + ":" + new Date(timeRange.start).toISOString() + " to " + timeRange.stop + ":" + new Date(timeRange.stop).toISOString());
-
             for (var i = 0; i < this.QueryResultsSBS.length; i++) {
                 var puTime = new Date(this.QueryResultsSBS[i].PickupTime).getTime();
                 if (puTime >= timeRange.start && puTime < timeRange.stop) {
                     points.push(this.QueryResultsSBS[i]);
                 }
             }
+
+            var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
+            this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
 
             this.UpdateMap(points, true);
         }
