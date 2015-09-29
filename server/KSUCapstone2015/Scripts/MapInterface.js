@@ -311,17 +311,6 @@ com.capstone.MapController = function (mapid) {
 
     this.updateSelectionMode = function (mode) {
         this.SelectMode = mode;
-
-        switch (this.SelectMode) {
-            case "single":
-                $("#sideBySide").css("display", "block");
-                break;
-            case "multi":
-            default:
-                $("#sideBySide").css("display", "none");
-                this.disableSideBySide();
-                break;
-        }
     }
 
     this.setSideBySideLocked = function (locked) {
