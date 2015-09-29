@@ -305,7 +305,6 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         this.MapLabelLayer.clearLayers();
         this.MapResults2Layer.clearLayers();
         this.MapLabelLayerSBS.clearLayers();
-        console.log("this.MapController.sideBySide = " + this.MapController.sideBySide);
 
         if (this.MapController.sideBySide) {
             this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);

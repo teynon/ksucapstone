@@ -82,14 +82,7 @@ com.capstone.MapController = function (mapid) {
         this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
-        this.drawingControls = new L.Control.Draw({
-            edit: {
-                featureGroup: this.mapFeatureGroup,
-                edit: {
-                    moveMarkers: false
-                }
-            }
-        });
+        this.drawingControls = new L.Control.Draw({});
 
         if (this.draw_selection)
             this.map.addControl(this.drawingControls);
@@ -295,17 +288,6 @@ com.capstone.MapController = function (mapid) {
         }
     }
 
-    this.onMapDrawx = function (e) {
-        var type = e.layerType,
-        layer = e.layer;
-
-        if (type === 'marker') {
-            // Do marker specific actions 
-        }
-
-        // Do whatever else you need to. (save to db, add to map etc) 
-        self.mapFeatureGroup.addLayer(layer);
-    }
     // -------------------------------------------
     // MAP CONTROLS
     // -------------------------------------------
