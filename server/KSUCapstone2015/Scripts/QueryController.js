@@ -306,11 +306,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         this.MapResults2Layer.clearLayers();
         this.MapLabelLayerSBS.clearLayers();
 
-        if (this.MapController.sideBySide) {
-            this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);
-            this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
-            this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
+        try {
+            if (this.MapController.sideBySide) {
+                this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);
+                this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
+                this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
+            }
         }
+        catch (e) { }
 
         this.MapController.map.removeLayer(this.MapLabelLayer);
         this.MapController.map.removeLayer(this.MapSelectionLayer);
