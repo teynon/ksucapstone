@@ -444,7 +444,7 @@ com.capstone.MapController = function (mapid) {
     this.cloneRectangle = function (layer) {
         var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
         return L.rectangle(bounds, layer.options);
-    }
+    };
 
     // ---------------------------------------
     // REPORT FUNCTIONS
