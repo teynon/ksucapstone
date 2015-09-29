@@ -305,9 +305,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         this.MapLabelLayer.clearLayers();
         this.MapResults2Layer.clearLayers();
         this.MapLabelLayerSBS.clearLayers();
-        this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);
-        this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
-        this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
+        console.log("this.MapController.sideBySide = " + this.MapController.sideBySide);
+
+        if (this.MapController.sideBySide) {
+            this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);
+            this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
+            this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
+        }
+
         this.MapController.map.removeLayer(this.MapLabelLayer);
         this.MapController.map.removeLayer(this.MapSelectionLayer);
         this.MapController.map.removeLayer(this.MapResultsLayer);
