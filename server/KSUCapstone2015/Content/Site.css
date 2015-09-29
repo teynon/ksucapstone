@@ -176,16 +176,6 @@ textarea {
     margin: 0px 0px 0px 0px;
 }
 
-#report {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    top: 0px;
-    width: 0%;
-    background: #FF0000;
-    display: none;
-}
-
 .leaflet-label {
     width: auto;
     font-size: 11px;
@@ -226,4 +216,22 @@ textarea {
     background-color: #80aed9;
     border: 1px solid #000000;
     color: #FFFFFF;
+}
+
+#report {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 50px;
+    padding: 20px;
+    width: 0%;
+    background: #EEEEEE;
+    border-left: 2px solid #000088;
+    display: none;
+}
+
+#report > h1 {
+    font-size: 32px;
+    margin: 0px 0px 5px 0px;
+    padding: 0px;
 }
