@@ -21,8 +21,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapLabelLayer = L.layerGroup();
     this.MapLabelLayerSBS = L.layerGroup();
     this.MapResults2Layer = L.layerGroup();
-    this.MapSelectionShown = true;
-    this.MapSelectionShownSBS = true;
+    this.MapSelectionShown = false;
+    this.MapSelectionShownSBS = false;
     this.LoadingTimer = null;
     this.LoadingTimerSBS = null;
     this.Abort = false;
@@ -352,7 +352,7 @@ com.capstone.Query.TaxisInRange = function (data, callback, sideBySide) {
         dataToSend.start = startDate.toISOString();
         dataToSend.stop = stopTime.toISOString();
 
-        $.getJSON("http://localhost:63061/Query/GetTaxisAtLocation", dataToSend, function (result) {
+        $.getJSON("/Query/GetTaxisAtLocation", dataToSend, function (result) {
             callback.call(this, result, sideBySide);
         });
 
