@@ -143,13 +143,13 @@ function BarGraph(ctx) {
 
   // Public properties and methods
 	
-  this.width = 450;
-  this.height = 150;	
+  this.width = 200;
+  this.height = 200;	
   this.maxValue;
   this.margin = 2;
-  this.colors = ["purple", "red", "green", "yellow", "blue"];
+  this.colors = ["purple", "red"];
   this.curArr = [];
-  this.backgroundColor = "#fff";
+  this.backgroundColor = "#EEEEEE";
   this.xAxisLabelArr = [];
   this.yAxisLabelArr = [];
   this.animationInterval = 100;
