@@ -82,7 +82,7 @@ com.capstone.MapController = function (mapid) {
         this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
-        this.drawingControls = new L.Control.Draw({});
+        this.drawingControls = new L.Control.Draw();
 
         if (this.draw_selection)
             this.map.addControl(this.drawingControls);
@@ -192,14 +192,18 @@ com.capstone.MapController = function (mapid) {
         }
 
         var type = e.layerType,
-        layer = e.layer;
+            layer = e.layer;
 
-        this.selectionData = {
-            latitude1: layer.getLatLngs()[1].lat,
-            longitude1: layer.getLatLngs()[1].lng,
-            latitude2: layer.getLatLngs()[3].lat,
-            longitude2: layer.getLatLngs()[3].lng
-        };
+        if (e.layerType == "rectangle") {
+            this.selectionData = {
+                latitude1: layer.getLatLngs()[1].lat,
+                longitude1: layer.getLatLngs()[1].lng,
+                latitude2: layer.getLatLngs()[3].lat,
+                longitude2: layer.getLatLngs()[3].lng
+            };
+        } else if (e.layerType == "polygon") {
+            this.selectionData = self.getPolygonSelectionData(layer);
+        }
         var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
@@ -213,6 +217,24 @@ com.capstone.MapController = function (mapid) {
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
         // Do whatever else you need to. (save to db, add to map etc) 
+    }
+
+    this.getPolygonSelectionData = function (layer) {
+        var sLat = layer.getLatLngs()[0].lat, nLat = layer.getLatLngs()[0].lat,
+            eLng = layer.getLatLngs()[0].lng, wLng = layer.getLatLngs()[0].lng;
+
+        for (var i = 0; i < layer.getLatLngs().length; i++) {
+            if (layer.getLatLngs()[i].lat > nLat)
+                nLat = layer.getLatLngs()[i].lat;
+            if (layer.getLatLngs()[i].lat < sLat)
+                sLat = layer.getLatLngs()[i].lat;
+            if (layer.getLatLngs()[i].lng > eLng)
+                eLng = layer.getLatLngs()[i].lng;
+            if (layer.getLatLngs()[i].lng < wLng)
+                wLng = layer.getLatLngs()[i].lng;
+        }
+
+        return { latitude1: nLat, longitude1: wLng, latitude2: sLat, longitude2: eLng };
     }
 
     this.onMapMove = function (e) {
