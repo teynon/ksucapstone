@@ -185,7 +185,6 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
-
         var type = e.layerType,
             layer = e.layer;
 
@@ -203,8 +202,8 @@ com.capstone.MapController = function (mapid) {
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
                 self.activeMapQueries[i].UpdateTrip(layer);
-                return;
             }
+            return;
         }
         else {
             // If we only allow one selection at a time, remove all query points.
@@ -216,6 +215,7 @@ com.capstone.MapController = function (mapid) {
         
 
         
+        var type = e.layerType, layer = e.layer;
         var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
@@ -486,12 +486,34 @@ com.capstone.MapController = function (mapid) {
             case "rectangle":
                 return this.cloneRectangle(layerWrapper.layer);
                 break;
+            case "polygon":
+                return this.clonePolygon(layerWrapper.layer);
+                break;
         }
     };
 
     this.cloneRectangle = function (layer) {
+        this.selectionData = {
+            latitude1: layer._latlngs[1].lat,
+            longitude1: layer._latlngs[1].lng,
+            latitude2: layer._latlngs[3].lat,
+            longitude2: layer._latlngs[3].lng
+        };
+        this.queryMode = com.capstone.Query.TaxisInRange;
         var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
         return L.rectangle(bounds, layer.options);
+    };
+
+    this.clonePolygon = function (layer) {
+        this.selectionData = {
+            points : []
+        };
+        for (var i = 0; i < layer._latlngs.length; i++) {
+            this.selectionData.points.push({ Latitude : layer._latlngs[i].lat, Longitude : layer._latlngs[i].lng });
+        }
+
+        this.queryMode = com.capstone.Query.TaxisInPolygon;
+        return L.polygon(layer._latlngs);
     };
 
     // ---------------------------------------

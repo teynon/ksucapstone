@@ -129,7 +129,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.Play = function () {
         com.capstone.UI.setStatus("Loading results...");
 
-        if (this.QueryFunction.call(this, queryData, this.OnQuery, false)) {
+        if (this.QueryFunction.query.call(this, this.QueryData, this.OnQuery, false)) {
             // Start blinking the selection layer until results are processed.
             this.LoadingTimer = setInterval(function () {
                 if (query.MapSelectionShown)
@@ -143,7 +143,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             if (query.MapController.sideBySide) {
                 console.log("Side by side");
                 // If side by side, get different date range.
-                var sbsQueryData = $.extend({}, queryData);
+                var sbsQueryData = $.extend({}, this.QueryData);
 
                 query.Playback.StartSBS = new Date($("#sbsdatestart").val());
                 query.Playback.EndSBS = new Date($("#sbsdateend").val());
@@ -178,7 +178,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         for (var i = 0; i < this.QueryResults.length; i++) {
             var latlng = L.latLng(this.QueryResults[i].PickupLatitude, this.QueryResults[i].PickupLongitude);
             var latlng2 = L.latLng(this.QueryResults[i].DropoffLatitude, this.QueryResults[i].DropoffLongitude);
-            if (this.SelectionHitTest(latlng) && this.SelectionHitTest2(latlng2,layer)) {
+            if (this.SelectionHitTest(latlng) && this.SelectionHitTest(latlng2)) {
                 this.AddPoint(latlng, 2, {
                     color: 'green',
                     fillColor: '#f03',
@@ -312,9 +312,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         this.MapSelectionShownSBS = true;
     }
 
-    this.SelectionHitTest2 = function (latlng, layer) {
+    this.SelectionHitTestDrop = function (latlng) {
         var hitTest = false;
-        var layerlatLng = layer._latlngs;
+        try{
+            var layerlatLng = query.MapSelectionLayer[1]._latlngs;
+        }
+        catch (e) {
+            consol.log(e.message);
+        }
         if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
             hitTest = true;
         }
@@ -324,9 +329,11 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
     this.SelectionHitTest = function (latlng) {
         var hitTest = false;
-        var layerlatLng = query.MapSelectionLayer[0]._latlngs;
-        if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
-            hitTest = true;
+        for (var i = 0; i < query.MapSelectionLayer.length; i++) {
+            var layerlatLng = query.MapSelectionLayer[i]._latlngs;
+            if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
+                hitTest = true;
+            }
         }
 
         return hitTest;
@@ -366,32 +373,72 @@ Date.prototype.addHours = function (h) {
 }
 
 com.capstone.Query = {};
-com.capstone.Query.TaxisInRange = function (data, callback, sideBySide) {
-    var startDate = new Date(data.start);
-    var endDate = new Date(data.stop);
-    console.log(startDate + "|" + console.log(endDate));
-    if (startDate > endDate) {
-        window.alert("The From date and time must be before the To date and time");
-        return false;
+com.capstone.Query.TaxisInRange = {
+    formatData : function(queryController) {
+
+    },
+    query: function (data, callback, sideBySide) {
+        var startDate = new Date(data.start);
+        var endDate = new Date(data.stop);
+        console.log(startDate + "|" + console.log(endDate));
+        if (startDate > endDate) {
+            window.alert("The From date and time must be before the To date and time");
+            return false;
+        }
+
+        while (startDate < endDate) {
+            this.SpawnedQueries++;
+            var stopTime = new Date(startDate.getTime()).addHours(4);
+
+            if (stopTime > endDate)
+                stopTime = endDate;
+
+            var dataToSend = $.extend(true, {}, data);
+            dataToSend.start = startDate.toISOString();
+            dataToSend.stop = stopTime.toISOString();
+
+            $.getJSON("/Query/GetTaxisAtLocation", dataToSend, function (result) {
+                callback.call(this, result, sideBySide);
+            });
+
+            startDate = startDate.addHours(4);
+        }
+
+        return true;
     }
+}
 
-    while (startDate < endDate) {
-        this.SpawnedQueries++;
-        var stopTime = new Date(startDate.getTime()).addHours(4);
+com.capstone.Query.TaxisInPolygon = {
+    formatData: function (queryController) {
 
-        if (stopTime > endDate)
-            stopTime = endDate;
+    },
+    query : function (data, callback, sideBySide) {
+        var startDate = new Date(data.start);
+        var endDate = new Date(data.stop);
 
-        var dataToSend = $.extend(true, {}, data);
-        dataToSend.start = startDate.toISOString();
-        dataToSend.stop = stopTime.toISOString();
+        if (startDate > endDate) {
+            window.alert("The From date and time must be before the To date and time");
+            return false;
+        }
 
-        $.getJSON("/Query/GetTaxisAtLocation", dataToSend, function (result) {
-            callback.call(this, result, sideBySide);
-        });
+        while (startDate < endDate) {
+            this.SpawnedQueries++;
+            var stopTime = new Date(startDate.getTime()).addHours(4);
 
-        startDate = startDate.addHours(4);
+            if (stopTime > endDate)
+                stopTime = endDate;
+
+            var dataToSend = $.extend(true, {}, data);
+            dataToSend.start = startDate.toISOString();
+            dataToSend.stop = stopTime.toISOString();
+
+            $.post("/Query/GetTaxisInPolygon", dataToSend, function (result) {
+                callback.call(this, result, sideBySide);
+            }, "json");
+
+            startDate = startDate.addHours(4);
+        }
+
+        return true;
     }
-
-    return true;
 }
