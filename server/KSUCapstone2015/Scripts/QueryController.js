@@ -151,7 +151,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 sbsQueryData.stop = $("#sbsdateend").val();
                 sbsQueryData.filterSelection = sbsQueryData.filterSelectionSBS;
 
-                if (query.QueryFunction.call(query, sbsQueryData, query.OnQuery, true)) {
+                if (query.QueryFunction.query.call(query, sbsQueryData, query.OnQuery, true)) {
                     // Start blinking the selection layer until results are processed.
                     query.LoadingTimerSBS = setInterval(function () {
                         if (query.MapSelectionShownSBS)
