@@ -157,11 +157,10 @@ com.capstone.MapController = function (mapid) {
 
 
     this.onMapClick = function (e) {
-
         if (!self.draw_selection) {
             // Clear the last selection area. It should be stored in the map query already anyways.
             self.selectedPoints.clearLayers();
-
+            
             // If we only allow one selection at a time, remove all query points.
             if (self.SelectMode == "single") {
                 self.clear();
@@ -186,10 +185,6 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
-        // If we only allow one selection at a time, remove all query points.
-        if (self.SelectMode == "single") {
-            self.clear();
-        }
 
         var type = e.layerType,
             layer = e.layer;
@@ -204,6 +199,23 @@ com.capstone.MapController = function (mapid) {
         } else if (e.layerType == "polygon") {
             this.selectionData = self.getPolygonSelectionData(layer);
         }
+        
+        if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
+            for (var i = 0; i < self.activeMapQueries.length; i++) {
+                self.activeMapQueries[i].UpdateTrip(layer);
+                return;
+            }
+        }
+        else {
+            // If we only allow one selection at a time, remove all query points.
+            if (self.SelectMode == "single") {
+                self.clear();
+            }
+        }
+
+        
+
+        
         var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
@@ -216,6 +228,9 @@ com.capstone.MapController = function (mapid) {
 
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
+        if (self.SelectMode == "trip") {
+            $("#filterSelection").val("drop");
+        }
         // Do whatever else you need to. (save to db, add to map etc) 
     }
 
@@ -380,7 +395,18 @@ com.capstone.MapController = function (mapid) {
             fillOpacity: 0.25
         });
 
+        if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
+            for (var i = 0; i < self.activeMapQueries.length; i++) {
+                self.activeMapQueries[i].UpdateTrip(layer);
+            }
+            return;
+        }
+
         this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), layer, clonedLayer));
+
+        if (self.SelectMode == "trip") {
+            $("#filterSelection").val("drop");
+        }
     }
 
 
@@ -583,6 +609,13 @@ $(document).ready(function () {
 
     $("#selectMode").on("change", function () {
         com.capstone.mapController.updateSelectionMode($(this).val());
+        if ($("#selectMode").val() == "trip") {
+            $("#filterSelection").val("pick");
+            $("#filterSelection").prop('disabled', 'disabled');
+            com.capstone.mapController.clear();
+        } else {
+            $("#filterSelection").removeAttr('disabled');
+        }
     });
 
     $("#draw_selection").on("change", function () {
