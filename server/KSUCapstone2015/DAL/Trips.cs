@@ -116,7 +116,7 @@ namespace KSUCapstone2015.DAL
                                     trip.*,
                                     GEO.location as `location`
                                FROM trip 
-                               INNER JOIN trip_geospatial AS GEO ON (GEO.tripid = trip.ID) 
+                               INNER JOIN trip_geospatial AS GEO ON (GEO.tripid = trip.ID and GEO.Type = 0) 
                                WHERE 
                                    trip.pickup_datetime BETWEEN @start AND @stop AND 
                                    trip.pickup_latitude > @minLat AND 
