@@ -82,7 +82,7 @@ com.capstone.MapController = function (mapid) {
         this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
-        this.drawingControls = new L.Control.Draw({});
+        this.drawingControls = new L.Control.Draw();
 
         if (this.draw_selection)
             this.map.addControl(this.drawingControls);
@@ -191,8 +191,7 @@ com.capstone.MapController = function (mapid) {
             self.clear();
         }
 
-        var type = e.layerType,
-        layer = e.layer;
+        var type = e.layerType, layer = e.layer;
         var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
@@ -205,6 +204,24 @@ com.capstone.MapController = function (mapid) {
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), self.selectionData), layer, newLayer2));
         // Do whatever else you need to. (save to db, add to map etc) 
+    }
+
+    this.getPolygonSelectionData = function (layer) {
+        var sLat = layer.getLatLngs()[0].lat, nLat = layer.getLatLngs()[0].lat,
+            eLng = layer.getLatLngs()[0].lng, wLng = layer.getLatLngs()[0].lng;
+
+        for (var i = 0; i < layer.getLatLngs().length; i++) {
+            if (layer.getLatLngs()[i].lat > nLat)
+                nLat = layer.getLatLngs()[i].lat;
+            if (layer.getLatLngs()[i].lat < sLat)
+                sLat = layer.getLatLngs()[i].lat;
+            if (layer.getLatLngs()[i].lng > eLng)
+                eLng = layer.getLatLngs()[i].lng;
+            if (layer.getLatLngs()[i].lng < wLng)
+                wLng = layer.getLatLngs()[i].lng;
+        }
+
+        return { latitude1: nLat, longitude1: wLng, latitude2: sLat, longitude2: eLng };
     }
 
     this.onMapMove = function (e) {
