@@ -175,16 +175,17 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.UpdateTrip = function (layer) {
         query.MapController.map.addLayer(layer);
         query.MapSelectionLayer.push(layer);
-        for (var i = 0; i < this.QueryResults.length; i++) {
-            var latlng = L.latLng(this.QueryResults[i].PickupLatitude, this.QueryResults[i].PickupLongitude);
-            var latlng2 = L.latLng(this.QueryResults[i].DropoffLatitude, this.QueryResults[i].DropoffLongitude);
-            if (this.SelectionHitTest(latlng) && this.SelectionHitTest(latlng2)) {
-                this.AddPoint(latlng, 2, {
+        query.MapResultsLayer.clearLayers();
+        for (var i = 0; i < query.QueryResults.length; i++) {
+            var latlng = L.latLng(query.QueryResults[i].PickupLatitude, query.QueryResults[i].PickupLongitude);
+            var latlng2 = L.latLng(query.QueryResults[i].DropoffLatitude, query.QueryResults[i].DropoffLongitude);
+            if (query.SelectionHitTest(latlng) && query.SelectionHitTest(latlng2)) {
+                query.AddPoint(latlng, 2, {
                     color: 'green',
                     fillColor: '#f03',
                     fillOpacity: 0.25
                 }, sideBySide);
-                this.AddPoint(latlng2, 2, {
+                query.AddPoint(latlng2, 2, {
                     color: 'orange',
                     fillColor: '#A03',
                     fillOpacity: 0.25
