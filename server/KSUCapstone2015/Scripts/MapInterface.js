@@ -193,13 +193,6 @@ com.capstone.MapController = function (mapid) {
 
         var type = e.layerType,
         layer = e.layer;
-
-        this.selectionData = {
-            latitude1: layer.getLatLngs()[1].lat,
-            longitude1: layer.getLatLngs()[1].lng,
-            latitude2: layer.getLatLngs()[3].lat,
-            longitude2: layer.getLatLngs()[3].lng
-        };
         var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
@@ -210,8 +203,7 @@ com.capstone.MapController = function (mapid) {
 
         self.map.removeLayer(layer);
 
-
-        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
+        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), self.selectionData), layer, newLayer2));
         // Do whatever else you need to. (save to db, add to map etc) 
     }
 
@@ -438,12 +430,34 @@ com.capstone.MapController = function (mapid) {
             case "rectangle":
                 return this.cloneRectangle(layerWrapper.layer);
                 break;
+            case "polygon":
+                return this.clonePolygon(layerWrapper.layer);
+                break;
         }
     };
 
     this.cloneRectangle = function (layer) {
+        this.selectionData = {
+            latitude1: layer._latlngs[1].lat,
+            longitude1: layer._latlngs[1].lng,
+            latitude2: layer._latlngs[3].lat,
+            longitude2: layer._latlngs[3].lng
+        };
+        this.queryMode = com.capstone.Query.TaxisInRange;
         var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
         return L.rectangle(bounds, layer.options);
+    };
+
+    this.clonePolygon = function (layer) {
+        this.selectionData = {
+            points : []
+        };
+        for (var i = 0; i < layer._latlngs.length; i++) {
+            this.selectionData.points.push({ Latitude : layer._latlngs[i].lat, Longitude : layer._latlngs[i].lng });
+        }
+
+        this.queryMode = com.capstone.Query.TaxisInPolygon;
+        return L.polygon(layer._latlngs);
     };
 
     // ---------------------------------------

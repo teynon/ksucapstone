@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Device.Location;
 using System.Linq;
 using System.Web;
+using KSUCapstone2015.Models;
 
 namespace KSUCapstone2015.BLL.Queries
 {
     public class Trip
     {
-        public List<Models.Data.Trip> TaxiInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2, out List<string> errors, string filter)
+        private static DAL.Trips TripDAL;
+        static Trip()
+        {
+            TripDAL = new DAL.Trips();
+        }
+
+        public List<Models.Data.Trip> TaxiInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2, ref List<string> errors, string filter)
         {
             errors = new List<string>();
             List<Models.Data.Trip> results = new List<Models.Data.Trip>();
@@ -27,21 +34,19 @@ namespace KSUCapstone2015.BLL.Queries
                     topLeft.Longitude = p2.Longitude;
                     bottomRight.Longitude = p1.Longitude;
                 }
-                if (filter == "pick")
+
+                switch (getFilterType(filter))
                 {
-                    results = new DAL.Trips().GetPickupsInSector(start, stop, topLeft, bottomRight);
-                }
-                else if(filter == "drop")
-                {
-                    results = new DAL.Trips().GetDropoffsInSector(start, stop, topLeft, bottomRight);
-                }
-                else if (filter == "both")
-                {
-                    results = new DAL.Trips().GetPickupsAndDropoffsInSector(start, stop, topLeft, bottomRight);
-                }
-                else
-                {
-                    throw new Exception("Error in filter selection mode please try again");
+                    case FilterTypes.drop:
+                        results = TripDAL.GetDropoffsInSector(start, stop, topLeft, bottomRight);
+                        break;
+                    case FilterTypes.both:
+                        results = TripDAL.GetPickupsAndDropoffsInSector(start, stop, topLeft, bottomRight);
+                        break;
+                    case FilterTypes.pick:
+                    default:
+                        results = TripDAL.GetPickupsInSector(start, stop, topLeft, bottomRight);
+                        break;
                 }
             }
             catch (Exception e)
@@ -50,6 +55,25 @@ namespace KSUCapstone2015.BLL.Queries
             }
 
             return results;
+        }
+
+        public List<Models.Data.Trip> TaxiInPolygon(DateTime start, DateTime stop, GeoCoordinate[] points, ref List<string> errors, string filter)
+        {
+            return TripDAL.GetPickupsInPolygon(start, stop, points);
+        }
+
+        public FilterTypes getFilterType(string filter) {
+            try
+            {
+                FilterTypes type = (FilterTypes)Enum.Parse(typeof(FilterTypes), filter);
+                if (Enum.IsDefined(typeof(FilterTypes), type))
+                {
+                    return type;
+                }
+            }
+            catch (Exception) { }
+
+            return FilterTypes.pick;
         }
     }
 }
