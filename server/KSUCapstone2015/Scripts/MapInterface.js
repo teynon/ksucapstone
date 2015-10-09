@@ -203,7 +203,11 @@ com.capstone.MapController = function (mapid) {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
                 self.activeMapQueries[i].UpdateTrip(layer);
             }
+            $("#filterSelection").val("pick");
             return;
+        }
+        else if (self.SelectMode == "trip" && $("#filterSelection").val() == "pick") {
+            self.clear();
         }
         else {
             // If we only allow one selection at a time, remove all query points.
@@ -399,7 +403,11 @@ com.capstone.MapController = function (mapid) {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
                 self.activeMapQueries[i].UpdateTrip(layer);
             }
+            $("#filterSelection").val("pick");
             return;
+        }
+        else if (self.SelectMode == "trip" && $("#filterSelection").val() == "pick") {
+            self.clear();
         }
 
         this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), layer, clonedLayer));

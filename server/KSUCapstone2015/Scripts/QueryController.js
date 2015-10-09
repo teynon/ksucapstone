@@ -179,17 +179,17 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         for (var i = 0; i < query.QueryResults.length; i++) {
             var latlng = L.latLng(query.QueryResults[i].PickupLatitude, query.QueryResults[i].PickupLongitude);
             var latlng2 = L.latLng(query.QueryResults[i].DropoffLatitude, query.QueryResults[i].DropoffLongitude);
-            if (query.SelectionHitTest(latlng) && query.SelectionHitTest(latlng2)) {
+            if (query.SelectionHitTest(latlng) && query.SelectionHitTestDrop(latlng2)) {
                 query.AddPoint(latlng, 2, {
                     color: 'green',
                     fillColor: '#f03',
                     fillOpacity: 0.25
-                }, sideBySide);
+                }, false);
                 query.AddPoint(latlng2, 2, {
                     color: 'orange',
                     fillColor: '#A03',
                     fillOpacity: 0.25
-                }, sideBySide);
+                }, false);
             }
         }
     };
@@ -330,12 +330,11 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
     this.SelectionHitTest = function (latlng) {
         var hitTest = false;
-        for (var i = 0; i < query.MapSelectionLayer.length; i++) {
-            var layerlatLng = query.MapSelectionLayer[i]._latlngs;
-            if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
-                hitTest = true;
-            }
+        var layerlatLng = query.MapSelectionLayer[0]._latlngs;
+        if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
+            hitTest = true;
         }
+
 
         return hitTest;
     }
