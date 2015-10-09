@@ -104,35 +104,6 @@
         <div id="mapClone" class="mapClone"></div>
     </div>
     <div id="report">
-        <h1>Total Pickups and Dropoffs in Selection Region</h1>
-        <div id="PickandDropGraph"></div>
-        <script>
-(function () {
-
-		function createCanvas(divName) {
-
-			var div = document.getElementById(divName);
-			var canvas = document.createElement('canvas');
-			div.appendChild(canvas);
-			if (typeof G_vmlCanvasManager != 'undefined') {
-				canvas = G_vmlCanvasManager.initElement(canvas);
-			}
-			var ctx = canvas.getContext("2d");
-			return ctx;
-		}
-
-		var ctx = createCanvas("PickandDropGraph");
-
-		var graph = new BarGraph(ctx);
-		graph.maxValue = 100;
-		graph.margin = 10;
-		graph.colors = ["#0000FF", "#7FFF00"];
-		graph.xAxisLabelArr = ["Pickups", "Dropoffs"];
-		setInterval(function () {
-			graph.update([Math.random() * 100, Math.random() * 100]);
-		}, 500);
-
-	}());</script>
     </div>
 </body>
 </html>
