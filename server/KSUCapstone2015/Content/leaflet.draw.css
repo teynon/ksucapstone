@@ -137,10 +137,12 @@
 
 .leaflet-draw-toolbar .leaflet-draw-draw-polyline {
 	background-position: -2px -2px;
+    display: none;
 }
 
 .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-polyline {
 	background-position: 0 -1px;
+    display: none;
 }
 
 .leaflet-draw-toolbar .leaflet-draw-draw-polygon {
@@ -169,10 +171,12 @@
 
 .leaflet-draw-toolbar .leaflet-draw-draw-marker {
 	background-position: -122px -2px;
+    display: none;
 }
 
 .leaflet-touch .leaflet-draw-toolbar .leaflet-draw-draw-marker {
 	background-position: -120px -1px;
+    display: none;
 }
 
 /* ================================================================== */
