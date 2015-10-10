@@ -229,16 +229,6 @@ com.capstone.MapController = function (mapid) {
         }
 
         self.map.removeLayer(layer);
-        console.log("self");
-        console.log(self);
-        console.log("self.queryMode");
-        console.log(self.queryMode);
-        console.log("$.extend(self.getQueryData(), this.selectionData)");
-        console.log($.extend(self.getQueryData(), this.selectionData));
-        console.log("layer");
-        console.log(layer);
-        console.log("newLayer2");
-        console.log(newLayer2);
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
         if (self.SelectMode == "trip") {
