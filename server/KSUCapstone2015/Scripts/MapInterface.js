@@ -82,7 +82,7 @@ com.capstone.MapController = function (mapid) {
         this.map.addLayer(this.mapFeatureGroup);
 
         // Initialize the draw drag controls.
-        this.drawingControls = new L.Control.Draw();
+        this.drawingControls = new L.Control.Draw({ draw: { marker: false, polyline: false }});
 
         if (this.draw_selection)
             this.map.addControl(this.drawingControls);
@@ -229,7 +229,16 @@ com.capstone.MapController = function (mapid) {
         }
 
         self.map.removeLayer(layer);
-
+        console.log("self");
+        console.log(self);
+        console.log("self.queryMode");
+        console.log(self.queryMode);
+        console.log("$.extend(self.getQueryData(), this.selectionData)");
+        console.log($.extend(self.getQueryData(), this.selectionData));
+        console.log("layer");
+        console.log(layer);
+        console.log("newLayer2");
+        console.log(newLayer2);
 
         self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
         if (self.SelectMode == "trip") {
@@ -518,6 +527,18 @@ com.capstone.MapController = function (mapid) {
         };
         for (var i = 0; i < layer._latlngs.length; i++) {
             this.selectionData.points.push({ Latitude : layer._latlngs[i].lat, Longitude : layer._latlngs[i].lng });
+        }
+
+        this.queryMode = com.capstone.Query.TaxisInPolygon;
+        return L.polygon(layer._latlngs);
+    };
+
+    this.cloneCircle = function (layer) {
+        this.selectionData = {
+            points: []
+        };
+        for (var i = 0; i < layer._latlngs.length; i++) {
+            this.selectionData.points.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
         }
 
         this.queryMode = com.capstone.Query.TaxisInPolygon;
