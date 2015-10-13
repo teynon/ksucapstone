@@ -195,6 +195,7 @@ com.capstone.MapController = function (mapid) {
                 latitude2: layer.getLatLngs()[3].lat,
                 longitude2: layer.getLatLngs()[3].lng
             };
+            this.queryType = "rectangle";
         } else if (e.layerType == "polygon") {
             this.selectionData = self.getPolygonSelectionData(layer);
         }
@@ -238,21 +239,13 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.getPolygonSelectionData = function (layer) {
-        var sLat = layer.getLatLngs()[0].lat, nLat = layer.getLatLngs()[0].lat,
-            eLng = layer.getLatLngs()[0].lng, wLng = layer.getLatLngs()[0].lng;
-
-        for (var i = 0; i < layer.getLatLngs().length; i++) {
-            if (layer.getLatLngs()[i].lat > nLat)
-                nLat = layer.getLatLngs()[i].lat;
-            if (layer.getLatLngs()[i].lat < sLat)
-                sLat = layer.getLatLngs()[i].lat;
-            if (layer.getLatLngs()[i].lng > eLng)
-                eLng = layer.getLatLngs()[i].lng;
-            if (layer.getLatLngs()[i].lng < wLng)
-                wLng = layer.getLatLngs()[i].lng;
+        this.queryType = "polygon";
+        var data = [];
+        for (var i = 0; i < layer._latlngs.length; i++) {
+            data.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
         }
-
-        return { latitude1: nLat, longitude1: wLng, latitude2: sLat, longitude2: eLng };
+        console.log(data);
+        return { points: data };
     }
 
     this.onMapMove = function (e) {
