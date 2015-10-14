@@ -13,6 +13,9 @@ com.capstone.helpers = {
         return L.latLngBounds(b1, b2);
     },
 
+    getCircleBoundingBox : function(latlng, meters) {
+
+    },
     // --------------------------
     // CONVERSIONS
     // --------------------------

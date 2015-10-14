@@ -198,6 +198,16 @@ com.capstone.MapController = function (mapid) {
             this.queryType = "rectangle";
         } else if (e.layerType == "polygon") {
             this.selectionData = self.getPolygonSelectionData(layer);
+        } else if (e.layerType == "circle") {
+            console.log(layer);
+            console.log("layer.latlng = " + layer._latlng);
+            var boundingBox = com.capstone.helpers.getBoundingBox(layer._latlng, layer._mRadius);
+            this.selectionData = {
+                latitude1: boundingBox.getNorthWest().lat,
+                longitude1: boundingBox.getNorthWest().lng,
+                latitude2: boundingBox.getSouthEast().lat,
+                longitude2: boundingBox.getSouthEast().lng
+            };
         }
         
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
@@ -221,7 +231,7 @@ com.capstone.MapController = function (mapid) {
 
         
         var type = e.layerType, layer = e.layer;
-        var newLayer = self.cloneLayer(e);
+        //var newLayer = self.cloneLayer(e);
 
         var newLayer2 = null;
         if (self.sideBySide) {
@@ -489,6 +499,9 @@ com.capstone.MapController = function (mapid) {
             case "polygon":
                 return this.clonePolygon(layerWrapper.layer);
                 break;
+            case "circle":
+                return this.cloneCircle(layerWrapper.layer);
+                break;
         }
     };
 
@@ -520,12 +533,10 @@ com.capstone.MapController = function (mapid) {
         this.selectionData = {
             points: []
         };
-        for (var i = 0; i < layer._latlngs.length; i++) {
-            this.selectionData.points.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
-        }
 
-        this.queryMode = com.capstone.Query.TaxisInPolygon;
-        return L.polygon(layer._latlngs);
+
+        this.queryMode = com.capstone.Query.TaxisInRange;
+        return L.circle(layer._latlngs);
     };
 
     // ---------------------------------------
