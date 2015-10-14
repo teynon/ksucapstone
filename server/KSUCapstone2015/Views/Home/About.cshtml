@@ -1,144 +1,156 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-    <style type="text/css"></style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <style>
+        #body {
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            background-image:url(http://www.cs.kent.edu/~phoerrle/images/ny.jpg);
+        }
 
-    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+        #ui {
+            width: 65em;
+            background-color: #333333;
+            margin-bottom: 2em;
+            border-bottom: groove;
+            border-right: groove;
+            border-bottom-width: .5em;
+            border-right-width: 1em;
+        }
 
-    <style type="text/css">
+        .img {
+            padding-top: 1em;
+            padding-left: 1em;
+        }
+
+        .img2{
+            padding-top: 1em;
+            padding-left: 1em;
+            padding-bottom: 1em;
+        }
+
+        #desc {
+            padding-left: 1em;
+            color: lightgray;
+        }
+
+        .tblColMarg {
+            padding-left: 1em;
+        }
+
+        .h1 {
+            color: lightgray;
+            text-align: center;
+        }
+
+        .h2 {
+            color: #333333;
+            font-weight: bold;
+            font-size: 3em;
+            text-align: left;
+            border-bottom: groove;
+            border-bottom-width: .5em;
+            margin-right: 5em;
+        }
+
+        .navMain {
+            float: right;
+            width: 15em;
+            height: 55.78em;
+            background-color: #333333;
+            display: block;
+            overflow: auto;
+            text-align: left;
+            text-decoration: none;
+            margin-bottom: 1em;
+            border-bottom: groove;
+            border-right: groove;
+            border-width: 1em;
+        }
+
+        .navMainElement {
+            display: block;
+            list-style-type: none;
+        }
+
+            .navMainElement:hover {
+                background-color: lightgreen;
+                color: black;
+            }
+
+        .navMainTxt {
+            display: block;
+            padding: 0em 0em;
+            color: black;
+            text-decoration: none;
+            text-align: left;
+            margin-bottom: .5em;
+            color: grey;
+            font-weight: bold;
+        }
+
+        #tbl {
+            width: 65em;
+            background-color: #333333;
+            color: lightgray;
+            border-bottom: groove;
+            border-right: groove;
+            border-bottom-width: 1em;
+            border-right-width: 1em;
+        }
+
     </style>
 
-    <script type="text/javascript">
-        var reportThingy = null;
-
-
-        function InsertReport(data) {
-            var w = 500;
-            var h = 500;
-            var r = h / 2;
-            var color = d3.scale.category20c();
-
-            reportThingy = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-            var pie = d3.layout.pie().value(function (d) { return d.value; });
-
-            // declare an arc generator function
-            var arc = d3.svg.arc().outerRadius(r).innerRadius(160);
-
-
-            // select paths, use arc generator to draw
-            var arcs = reportThingy.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-            arcs.append("svg:path")
-                .attr("fill", function (d, i) {
-                    return color(i);
-                })
-                .attr("d", function (d) {
-                    console.log(arc(d));
-                    return arc(d);
-                });
-
-
-            arcs.append("svg:text").attr("transform", function (d) {
-                d.innerRadius = 150;
-                d.outerRadius = r;
-                return "translate(" + arc.centroid(d) + ")";
-            }).attr("text-anchor", "middle").text(function (d, i) {
-                return data[i].label;
-            });
-        }
-
-        function UpdateReport(data) {
-            var w = 500;
-            var h = 500;
-            var r = h / 2;
-            var color = d3.scale.category20c();
-
-            reportThingy.empty();
-
-            reportThingy.data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
-            var pie = d3.layout.pie().value(function (d) { return d.value; });
-
-            // declare an arc generator function
-            var arc = d3.svg.arc().outerRadius(r).innerRadius(160);
-
-
-            // select paths, use arc generator to draw
-            var arcs = reportThingy.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
-            arcs.append("svg:path")
-                .attr("fill", function (d, i) {
-                    return color(i);
-                })
-                .attr("d", function (d) {
-                    console.log(arc(d));
-                    return arc(d);
-                });
-
-
-            arcs.append("svg:text").attr("transform", function (d) {
-                d.innerRadius = 150;
-                d.outerRadius = r;
-                return "translate(" + arc.centroid(d) + ")";
-            }).attr("text-anchor", "middle").text(function (d, i) {
-                return data[i].label;
-            });
-        }
-  
-        window.onload = function () {
-            var data = [{ "label": "H", "value": 20 },
-                              { "label": "U.E.S", "value": 100 },   // Upper East Side
-                              { "label": "C.P", "value": 30 },      // Central Park
-                              { "label": "U.W.S", "value": 30 },    // Upper West Side
-                              { "label": "M.W", "value": 30 },      // Midtown West
-                              { "label": "M.E", "value": 30 },      // Midtown East
-                              { "label": "M.H", "value": 30 },      // Murray Hill
-                              { "label": "C", "value": 30 },        // Chelsea
-                              { "label": "G", "value": 30 },        // Gramercy
-                              { "label": "W.V", "value": 30 },      // West Village
-                              { "label": "E.V", "value": 30 },      // East Village
-                              { "label": "G.V", "value": 30 },      // Greenwich Village
-                              { "label": "Soho", "value": 30 },     // Soho
-                              { "label": "C", "value": 30 },        // Chinatown
-                              { "label": "Tr", "value": 30 },       // Tribeca
-                              { "label": "L.E.S", "value": 30 },    // Lower East Side  
-                              { "label": "F.D", "value": 30 },      // Financial District
-            ];
-
-            InsertReport(data);
-
-            setTimeout(function () {
-
-
-                var data = [{ "label": "H", "value": 40 },
-                                  { "label": "U.E.S", "value": 200 },   // Upper East Side
-                                  { "label": "C.P", "value": 10 },      // Central Park
-                                  { "label": "U.W.S", "value": 20 },    // Upper West Side
-                                  { "label": "M.W", "value": 30 },      // Midtown West
-                                  { "label": "M.E", "value": 30 },      // Midtown East
-                                  { "label": "M.H", "value": 30 },      // Murray Hill
-                                  { "label": "C", "value": 30 },        // Chelsea
-                                  { "label": "G", "value": 30 },        // Gramercy
-                                  { "label": "W.V", "value": 30 },      // West Village
-                                  { "label": "E.V", "value": 30 },      // East Village
-                                  { "label": "G.V", "value": 30 },      // Greenwich Village
-                                  { "label": "Soho", "value": 30 },     // Soho
-                                  { "label": "C", "value": 30 },        // Chinatown
-                                  { "label": "Tr", "value": 30 },       // Tribeca
-                                  { "label": "L.E.S", "value": 30 },    // Lower East Side  
-                                  { "label": "F.D", "value": 30 },      // Financial District
-                ];
-
-                UpdateReport(data);
-
-            }, 2000);
-        }
-
-    </script>
-
 </head>
-<body>
-    <div id="chart"></div>
+<body id="body">
+    <nav class="navMain">
+        <h1 class="h1">Resources</h1>
+        <ul>
+            <li class="navMainElement">
+                <a class="navMainTxt" href="#">Leaflet</a>
+            </li>
+            <li class="navMainElement">
+                <a class="navMainTxt" href="#">Javascript</a>
+            </li>
+            <li class="navMainElement">
+                <a class="navMainTxt" href="#">MySQL</a>
+            </li>
+            <li class="navMainElement">
+                <a class="navMainTxt" href="#">D3</a>
+            </li>
+        </ul>
+    </nav>
 
+    <h2 class="h2">Features and Functions</h2>
+
+    <div id="ui">
+        <div class="img">
+        <img src="http://www.cs.kent.edu/~phoerrle/images/UI.PNG" />
+        </div>
+
+        <br />
+        <p id="desc">
+            Status Bar - Displays aplication status and amount of results once loaded <br />
+            Playback Bar - Moves in increments relative to time <br />
+            Date Time Picker - Gives User the ability to select From and To (Dates and Times) <br />
+            Filter Area Selection - Select from either Pickups, Dropoffs, or both. Displays selected options in desired shape <br />
+            Advanced Query Mode - Brings the toolbar for shape selection into view <br />
+            Meter Option Box - Allows the User to select the size of the desired shape <br />
+            Side by Side - Brings up a second map on the right hand side that can select its own dates and times to compare with the left hand side's data <br />
+            Report - Gives Statistics and Visualizations of the data through graphs <br />
+            Clear Map - Clears map of all queries <br />
+        </p>
+    </div>
+
+    <div id="tbl">
+        <table>
+            <tr>
+                <td class="img2"> <img src="http://www.cs.kent.edu/~phoerrle/images/toolbar.PNG" /> </td>
+                <td class="tblColMarg"> Zoom Map In<br /> Zoom Map Out<br /><br /> Draw a Polygon<br /> Draw a Square<br /> Draw a Circle<br /> </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

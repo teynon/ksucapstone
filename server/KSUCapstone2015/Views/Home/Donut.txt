@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+    <style type="text/css"></style>
+
+
+    <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+
+    <style type="text/css">
+    </style>
+
+    <script type="text/javascript">
+        var reportThingy = null;
+
+
+        function InsertReport(data) {
+            var w = 500;
+            var h = 500;
+            var r = h / 2;
+            var color = d3.scale.category20c();
+
+            reportThingy = d3.select('#chart').append("svg:svg").data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+            var pie = d3.layout.pie().value(function (d) { return d.value; });
+
+            // declare an arc generator function
+            var arc = d3.svg.arc().outerRadius(r).innerRadius(160);
+
+
+            // select paths, use arc generator to draw
+            var arcs = reportThingy.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+            arcs.append("svg:path")
+                .attr("fill", function (d, i) {
+                    return color(i);
+                })
+                .attr("d", function (d) {
+                    console.log(arc(d));
+                    return arc(d);
+                });
+
+
+            arcs.append("svg:text").attr("transform", function (d) {
+                d.innerRadius = 150;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";
+            }).attr("text-anchor", "middle").text(function (d, i) {
+                return data[i].label;
+            });
+        }
+
+        function UpdateReport(data) {
+            var w = 500;
+            var h = 500;
+            var r = h / 2;
+            var color = d3.scale.category20c();
+
+            reportThingy.empty();
+
+            reportThingy.data([data]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+            var pie = d3.layout.pie().value(function (d) { return d.value; });
+
+            // declare an arc generator function
+            var arc = d3.svg.arc().outerRadius(r).innerRadius(160);
+
+
+            // select paths, use arc generator to draw
+            var arcs = reportThingy.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
+            arcs.append("svg:path")
+                .attr("fill", function (d, i) {
+                    return color(i);
+                })
+                .attr("d", function (d) {
+                    console.log(arc(d));
+                    return arc(d);
+                });
+
+
+            arcs.append("svg:text").attr("transform", function (d) {
+                d.innerRadius = 150;
+                d.outerRadius = r;
+                return "translate(" + arc.centroid(d) + ")";
+            }).attr("text-anchor", "middle").text(function (d, i) {
+                return data[i].label;
+            });
+        }
+  
+        window.onload = function () {
+            var data = [{ "label": "H", "value": 20 },
+                              { "label": "U.E.S", "value": 100 },   // Upper East Side
+                              { "label": "C.P", "value": 30 },      // Central Park
+                              { "label": "U.W.S", "value": 30 },    // Upper West Side
+                              { "label": "M.W", "value": 30 },      // Midtown West
+                              { "label": "M.E", "value": 30 },      // Midtown East
+                              { "label": "M.H", "value": 30 },      // Murray Hill
+                              { "label": "C", "value": 30 },        // Chelsea
+                              { "label": "G", "value": 30 },        // Gramercy
+                              { "label": "W.V", "value": 30 },      // West Village
+                              { "label": "E.V", "value": 30 },      // East Village
+                              { "label": "G.V", "value": 30 },      // Greenwich Village
+                              { "label": "Soho", "value": 30 },     // Soho
+                              { "label": "C", "value": 30 },        // Chinatown
+                              { "label": "Tr", "value": 30 },       // Tribeca
+                              { "label": "L.E.S", "value": 30 },    // Lower East Side  
+                              { "label": "F.D", "value": 30 },      // Financial District
+            ];
+
+            InsertReport(data);
+
+            setTimeout(function () {
+
+
+                var data = [{ "label": "H", "value": 40 },
+                                  { "label": "U.E.S", "value": 200 },   // Upper East Side
+                                  { "label": "C.P", "value": 10 },      // Central Park
+                                  { "label": "U.W.S", "value": 20 },    // Upper West Side
+                                  { "label": "M.W", "value": 30 },      // Midtown West
+                                  { "label": "M.E", "value": 30 },      // Midtown East
+                                  { "label": "M.H", "value": 30 },      // Murray Hill
+                                  { "label": "C", "value": 30 },        // Chelsea
+                                  { "label": "G", "value": 30 },        // Gramercy
+                                  { "label": "W.V", "value": 30 },      // West Village
+                                  { "label": "E.V", "value": 30 },      // East Village
+                                  { "label": "G.V", "value": 30 },      // Greenwich Village
+                                  { "label": "Soho", "value": 30 },     // Soho
+                                  { "label": "C", "value": 30 },        // Chinatown
+                                  { "label": "Tr", "value": 30 },       // Tribeca
+                                  { "label": "L.E.S", "value": 30 },    // Lower East Side  
+                                  { "label": "F.D", "value": 30 },      // Financial District
+                ];
+
+                UpdateReport(data);
+
+            }, 2000);
+        }
+
+    </script>
+
+</head>
+<body>
+    <div id="chart"></div>
+
+</body>
+</html>
