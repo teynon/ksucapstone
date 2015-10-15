@@ -216,3 +216,6 @@ FakesAssemblies/
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 Data/12OCT2015.sql
+
+# RubyMine files
+.idea/
