@@ -29,7 +29,8 @@ namespace KSUCapstone2015
                 "~/Scripts/leaflet.draw.drag.js",
                 "~/Scripts/leaflet.label.js",
                 "~/Scripts/jacwright.date.format.js",
-                "~/Scripts/barGraph.js"));
+                "~/Scripts/barGraph.js",
+                "~/Scripts/canvasjs.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
