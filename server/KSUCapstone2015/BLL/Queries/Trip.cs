@@ -59,7 +59,22 @@ namespace KSUCapstone2015.BLL.Queries
 
         public List<Models.Data.Trip> TaxiInPolygon(DateTime start, DateTime stop, GeoCoordinate[] points, ref List<string> errors, string filter)
         {
-            return TripDAL.GetPickupsInPolygon(start, stop, points);
+            List<Models.Data.Trip> results = new List<Models.Data.Trip>();
+            switch (getFilterType(filter))
+            {
+                case FilterTypes.drop:
+                    results = TripDAL.GetDropoffsInPolygon(start, stop, points);
+                    break;
+                case FilterTypes.both:
+                    results = TripDAL.GetPickupsAndDropoffsInPolygon(start, stop, points);
+                    break;
+                case FilterTypes.pick:
+                default:
+                    results = TripDAL.GetPickupsInPolygon(start, stop, points);
+                    break;
+            }
+
+            return results;
         }
 
         public FilterTypes getFilterType(string filter) {
