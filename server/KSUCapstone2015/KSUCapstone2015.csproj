@@ -194,6 +194,7 @@
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\leaflet.css" />
     <Content Include="Content\leaflet.draw.css" />
+    <Content Include="Scripts\canvasjs.min.js" />
     <Content Include="Scripts\jacwright.date.format.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
