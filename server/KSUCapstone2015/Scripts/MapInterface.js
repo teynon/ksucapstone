@@ -550,6 +550,8 @@ com.capstone.MapController = function (mapid) {
         var recenterMap = true;
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
+       
+        com.capstone.ReportController.updateChart(this.activeMapQueries);
 
         // Stop any active animation and begin the new animation.
         $("#report").stop().animate({ "width": "50%" }, 400, function () {
@@ -594,7 +596,7 @@ $(document).ready(function () {
 
     // Set up the map controller. Save for future reference.
     com.capstone.mapController = new com.capstone.MapController('map');
-    com.capstone.ReportController = new com.capstone.ReportController('report');
+    com.capstone.ReportController = new com.capstone.ReportController('report', com.capstone.mapController);
 
     // Bind the button's click event. (SAMPLE)
     $('#btnReport').on("click", com.capstone.mapController.toggleReportView);
