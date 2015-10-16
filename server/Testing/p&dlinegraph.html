@@ -4,13 +4,14 @@
 <head>  
 	<title>Line Graph Test</title>
   <script type="text/javascript">
-  window.onload = function () {
+  window.onload = setInterval(function () {
     var chart = new CanvasJS.Chart("chartContainer",
     {
       theme: "theme2",
       title:{
         text: "Pickups and Drop-offs per hour"
       },
+      animationEnabled: true,
       axisX: {
 	  title: "Hours",
         valueFormatString: "hh:mm tt",
@@ -73,7 +74,7 @@
     });
 
 chart.render()
-}
+}, 3000);
 </script>
 <script type="text/javascript" src="canvasjs.js"></script></head>
 <body>
