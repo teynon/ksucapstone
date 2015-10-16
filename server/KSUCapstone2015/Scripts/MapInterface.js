@@ -594,6 +594,7 @@ $(document).ready(function () {
 
     // Set up the map controller. Save for future reference.
     com.capstone.mapController = new com.capstone.MapController('map');
+    com.capstone.ReportController = new com.capstone.ReportController('report');
 
     // Bind the button's click event. (SAMPLE)
     $('#btnReport').on("click", com.capstone.mapController.toggleReportView);
