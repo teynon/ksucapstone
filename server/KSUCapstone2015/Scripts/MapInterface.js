@@ -605,7 +605,7 @@ com.capstone.MapController = function (mapid) {
 $(document).ready(function () {
 
     // Prevent the map from taking commands when user clicks on the overlay.
-    $(".hud,.bottomPanel").on("click", com.capstone.StopPropogation)
+    $(".hud,.bottomPanel,.bottomRightPanel").on("click", com.capstone.StopPropogation)
     .on("dblclick", com.capstone.StopPropogation)
     .on("mousedown", com.capstone.StopPropogation);
 
