@@ -17,7 +17,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapController = controller;
     this.MapSelectionLayer = []
     this.MapSelectionLayer.push(selectionMap);
-    this.SideBySideMapSelectionLayer = sideBySideSelectionMap;
+    this.SideBySideMapSelectionLayer = []
+    this.SideBySideMapSelectionLayer.push(sideBySideSelectionMap);
     this.MapResultsLayer = L.layerGroup();
     this.MapLabelLayer = L.layerGroup();
     this.MapLabelLayerSBS = L.layerGroup();
@@ -42,7 +43,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.MapController.map.addLayer(this.MapResultsLayer);
     this.MapController.map.addLayer(this.MapLabelLayer);
     if (this.MapController.sideBySide) {
-        this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer);
+        this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer[0]);
         this.MapController.sideBySideMap.addLayer(this.MapResults2Layer);
         this.MapController.sideBySideMap.addLayer(this.MapLabelLayerSBS);
     }
@@ -126,9 +127,12 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
         var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
         this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
-
-        this.UpdateMap(points, false);
-
+        if (query.MapController.SelectMode == "trip") {
+            this.UpdateTrip(query.MapSelectionLayer[1], query.SideBySideMapSelectionLayer[1],points);
+        }
+        else {
+            this.UpdateMap(points, false);
+        }
         // Again for side by side:
         if (query.MapController.sideBySide) {
             var points = [];
@@ -146,9 +150,13 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             }
 
             var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
-            this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
-
-            this.UpdateMap(points, true);
+            this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
+            if (query.MapController.SelectMode == "trip") {
+                this.UpdateTrip(query.MapSelectionLayer[1], query.SideBySideMapSelectionLayer[1], points);
+            }
+            else {
+                this.UpdateMap(points, true);
+            }
         }
     }
     
@@ -159,11 +167,16 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         if (this.QueryFunction.query.call(this, this.QueryData, this.OnQuery, false)) {
             // Start blinking the selection layer until results are processed.
             this.LoadingTimer = setInterval(function () {
-                if (query.MapSelectionShown)
-                    query.MapController.map.removeLayer(query.MapSelectionLayer[0]);
-                else
-                    query.MapController.map.addLayer(query.MapSelectionLayer[0]);
-
+                if (query.MapSelectionShown){
+                    for(var i=0;i<query.MapSelectionLayer.length;i++){
+                        query.MapController.map.removeLayer(query.MapSelectionLayer[i]);
+                    }
+                }
+                else{
+                    for(var i=0;i<query.MapSelectionLayer.length;i++){
+                        query.MapController.map.addLayer(query.MapSelectionLayer[i]);
+                    }
+                }
                 query.MapSelectionShown = !query.MapSelectionShown;
             }, 250);
 
@@ -181,11 +194,16 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 if (query.QueryFunction.query.call(query, sbsQueryData, query.OnQuery, true)) {
                     // Start blinking the selection layer until results are processed.
                     query.LoadingTimerSBS = setInterval(function () {
-                        if (query.MapSelectionShownSBS)
-                            query.MapController.sideBySideMap.removeLayer(query.SideBySideMapSelectionLayer);
-                        else
-                            query.MapController.sideBySideMap.addLayer(query.SideBySideMapSelectionLayer);
-
+                        if (query.MapSelectionShownSBS) {
+                            for (var i = 0; i < query.SideBySideMapSelectionLayer.length; i++) {
+                                query.MapController.sideBySideMap.removeLayer(query.SideBySideMapSelectionLayer[i]);
+                            }
+                        }
+                        else {
+                            for (var i = 0; i < query.SideBySideMapSelectionLayer.length; i++) {
+                                query.MapController.sideBySideMap.addLayer(query.SideBySideMapSelectionLayer[i]);
+                            }
+                        }
                         query.MapSelectionShownSBS = !query.MapSelectionShownSBS;
                     }, 250);
                 }
@@ -199,14 +217,39 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         }
     };
 
-    this.UpdateTrip = function (layer) {
+    this.UpdateTrip = function (layer, sbsLayer, points) {
+        if (query.MapSelectionLayer.length < 2) {
+            query.MapSelectionLayer.push(layer);
+        }
         query.MapController.map.addLayer(layer);
-        query.MapSelectionLayer.push(layer);
         query.MapResultsLayer.clearLayers();
-        for (var i = 0; i < query.QueryResults.length; i++) {
-            var latlng = L.latLng(query.QueryResults[i].PickupLatitude, query.QueryResults[i].PickupLongitude);
-            var latlng2 = L.latLng(query.QueryResults[i].DropoffLatitude, query.QueryResults[i].DropoffLongitude);
-            if (query.SelectionHitTest(latlng) && query.SelectionHitTestDrop(latlng2)) {
+
+        //if theres a sidebyside
+        if (query.MapController.sideBySide) {
+            query.MapResults2Layer.clearLayers();
+            if (query.SideBySideMapSelectionLayer.length < 2) {
+                query.SideBySideMapSelectionLayer.push(sbsLayer);
+            }
+            if (query.MapSelectionShownSBS)
+                query.MapController.sideBySideMap.removeLayer(query.SideBySideMapSelectionLayer[1]);
+            else
+                query.MapController.sideBySideMap.addLayer(query.SideBySideMapSelectionLayer[1]);
+            query.MapSelectionShownSBS = !query.MapSelectionShownSBS;
+        }
+        if (points != null)
+            var length = points.length
+        else
+            var length = query.QueryResults.length
+        for (var i = 0; i < length; i++) {
+            if (points != null) {
+                var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+                var latlng2 = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+            }
+            else {
+                var latlng = L.latLng(query.QueryResults[i].PickupLatitude, query.QueryResults[i].PickupLongitude);
+                var latlng2 = L.latLng(query.QueryResults[i].DropoffLatitude, query.QueryResults[i].DropoffLongitude);
+            }
+            if (query.SelectionHitTest(latlng, query.MapSelectionLayer[0]) && query.SelectionHitTest(latlng2, query.MapSelectionLayer[1])) {
                 query.AddPoint(latlng, 2, {
                     color: 'green',
                     fillColor: '#f03',
@@ -217,6 +260,21 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                     fillColor: '#A03',
                     fillOpacity: 0.25
                 }, false);
+            }
+            //if theres a sidebyside
+            if (query.MapController.sideBySide) {
+                if (query.SelectionHitTest(latlng, query.SideBySideMapSelectionLayer[0]) && query.SelectionHitTest(latlng2, query.SideBySideMapSelectionLayer[1])) {
+                    query.AddPoint(latlng, 2, {
+                        color: 'green',
+                        fillColor: '#f03',
+                        fillOpacity: 0.25
+                    }, true);
+                    query.AddPoint(latlng2, 2, {
+                        color: 'orange',
+                        fillColor: '#A03',
+                        fillOpacity: 0.25
+                    }, true);
+                }
             }
         }
     };
@@ -234,12 +292,12 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                     break;
                 case "both":
                     var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
-                    if (this.SelectionHitTest(latlng)) {
+                    if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
                         this.AddPickup(points[i], sideBySide);
                     }
 
                     latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
-                    if (this.SelectionHitTest(latlng)) {
+                    if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
                         this.AddDropoff(points[i], sideBySide);
                     }
                 default:
@@ -334,40 +392,22 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         clearInterval(query.LoadingTimerSBS);
         this.LoadingTimerSBS = null;
 
-        if (!this.MapSelectionShownSBS)
-            this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer);
+        if (!this.MapSelectionShownSBS) {
+            
+            for (var i = 0; i < query.SideBySideMapSelectionLayer.length; i++) {
+                this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer[i]);
+            }
+        }
 
         this.MapSelectionShownSBS = true;
     }
 
-    // This function isn't needed unless we allow users to draw separately on the second map. Since each map
-    // contains the same selection, the first function will work just fine. -teynon
-    this.SelectionHitTestDrop = function (latlng) {
-        var hitTest = false;
-        try{
-            var layerlatLng = query.MapSelectionLayer[1]._latlngs;
-        }
-        catch (e) {
-            consol.log(e.message);
-        }
-        if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
-            hitTest = true;
-        }
-
-        return hitTest;
+    this.SelectionHitTest = function (latlng,selectionLayer) {
+        return query.PolyHitTest(latlng,selectionLayer);
     }
 
-    this.SelectionHitTest = function (latlng) {
-        if (query.QueryData.selectionMode == "polygon") {
-            return query.PolyHitTest(latlng);
-        }
-        else {
-            return query.RectHitTest(latlng);
-        }
-    }
-
-    this.PolyHitTest = function (latlng) {
-        var vertices = query.MapSelectionLayer[0]._latlngs.slice();
+    this.PolyHitTest = function (latlng, selectionLayer) {
+        var vertices = selectionLayer._latlngs.slice();
         vertices.push(vertices[0]);
         var j = vertices.length - 2;
         var c = false;
@@ -382,9 +422,9 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         return c;
     }
 
-    this.RectHitTest = function (latlng) {
+    this.RectHitTest = function (latlng, selectionLayer) {
         var hitTest = false;
-        var layerlatLng = query.MapSelectionLayer[0]._latlngs;
+        var layerlatLng = selectionLayer._latlngs;
         if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
             hitTest = true;
         }
@@ -400,7 +440,9 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
         try {
             if (this.MapController.sideBySide) {
-                this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer);
+                for (var i = 0; i < this.SideBySideMapSelectionLayer.length; i++) {
+                    this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer[i]);
+                }
                 this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
                 this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
             }

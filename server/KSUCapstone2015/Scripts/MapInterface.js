@@ -171,7 +171,7 @@ com.capstone.MapController = function (mapid) {
     this.onMapRightClick = function (e) {
         for (var i = 0; i < self.activeMapQueries.length; i++) {
             // Hit test the query object.
-            if (self.activeMapQueries[i].SelectionHitTest(e.latlng)) {
+            if (self.activeMapQueries[i].SelectionHitTest(e.latlng, self.activeMapQueries[i].MapSelectionLayer[0]) || self.activeMapQueries[i].SelectionHitTest(e.latlng, self.activeMapQueries[i].MapSelectionLayer[1])) {
                 // Let the query object dispose itself.
                 self.activeMapQueries[i].Dispose();
 
@@ -187,7 +187,14 @@ com.capstone.MapController = function (mapid) {
     this.onMapDraw = function (e) {
         var type = e.layerType,
             layer = e.layer;
+        var type = e.layerType, layer = e.layer;
+        var newLayer = self.cloneLayer(e);
 
+        var newLayer2 = null;
+        if (self.sideBySide) {
+            newLayer2 = self.cloneLayer(e);
+            self.sideBySideMap.addLayer(newLayer2);
+        }
         if (e.layerType == "rectangle") {
             this.selectionData = {
                 latitude1: layer.getLatLngs()[1].lat,
@@ -202,7 +209,7 @@ com.capstone.MapController = function (mapid) {
         
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
-                self.activeMapQueries[i].UpdateTrip(layer);
+                self.activeMapQueries[i].UpdateTrip(layer, newLayer,null);
             }
             $("#filterSelection").val("pick");
             return;
@@ -215,18 +222,6 @@ com.capstone.MapController = function (mapid) {
             if (self.SelectMode == "single") {
                 self.clear();
             }
-        }
-
-        
-
-        
-        var type = e.layerType, layer = e.layer;
-        var newLayer = self.cloneLayer(e);
-
-        var newLayer2 = null;
-        if (self.sideBySide) {
-            newLayer2 = self.cloneLayer(e);
-            self.sideBySideMap.addLayer(newLayer2);
         }
 
         self.map.removeLayer(layer);
@@ -393,7 +388,7 @@ com.capstone.MapController = function (mapid) {
 
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
-                self.activeMapQueries[i].UpdateTrip(layer);
+                self.activeMapQueries[i].UpdateTrip(layer,clonedLayer,null);
             }
             $("#filterSelection").val("pick");
             return;
