@@ -15,7 +15,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.CompletedQueries = 0;
     this.ResultCount = 0;
     this.MapController = controller;
-    this.MapSelectionLayer = []
+    this.MapSelectionLayer = [];
     this.MapSelectionLayer.push(selectionMap);
     this.SideBySideMapSelectionLayer = []
     this.SideBySideMapSelectionLayer.push(sideBySideSelectionMap);
@@ -65,8 +65,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         var startEST = new Date(startTime);
         var endEST = new Date(endTime);
 
-        startTime = this.ConvertUTC(startEST);
-        endTime = this.ConvertUTC(endEST);
+        startTime = startEST.getTime(); //this.ConvertUTC(startEST);
+        endTime = endEST.getTime();  //this.ConvertUTC(endEST);
 
         return { start: startTime, startEST: startEST, stop: endTime, stopEST: endEST };
     }
