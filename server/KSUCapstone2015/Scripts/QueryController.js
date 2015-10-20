@@ -15,7 +15,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.CompletedQueries = 0;
     this.ResultCount = 0;
     this.MapController = controller;
-    this.MapSelectionLayer = []
+    this.MapSelectionLayer = [];
     this.MapSelectionLayer.push(selectionMap);
     this.SideBySideMapSelectionLayer = sideBySideSelectionMap;
     this.MapResultsLayer = L.layerGroup();
