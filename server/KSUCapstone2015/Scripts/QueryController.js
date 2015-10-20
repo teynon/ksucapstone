@@ -433,6 +433,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.Dispose = function () {
+        this.stopFlashingSelection();
+        this.stopFlashingSelectionSBS();
         this.MapResultsLayer.clearLayers();
         this.MapLabelLayer.clearLayers();
         this.MapResults2Layer.clearLayers();
@@ -443,6 +445,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 for (var i = 0; i < this.SideBySideMapSelectionLayer.length; i++) {
                     this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer[i]);
                 }
+                this.SideBySideMapSelectionLayer.clearLayers();
                 this.MapController.sideBySideMap.removeLayer(this.MapResults2Layer);
                 this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
             }
