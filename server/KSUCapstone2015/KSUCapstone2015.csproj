@@ -168,12 +168,23 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\calendar.png" />
+    <Content Include="Content\images\clear.png" />
+    <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\invisible_marker.png" />
     <Content Include="Content\images\layers-2x.png" />
     <Content Include="Content\images\layers.png" />
     <Content Include="Content\images\marker-icon-2x.png" />
     <Content Include="Content\images\marker-icon.png" />
     <Content Include="Content\images\marker-shadow.png" />
+    <Content Include="Content\images\playback.png" />
+    <Content Include="Content\images\quick_select.png" />
+    <Content Include="Content\images\report.png" />
+    <Content Include="Content\images\selection_mode_both.png" />
+    <Content Include="Content\images\selection_type_single.png" />
+    <Content Include="Content\images\settings.png" />
+    <Content Include="Content\images\share.png" />
+    <Content Include="Content\images\sidebyside.png" />
     <Content Include="Content\images\spritesheet-2x.png" />
     <Content Include="Content\images\spritesheet.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
@@ -249,6 +260,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\leaflet.draw.js" />
+    <Content Include="Scripts\L.ToolbarToggle.js" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -64,8 +64,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         var startEST = new Date(startTime);
         var endEST = new Date(endTime);
 
-        startTime = this.ConvertUTC(startEST);
-        endTime = this.ConvertUTC(endEST);
+        startTime = startEST.getTime(); //this.ConvertUTC(startEST);
+        endTime = endEST.getTime();  //this.ConvertUTC(endEST);
 
         return { start: startTime, startEST: startEST, stop: endTime, stopEST: endEST };
     }
