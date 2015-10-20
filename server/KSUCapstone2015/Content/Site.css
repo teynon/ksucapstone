@@ -225,6 +225,24 @@ section.bottomRightPanel > section {
     cursor: pointer;
 }
 
+section.bottomMiddlePanel {
+    position: absolute;
+    left: calc(50vw + 5px);
+    width: 50%;
+    bottom: 0;
+    z-index: 2000;
+    display: none;
+}
+
+section.bottomMiddlePanel > section {
+    background-color: #162330;
+    padding: 4px;
+    border-radius: 4px 4px 0px 0px;
+    margin-left: 4px;
+    cursor: pointer;
+    float: left;
+}
+
 section.headerPanel {
     position: absolute;
     width: 100%;

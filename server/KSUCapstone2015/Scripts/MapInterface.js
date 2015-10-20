@@ -361,6 +361,17 @@ com.capstone.MapController = function (mapid) {
         this.SelectMode = mode;
     }
 
+    this.toggleSideBySideLocked = function () {
+        self.sideBySideLocked = !self.sideBySideLocked;
+        self.updateMap2();
+        if (self.sideBySideLocked) {
+            $("#sideBySideLocked").addClass("active");
+        }
+        else {
+            $("#sideBySideLocked").removeClass("active");
+        }
+    }
+
     this.setSideBySideLocked = function (locked) {
         this.sideBySideLocked = locked;
         this.updateMap2();
@@ -460,6 +471,7 @@ com.capstone.MapController = function (mapid) {
 
     this.enableSideBySide = function () {
         self.sideBySide = true;
+        //$("#sbspanel").css("display", "block");
         $("#mapCloneContainer").stop().css("display", "block").animate({ "width": "50%" }, 500)
             .promise().done(function () {
                 if (!self.sideBySideInitialized) {
@@ -476,7 +488,7 @@ com.capstone.MapController = function (mapid) {
                 self.updateMapPosition();
             });
 
-        $("#sideBySideHud").stop(true).hide().delay(500).fadeIn(200);
+        $("#sbspanel").stop(true).hide().delay(500).fadeIn(200);
 
         self.hideReportView();
 
@@ -484,7 +496,7 @@ com.capstone.MapController = function (mapid) {
 
     this.disableSideBySide = function () {
         self.sideBySideMapContainer = $("#mapClone");
-
+        //$("#sbspanel").css("display", "none");
 
         self.sideBySide = false;
         $("#mapCloneContainer").stop().animate({ "width": "0%" }, 500)
@@ -492,7 +504,7 @@ com.capstone.MapController = function (mapid) {
                 $("#mapCloneContainer").css("display", "none");
             });
 
-        $("#sideBySideHud").stop(true).fadeOut(200);
+        $("#sbspanel").stop(true).fadeOut(200);
 
     }
 
@@ -605,7 +617,7 @@ com.capstone.MapController = function (mapid) {
 $(document).ready(function () {
 
     // Prevent the map from taking commands when user clicks on the overlay.
-    $(".hud,.bottomPanel,.bottomRightPanel").on("click", com.capstone.StopPropogation)
+    $(".hud,.bottomPanel,.bottomRightPanel,.bottomMiddlePanel").on("click", com.capstone.StopPropogation)
     .on("dblclick", com.capstone.StopPropogation)
     .on("mousedown", com.capstone.StopPropogation);
 
@@ -674,7 +686,6 @@ $(document).ready(function () {
         com.capstone.mapController.setDrawingMode($(this).is(':checked'));
     });
 
-    $("#lock_view").on("change", function () {
-        com.capstone.mapController.setSideBySideLocked($(this).is(':checked'));
-    });
+    $("#sideBySideLocked").on("click", com.capstone.mapController.toggleSideBySideLocked);
+
 });

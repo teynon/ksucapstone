@@ -28,7 +28,7 @@
                 <img src="~/Content/images/playback.png" />
             </section>
 
-            <section id="settings">
+            <section id="settings" onclick="com.capstone.UI.showSettingsMenu(this, 'settingsMenu', 'settingsMenuTabs');">
                 <img src="~/Content/images/settings.png" />
             </section>
 
@@ -38,6 +38,30 @@
 
             <section id="btnClear">
                 <img src="~/Content/images/clear.png" />
+            </section>
+        </section>
+
+        <section class="bottomRightPanel">
+            <section id="reportView">
+                <img src="~/Content/images/report.png" />
+            </section>
+
+            <section id="sideBySide">
+                <img src="~/Content/images/sidebyside.png" />
+            </section>
+        </section>
+
+        <section class="bottomMiddlePanel" id="sbspanel">
+            <section id="timerangesbs" onclick="com.capstone.UI.toggleMenuForUIButton(this, 'timespan');">
+                <img src="~/Content/images/calendar.png" />
+            </section>
+
+            <section id="selectmodesbs" onclick="com.capstone.UI.toggleMenuForUIButton(this, 'typeselect');">
+                <img src="~/Content/images/selection_mode_both.png" />
+            </section>
+
+            <section id="sideBySideLocked" class="active">
+                <img src="~/Content/images/lock.png" />
             </section>
         </section>
 
@@ -94,44 +118,41 @@
             </select>
         </div>
 
-        <section class="bottomRightPanel">
-            <section id="reportView">
-                <img src="~/Content/images/report.png" />
-            </section>
+        <div class="timespan hud" id="timespansbs">
+            <div class="dateselect">
+                <label>From</label> <input type="text" name="datestart" id="sbsdatestart" value="01/01/2013 12:00:00 am" />
+            </div>
+            <div class="dateselect">
+                <label>To</label> <input type="text" name="datestart" id="sbsdateend" value="01/01/2013 1:00:00 am" />
+            </div>
+        </div>
 
-            <section id="sideBySide">
-                <img src="~/Content/images/sidebyside.png" />
-            </section>
-        </section>
-            
+        <div class="typeselect hud">
+            <label>
+                Filter Area Selection:
+            </label>
+            <select id="filterSelectionSBS" style="margin-top: -5px; padding: 0px; display:inline;">
+                <option value="pick">Pickups</option>
+                <option value="drop">Dropoffs</option>
+                <option value="both">Pickups & Dropoffs</option>
+            </select>
+        </div>
 
-            <section id="sideBySideHud">
-
-                <div class="sideBySideMain_Hud hud">
-                    <section class="hudFlex">
-                        <div class="dateselect">
-                            <label>From</label> <input type="text" name="datestart" id="sbsdatestart" value="01/01/2013 12:00:00 am" />
-                        </div>
-                        <div class="dateselect">
-                            <label>To</label> <input type="text" name="datestart" id="sbsdateend" value="01/01/2013 1:00:00 am" />
-                        </div>
-                        <div>
-                            <label>
-                                Filter Area Selection:
-                            </label>
-                            <select id="filterSelectionSBS" style="margin-top: -5px; padding: 0px; display:inline;">
-                                <option value="pick">Pickups</option>
-                                <option value="drop">Dropoffs</option>
-                                <option value="both">Pickups & Dropoffs</option>
-                            </select>
-                        </div>
-                        <span>
-                            <input type="checkbox" id="lock_view" value="true" /> <label for="lock_view">Lock View</label>
-                        </span>
-                    </section>
-                </div>
-            </section>
-</div>
+        <div class="settingsMenu" id="settingsMenu">
+            <div class="tabSection" id="settingsMenuTabs">
+                <ul>
+                    <li><a href="#settingsTabAppearance">Appearance</a></li>
+                    <li><a href="#settingsTabPerformance">Performance</a></li>
+                </ul>
+                <section id="settingsTabAppearance">
+                    Pickup Point Color: <div id="colorSelector"></div>
+                </section>
+                <section id="settingsTabPerformance">
+                    Performance Stuff
+                </section>
+            </div>
+        </div>
+    </div>
     <div id="mapCloneContainer">
         <div id="mapClone" class="mapClone"></div>
     </div>

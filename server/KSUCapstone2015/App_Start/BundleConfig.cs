@@ -13,6 +13,10 @@ namespace KSUCapstone2015
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui.js",
@@ -34,14 +38,17 @@ namespace KSUCapstone2015
                 "~/Scripts/canvasjs.js",
                 "~/Scripts/L.ToolbarToggle.js"));
 
+            bundles.Add(new ScriptBundle("~/ColorPicker").Include(
+                "~/Scripts/colorpicker.js",
+                "~/Scripts/eye.js",
+                "~/Scripts/utils.js",
+                "~/Scripts/layout.js"
+                ));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
@@ -49,7 +56,9 @@ namespace KSUCapstone2015
                       "~/Content/leaflet.css",
                       "~/Content/leaflet.draw.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/jquery.datetimepicker.css"));
+                      "~/Content/jquery.datetimepicker.css",
+                      "~/Content/colorpicker.css",
+                      "~/Content/layout.css"));
         }
     }
 }

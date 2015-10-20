@@ -65,6 +65,24 @@ com.capstone.UI = {
         else {
             com.capstone.UI.showMenuForUIButton(target, menuid);
         }
-}
+    },
 
+    showSettingsMenu: function (target, menuid, tabsectionid) {
+        $("#" + menuid).dialog({
+            modal: true,
+            "minWidth": 500,
+            "width": "50%",
+            "minHeight": 500,
+            "title": "Settings"
+        });
+
+        $("#" + tabsectionid).tabs();
+    }
 };
+
+$(document).ready(function () {
+    $.fn.button.noConflict();
+    $("#colorSelector").ColorPicker({
+
+    });
+});
