@@ -40,7 +40,7 @@ com.capstone.ReportController = function (reportid) {
                         name: "Pickups",
                         markerType: "square",
                         color: "#008000",
-                        toolTipContent: "Speed: {y}",
+                        toolTipContent: "Speed: {y}mph",
                         dataPoints: self.dataPoints
                     }
 
@@ -52,7 +52,7 @@ com.capstone.ReportController = function (reportid) {
     this.updateChart = function (activeMapQueries) {
         for (var queryCounter = 0; queryCounter < activeMapQueries.length; ++queryCounter)
             for (var resultCounter = 0; resultCounter < activeMapQueries[queryCounter].QueryResults.length; ++resultCounter) {
-            self.dataPoints.push({ label: resultCounter, y: activeMapQueries[queryCounter].QueryResults[resultCounter].Distance / ( activeMapQueries[queryCounter].QueryResults[resultCounter].Duration / 3600 ) });
+            self.dataPoints.push({ label: resultCounter, y: Math.round(activeMapQueries[queryCounter].QueryResults[resultCounter].Distance / ( activeMapQueries[queryCounter].QueryResults[resultCounter].Duration / 3600 )) });
         }
         self.chart.render();
     };
