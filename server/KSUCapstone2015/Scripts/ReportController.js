@@ -22,16 +22,20 @@ com.capstone.ReportController = function (reportid) {
             animationEnabled: true,
             axisX: {
                 title: "Trip",
-                interval: 1
+                interval: 20000,
+                labelFontColor: "white",
+                tickColor: "white"
             },
             axisY: {
                 title: "Speed",
-                suffix: " MPH"
+                suffix: " MPH",
+                viewportMaximum: 55,
+                interval: 15
             },
             data: [
                     {
                         type: "line",
-                        showInLegend: true,
+                        showInLegend: false,
                         lineThickness: 2,
                         name: "Pickups",
                         markerType: "square",
