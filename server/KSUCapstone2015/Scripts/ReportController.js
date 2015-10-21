@@ -17,12 +17,18 @@ com.capstone.ReportController = function (reportid) {
         {
             theme: "theme2",
             title: {
-                text: "Speed Per Trip"
+                text: "Average Speed"
             },
+            subtitles:[
+            {
+                text: "In mph",
+                fontSize: 15
+            }
+            ],
             animationEnabled: true,
             axisX: {
                 title: "Trip",
-                interval: 20000,
+                interval: 0,
                 labelFontColor: "white",
                 tickColor: "white"
             },
