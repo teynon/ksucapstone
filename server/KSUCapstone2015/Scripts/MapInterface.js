@@ -204,8 +204,9 @@ com.capstone.MapController = function (mapid) {
         var newLayer2 = null;
         if (self.sideBySide) {
             newLayer2 = self.cloneLayer(e);
-            self.sideBySideMap.addLayer(newLayer2);
+            //self.sideBySideMap.addLayer(newLayer2);
         }
+
         if (e.layerType == "rectangle") {
             this.selectionData = {
                 latitude1: layer.getLatLngs()[1].lat,
@@ -383,6 +384,9 @@ com.capstone.MapController = function (mapid) {
         self.activeMapQueries = [];
 
         self.selectedPoints.clearLayers();
+        if (self.SelectMode == "trip") {
+            $("#filterSelection").val("pick");
+        }
         com.capstone.UI.setStatus("Ready.");
     }
 

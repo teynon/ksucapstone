@@ -230,11 +230,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             if (query.SideBySideMapSelectionLayer.length < 2) {
                 query.SideBySideMapSelectionLayer.push(sbsLayer);
             }
-            if (query.MapSelectionShownSBS)
-                query.MapController.sideBySideMap.removeLayer(query.SideBySideMapSelectionLayer[1]);
-            else
-                query.MapController.sideBySideMap.addLayer(query.SideBySideMapSelectionLayer[1]);
-            query.MapSelectionShownSBS = !query.MapSelectionShownSBS;
+            query.MapController.sideBySideMap.addLayer(query.SideBySideMapSelectionLayer[1]);
         }
         if (points != null)
             var length = points.length
