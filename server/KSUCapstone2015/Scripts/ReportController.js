@@ -56,10 +56,6 @@ com.capstone.ReportController = function (reportid) {
     };
 
     this.updateChart = function (activeMapQueries) {
-        //for (var queryCounter = 0; queryCounter < activeMapQueries.length; ++queryCounter)
-        //    for (var resultCounter = 0; resultCounter < activeMapQueries[queryCounter].QueryResults.length; ++resultCounter) {
-        //    self.dataPoints.push({ label: resultCounter, y: Math.round(activeMapQueries[queryCounter].QueryResults[resultCounter].Distance / ( activeMapQueries[queryCounter].QueryResults[resultCounter].Duration / 3600 )) });
-        //}
         var counter = 1;
         activeMapQueries.forEach(function (activeMapQuery) {
             activeMapQuery.QueryResults.forEach(function (result) {
@@ -67,8 +63,6 @@ com.capstone.ReportController = function (reportid) {
                 ++counter;
             });
         });
-
-                
 
         self.chart.render();
     };
