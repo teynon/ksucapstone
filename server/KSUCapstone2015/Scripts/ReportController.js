@@ -35,7 +35,7 @@ com.capstone.ReportController = function (reportid) {
             axisY: {
                 title: "Speed",
                 suffix: " MPH",
-                viewportMaximum: 55,
+                viewportMaximum: 75,
                 interval: 15
             },
             data: [
