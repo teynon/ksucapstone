@@ -572,7 +572,7 @@ com.capstone.MapController = function (mapid) {
 
     this.showReportView = function () {
         com.capstone.mapStateOpen = false;
-        $("#report").css("display", "block");
+        $("#chartContainer").css("display", "block");
         var recenterMap = true;
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
@@ -580,8 +580,8 @@ com.capstone.MapController = function (mapid) {
         com.capstone.ReportController.updateChart(self.activeMapQueries);
 
         // Stop any active animation and begin the new animation.
-        $("#report").stop().animate({ "width": "50%" }, 400, function () {
-            $("#report").css("display", "block");
+        $("#chartContainer").stop().animate({ "width": "50%" }, 400, function () {
+            $("#chartContainer").css("display", "block");
         });
 
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
@@ -596,8 +596,8 @@ com.capstone.MapController = function (mapid) {
         });
 
         // Stop any active animation and begin the new animation.
-        $("#report").stop().animate({ "width": "0%" }, 400, function () {
-            $("#report").css("display", "none");
+        $("#chartContainer").stop().animate({ "width": "0%" }, 400, function () {
+            $("#chartContainer").css("display", "none");
         });
     };
 

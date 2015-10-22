@@ -176,7 +176,7 @@ textarea {
     color: #FFFFFF;
 }
 
-#report {
+#chartContainer {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -188,12 +188,7 @@ textarea {
     display: none;
 }
 
-#chartContainer {
-    height: 310px;
-    width: 100%;
-} 
-
-#report > h1 {
+#chartContainer > h1 {
     font-size: 32px;
     margin: 0px 0px 5px 0px;
     padding: 0px;
