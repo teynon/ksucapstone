@@ -58,8 +58,11 @@ com.capstone.ReportController = function (reportid) {
     this.updateChart = function (activeMapQuery) {
         var counter = 1;
         activeMapQuery.QueryResults.forEach(function (result) {
-            self.dataPoints.push({ label: counter, y: Math.round(result.Distance / (result.Duration / 3600)) });
-            ++counter;
+            var resultSpeed = Math.ceil(result.Distance / (result.Duration / 3600));
+            if (resultSpeed < 75 && resultSpeed > 0) {
+                self.dataPoints.push({ label: counter, y: resultSpeed });
+                ++counter;
+            }
         });
 
         self.chart.render();
