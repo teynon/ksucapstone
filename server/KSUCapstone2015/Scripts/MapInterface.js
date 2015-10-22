@@ -18,6 +18,9 @@ com.capstone.MapController = function (mapid) {
     // Leaflet MAP Object
     this.map = null;
 
+    // Instance of ReportController
+    this.ReportController = new com.capstone.ReportController('chartContainer');
+
     // Current selection mode for map.
     this.queryType = "rectangle";
     this.SelectMode = "single";
@@ -66,7 +69,6 @@ com.capstone.MapController = function (mapid) {
     this.sideBySideHovered = false;
 
     this.activeMoveSync = false;
-
 
     // -------------------------------------------
     // INITIALIZATION
@@ -577,7 +579,7 @@ com.capstone.MapController = function (mapid) {
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
        
-        com.capstone.ReportController.updateChart(self.activeMapQueries);
+        //self.ReportController.updateChart(self.activeMapQueries);
 
         // Stop any active animation and begin the new animation.
         $("#chartContainer").stop().animate({ "width": "50%" }, 400, function () {
@@ -622,7 +624,6 @@ $(document).ready(function () {
 
     // Set up the map controller. Save for future reference.
     com.capstone.mapController = new com.capstone.MapController('map');
-    com.capstone.ReportController = new com.capstone.ReportController('report');
 
     // Bind the button's click event. (SAMPLE)
     $('#reportView').on("click", com.capstone.mapController.toggleReportView);

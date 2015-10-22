@@ -366,6 +366,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 if (!isSideBySide) query.stopFlashingSelection();
                 else query.stopFlashingSelectionSBS();
             }
+            query.MapController.ReportController.updateChart(query);
         }
         else if (result == -1) {
             query.stopFlashingSelection();

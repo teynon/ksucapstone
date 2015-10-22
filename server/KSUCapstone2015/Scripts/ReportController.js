@@ -12,7 +12,7 @@ com.capstone.ReportController = function (reportid) {
     this.dataPoints = [];
 
 
-    window.onload = function () {
+    this.initChart = function () {
         self.chart = new CanvasJS.Chart("chartContainer",
         {
             theme: "theme2",
@@ -55,15 +55,15 @@ com.capstone.ReportController = function (reportid) {
         setInterval(function () { self.chart.render(); }, 1000);
     };
 
-    this.updateChart = function (activeMapQueries) {
+    this.updateChart = function (activeMapQuery) {
         var counter = 1;
-        activeMapQueries.forEach(function (activeMapQuery) {
-            activeMapQuery.QueryResults.forEach(function (result) {
-                self.dataPoints.push({ label: counter, y: Math.round(result.Distance / (result.Duration / 3600)) });
-                ++counter;
-            });
+        activeMapQuery.QueryResults.forEach(function (result) {
+            self.dataPoints.push({ label: counter, y: Math.round(result.Distance / (result.Duration / 3600)) });
+            ++counter;
         });
 
         self.chart.render();
     };
+
+    this.initChart();
 }
