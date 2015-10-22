@@ -35,7 +35,7 @@ com.capstone.ReportController = function (reportid) {
             axisY: {
                 title: "Speed",
                 suffix: " MPH",
-                viewportMaximum: 75,
+                viewportMaximum: 65,
                 interval: 15
             },
             data: [
@@ -58,7 +58,7 @@ com.capstone.ReportController = function (reportid) {
     this.updateChart = function (activeMapQuery) {
         var counter = 1;
         activeMapQuery.QueryResults.forEach(function (result) {
-            self.dataPoints.push({ label: counter, y: Math.round(result.Distance / (result.Duration / 3600)) });
+            self.dataPoints.push({ label: counter, y: Math.ceil(result.Distance / (result.Duration / 3600)) });
             ++counter;
         });
 
