@@ -44,7 +44,7 @@ com.capstone.ReportController = function (reportid) {
                         showInLegend: false,
                         lineThickness: 2,
                         name: "Pickups",
-                        markerType: "circle",
+                        markerType: "square",
                         color: "#008000",
                         toolTipContent: "Speed: {y}mph",
                         dataPoints: self.dataPoints
