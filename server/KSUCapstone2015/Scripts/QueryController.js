@@ -379,7 +379,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         clearInterval(query.LoadingTimer);
         this.LoadingTimer = null;
 
-        if (!this.MapSelectionShown)
+        if (!this.MapSelectionShown && !this.Abort)
             this.MapController.map.addLayer(this.MapSelectionLayer[0]);
 
         this.MapSelectionShown = true;
@@ -389,7 +389,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         clearInterval(query.LoadingTimerSBS);
         this.LoadingTimerSBS = null;
 
-        if (!this.MapSelectionShownSBS) {
+        if (!this.MapSelectionShownSBS && !this.Abort) {
             
             for (var i = 0; i < query.SideBySideMapSelectionLayer.length; i++) {
                 this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer[i]);
@@ -430,6 +430,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.Dispose = function () {
+        this.Abort = true;
         this.stopFlashingSelection();
         this.stopFlashingSelectionSBS();
         this.MapResultsLayer.clearLayers();
