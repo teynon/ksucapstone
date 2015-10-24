@@ -223,7 +223,10 @@ com.capstone.MapController = function (mapid) {
         
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
-                self.activeMapQueries[i].UpdateTrip(layer, newLayer,null);
+                self.activeMapQueries[i].UpdateTrip(newLayer, null, false);
+                if (self.sideBySide) {
+                    self.activeMapQueries[i].UpdateTrip(newLayer2, null, true);
+                }
             }
             $("#filterSelection").val("pick");
             return;
@@ -375,6 +378,12 @@ com.capstone.MapController = function (mapid) {
         this.updateMap2();
     }
 
+    this.RefreshResults = function () {
+        for (var i = 0; i < self.activeMapQueries.length; i++) {
+            self.activeMapQueries[i].RefreshResults();
+        }
+    }
+
     this.clear = function () {
         // Abort and clear layers for all queries. Abort prevents pending server queries from being drawn later on.
         for (var i = 0; i < self.activeMapQueries.length; i++) {
@@ -420,7 +429,10 @@ com.capstone.MapController = function (mapid) {
 
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
             for (var i = 0; i < self.activeMapQueries.length; i++) {
-                self.activeMapQueries[i].UpdateTrip(layer,clonedLayer,null);
+                self.activeMapQueries[i].UpdateTrip(layer, null, false);
+                if (self.sideBySide) {
+                    self.activeMapQueries[i].UpdateTrip(clonedLayer, null, true);
+                }
             }
             $("#filterSelection").val("pick");
             return;
@@ -687,5 +699,7 @@ $(document).ready(function () {
     });
 
     $("#sideBySideLocked").on("click", com.capstone.mapController.toggleSideBySideLocked);
+
+    $(".color").on("change", com.capstone.mapController.RefreshResults);
 
 });

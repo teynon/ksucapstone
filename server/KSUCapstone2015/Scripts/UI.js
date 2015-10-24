@@ -2,6 +2,7 @@
 com.capstone = com.capstone || {};
 
 com.capstone.UI = {
+    mapUpdateTimeout : null,
     openMenus: [],
 
     addMenu : function(target, menuid) {
@@ -77,12 +78,49 @@ com.capstone.UI = {
         });
 
         $("#" + tabsectionid).tabs();
+    },
+
+    getPickupColor: function () {
+        return $("#PickupColor").val();
+    },
+
+    getPickupFillColor: function () {
+        return $("#PickupFillColor").val();
+    },
+
+    getDropoffColor: function () {
+        return $("#DropoffColor").val();
+    },
+
+    getDropoffFillColor: function () {
+        return $("#DropoffFillColor").val();
+    },
+
+    getPickupStrokeWeight: function () {
+        return $("#PickupStroke").val();
+    },
+
+    getDropoffStrokeWeight: function () {
+        return $("#DropoffStroke").val();
+    },
+
+    refreshMapDelayed: function () {
+        clearTimeout(com.capstone.UI.mapUpdateTimeout);
+        com.capstone.UI.mapUpdateTimeout = setTimeout(function () {
+            com.capstone.mapController.RefreshResults();
+        }, 1000);
     }
 };
 
 $(document).ready(function () {
     $.fn.button.noConflict();
-    $("#colorSelector").ColorPicker({
+    $(".color").colorPicker({
+        renderCallback: function () {
+            com.capstone.UI.refreshMapDelayed();
+        }
+    });
 
+    $("#DropoffStroke, #PickupStroke").on("change", function () {
+        com.capstone.UI.refreshMapDelayed();
     });
 });

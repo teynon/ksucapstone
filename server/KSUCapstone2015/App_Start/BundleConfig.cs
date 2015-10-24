@@ -39,10 +39,8 @@ namespace KSUCapstone2015
                 "~/Scripts/L.ToolbarToggle.js"));
 
             bundles.Add(new ScriptBundle("~/ColorPicker").Include(
-                "~/Scripts/colorpicker.js",
-                "~/Scripts/eye.js",
-                "~/Scripts/utils.js",
-                "~/Scripts/layout.js"
+                "~/Scripts/colors.js",
+                "~/Scripts/jqColorPicker.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -56,9 +54,7 @@ namespace KSUCapstone2015
                       "~/Content/leaflet.css",
                       "~/Content/leaflet.draw.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/jquery.datetimepicker.css",
-                      "~/Content/colorpicker.css",
-                      "~/Content/layout.css"));
+                      "~/Content/jquery.datetimepicker.css"));
         }
     }
 }

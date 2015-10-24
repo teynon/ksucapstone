@@ -353,3 +353,59 @@ section.headerPanel {
 .active {
     background-color: #dc432f !important;
 }
+
+.ui-dialog {
+    z-index: 10000 !important;
+}
+
+.ui-front {
+    z-index: 9999 !important;
+}
+
+.twoCol {
+    display: flex;
+    flex-direction: row;
+}
+
+.twoCol > section {
+    flex: 1;
+    min-height: 50px;
+    margin: 2px;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+}
+
+.twoCol h3 {
+    margin:0px;
+    padding: 6px;
+    color: #EEEEEE;
+    background-color: #555555;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.settingsSection {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.settingsSection > header {
+    font-weight: bold;
+    font-size: 14px;
+    flex: 1;
+}
+
+.settingsSection > article {
+    flex: 1;
+}
+
+.settingsSection > article > input[type=text] {
+    font-size: 12px;
+}
+.settingsSection > article > input[type=number] {
+    font-size: 12px;
+}
+
+.settingsSection > article > input.color {
+    max-width: 60px;
+}

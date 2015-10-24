@@ -168,7 +168,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\colorpicker.css" />
     <Content Include="Content\images\blank.gif" />
     <Content Include="Content\images\calendar.png" />
     <Content Include="Content\images\clear.png" />
@@ -231,13 +230,13 @@
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
-    <Content Include="Content\layout.css" />
     <Content Include="Content\leaflet.css" />
     <Content Include="Content\leaflet.draw.css" />
     <Content Include="Scripts\canvasjs.js" />
-    <Content Include="Scripts\colorpicker.js" />
-    <Content Include="Scripts\eye.js" />
+    <Content Include="Scripts\colors.js" />
     <Content Include="Scripts\jacwright.date.format.js" />
+    <Content Include="Scripts\jqColorPicker.js" />
+    <Content Include="Scripts\jqColorPicker.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.js" />
