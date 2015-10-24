@@ -80,7 +80,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
 
     this.RefreshResults = function () {
         if (query.SelectMode == "trip") {
-            query.UpdateTrip(query.SideBySideMapSelectionLayer[1], points, true);
+            query.UpdateTrip(query.MapSelectionLayer[1], null, false);
+            if (query.MapController.sideBySide) query.UpdateTrip(query.SideBySideMapSelectionLayer[1], null, true);
         }
         else {
             query.MapResultsLayer.clearLayers();
