@@ -40,7 +40,7 @@ namespace KSUCapstone2015
 
             bundles.Add(new ScriptBundle("~/ColorPicker").Include(
                 "~/Scripts/colors.js",
-                "~/Scripts/jqColorPicker.js"
+                "~/Scripts/colorPicker.js"
                 ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

@@ -235,8 +235,7 @@
     <Content Include="Scripts\canvasjs.js" />
     <Content Include="Scripts\colors.js" />
     <Content Include="Scripts\jacwright.date.format.js" />
-    <Content Include="Scripts\jqColorPicker.js" />
-    <Content Include="Scripts\jqColorPicker.min.js" />
+    <Content Include="Scripts\colorPicker.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.datetimepicker.js" />
     <Content Include="Scripts\jquery.js" />
