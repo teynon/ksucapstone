@@ -15,26 +15,27 @@ com.capstone.helpers = {
 
     getCircle : function (latlng, meters) {
         var data = [];
-        var degree = 45;
-        console.log("to latitude");
-        console.log(this.metersToLatitude(meters));
-        console.log("to longitude");
-        console.log(this.metersToLongitude(meters, latlng.lat));
 
         data.push({ latitude: latlng.lat + this.metersToLatitude(meters), longitude: latlng.lng });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (Math.sqrt(3) / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (Math.sqrt(2) / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (1 / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+
         data.push({ latitude: latlng.lat, longitude: latlng.lng + this.metersToLongitude(meters, latlng.lat) });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (1 / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (Math.sqrt(2) / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (Math.sqrt(3) / 2)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+
         data.push({ latitude: latlng.lat - this.metersToLatitude(meters), longitude: latlng.lng });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (Math.sqrt(3) / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (Math.sqrt(2) / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ latitude: latlng.lat - (this.metersToLatitude(meters) * (1 / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+
         data.push({ latitude: latlng.lat, longitude: latlng.lng - this.metersToLongitude(meters, latlng.lat) });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (1 / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (Math.sqrt(2) / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * (Math.sqrt(3) / 2)), longitude: latlng.lng - (this.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
 
-        //data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * Math.cos(0)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * Math.sin(0)) });
-        //data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * Math.cos(45)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * Math.sin(45)) });
-        //data.push({ latitude: latlng.lat + (this.metersToLatitude(meters) * Math.cos(90)), longitude: latlng.lng + (this.metersToLongitude(meters, latlng.lat) * Math.sin(90)) });
-
-        //for (var i = 0; i < 8; i++) {
-        //    data.push({latitude: this.metersToLatitude(meters) * Math.cos(degree * i), longitude: this.metersToLongitude(meters, latlng.lat) * Math.sin(degree * i)});
-        //}
-        console.log("data");
-        console.log(data);
         return data;
     },
 
