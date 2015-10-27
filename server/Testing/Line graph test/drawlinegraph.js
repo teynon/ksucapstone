@@ -1,5 +1,5 @@
-function BuildLineChart(Title, subtitle, Axis1Title, Axis2Title, dataValues) {
-       var chart = new CanvasJS.Chart("chartContainer",
+function BuildLineChart(Title, subtitle, Axis1Title, Axis2Title, dataValue) {
+	   var chart = new CanvasJS.Chart("chartContainer",
     {
         title:{
         text: Title
@@ -26,7 +26,7 @@ function BuildLineChart(Title, subtitle, Axis1Title, Axis2Title, dataValues) {
       data: [
       {        
         type: "line",        
-        dataPoints: {label: dataValues, y: dataValues}
+        dataPoints: {x: new Date(Date.UTC (2012, 01, 1, 1,0)), y: dataValue}
       }
       
       
