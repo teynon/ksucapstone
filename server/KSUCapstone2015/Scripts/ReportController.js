@@ -42,7 +42,6 @@ com.capstone.ReportController = function (reportid) {
                         type: "splineArea",
                         showInLegend: false,
                         lineThickness: 2,
-                        name: "Pickups",
                         markerType: "square",
                         color: "#008000",
                         toolTipContent: "Speed: {y}mph",

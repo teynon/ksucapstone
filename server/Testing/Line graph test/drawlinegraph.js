@@ -26,7 +26,7 @@ function BuildLineChart(Title, subtitle, Axis1Title, Axis2Title, dataValues) {
       data: [
       {        
         type: "line",        
-        dataPoints: {label: 1, y: dataValues}
+        dataPoints: {label: dataValues, y: dataValues}
       }
       
       
