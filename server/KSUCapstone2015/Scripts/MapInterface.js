@@ -540,6 +540,9 @@ com.capstone.MapController = function (mapid) {
             case "polygon":
                 return this.clonePolygon(layerWrapper.layer);
                 break;
+            case "circle":
+                return this.cloneCircle(layerWrapper.layer);
+                break;
         }
     };
 
@@ -571,12 +574,12 @@ com.capstone.MapController = function (mapid) {
         this.selectionData = {
             points: []
         };
-        for (var i = 0; i < layer._latlngs.length; i++) {
-            this.selectionData.points.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
-        }
+        //for (var i = 0; i < layer._latlngs.length; i++) {
+        //    this.selectionData.points.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
+        //}
 
         this.queryMode = com.capstone.Query.TaxisInPolygon;
-        return L.polygon(layer._latlngs);
+        return L.circle(layer._latlngs);
     };
 
     // ---------------------------------------

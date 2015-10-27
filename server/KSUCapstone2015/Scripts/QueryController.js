@@ -33,7 +33,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.DrawMode = queryData.filterSelection;
     this.DrawModeSBS = queryData.filterSelectionSBS;
 
-    this.LabelLatLng = this.MapSelectionLayer[0]._latlngs[0];
+    //this.LabelLatLng = this.MapSelectionLayer[0]._latlngs[0];
 
     this.Playback = {};
     this.Playback.Start = new Date(queryData.start);
