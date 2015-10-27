@@ -13,6 +13,10 @@ com.capstone.helpers = {
         return L.latLngBounds(b1, b2);
     },
 
+    getCircle : function (latlng, meters) {
+        var data = [];
+    },
+
     // --------------------------
     // CONVERSIONS
     // --------------------------

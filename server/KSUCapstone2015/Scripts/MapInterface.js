@@ -198,8 +198,6 @@ com.capstone.MapController = function (mapid) {
     }
 
     this.onMapDraw = function (e) {
-        var type = e.layerType,
-            layer = e.layer;
         var type = e.layerType, layer = e.layer;
         var newLayer = self.cloneLayer(e);
 
@@ -210,15 +208,11 @@ com.capstone.MapController = function (mapid) {
         }
 
         if (e.layerType == "rectangle") {
-            this.selectionData = {
-                latitude1: layer.getLatLngs()[1].lat,
-                longitude1: layer.getLatLngs()[1].lng,
-                latitude2: layer.getLatLngs()[3].lat,
-                longitude2: layer.getLatLngs()[3].lng
-            };
-            this.queryType = "rectangle";
+            this.selectionData = self.getRectangleSelectionData(layer);
         } else if (e.layerType == "polygon") {
             this.selectionData = self.getPolygonSelectionData(layer);
+        } else if (e.layerType == "circle") {
+            this.selectionData = self.getCircleSelectionData(layer);
         }
         
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
@@ -250,6 +244,16 @@ com.capstone.MapController = function (mapid) {
         // Do whatever else you need to. (save to db, add to map etc) 
     }
 
+    this.getRectangleSelectionData = function (layer) {
+        this.queryType = "rectangle";
+        return {
+            latitude1: layer.getLatLngs()[1].lat,
+            longitude1: layer.getLatLngs()[1].lng,
+            latitude2: layer.getLatLngs()[3].lat,
+            longitude2: layer.getLatLngs()[3].lng
+        };
+    }
+
     this.getPolygonSelectionData = function (layer) {
         this.queryType = "polygon";
         var data = [];
@@ -258,6 +262,13 @@ com.capstone.MapController = function (mapid) {
         }
         console.log(data);
         return { points: data };
+    }
+
+    this.getCircleSelectionData = function (layer) {
+        this.queryType = "polygon";
+        console.log(layer);
+        console.log(layer.getRadius());
+        return { points: com.capstone.helpers.getCircle(layer.getLatLng(), layer.getRadius()) };
     }
 
     this.onMapMove = function (e) {
