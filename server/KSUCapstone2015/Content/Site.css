@@ -1,5 +1,11 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
     padding-top: 50px;
+    position: relative;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -350,7 +356,7 @@ section.headerPanel {
     max-width: unset;
 }
 
-.active {
+.activeUI {
     background-color: #dc432f !important;
 }
 
@@ -408,4 +414,22 @@ section.headerPanel {
 
 .settingsSection > article > input.color {
     max-width: 60px;
+}
+
+.settingsMenu {
+    display: none;
+}
+
+.uiOverlayContainer {
+    position: absolute; 
+    left: 0; 
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    z-index: 0; 
+    pointer-events: none;
+}
+
+.uiOverlayContainer * {
+    pointer-events: all;
 }

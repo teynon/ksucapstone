@@ -22,7 +22,7 @@ namespace KSUCapstone2015
                         "~/Scripts/jquery-ui.js",
                         "~/Scripts/jquery.datetimepicker.js"));
 
-            bundles.Add(new ScriptBundle("~/MapInterface").Include(
+            bundles.Add(new ScriptBundle("~/Tutorial").Include(
                 "~/Scripts/MapInterface.js",
                 "~/Scripts/QueryController.js",
                 "~/Scripts/MapHelpers.js",
@@ -36,7 +36,24 @@ namespace KSUCapstone2015
                 "~/Scripts/jacwright.date.format.js",
                 "~/Scripts/barGraph.js",
                 "~/Scripts/canvasjs.js",
-                "~/Scripts/L.ToolbarToggle.js"));
+                "~/Scripts/L.ToolbarToggle.js")); bundles.Add(new ScriptBundle("~/MapInterface").Include(
+                 "~/Scripts/MapInterface.js",
+                 "~/Scripts/QueryController.js",
+                 "~/Scripts/MapHelpers.js",
+                 "~/Scripts/ReportController.js",
+                 "~/Scripts/UI.js",
+                 "~/Scripts/leaflet.js",
+                 "~/Scripts/leaflet.draw.js",
+                 "~/Scripts/L.Path.Drag.js",
+                 "~/Scripts/leaflet.draw.drag.js",
+                 "~/Scripts/leaflet.label.js",
+                 "~/Scripts/jacwright.date.format.js",
+                 "~/Scripts/barGraph.js",
+                 "~/Scripts/canvasjs.js",
+                 "~/Scripts/L.ToolbarToggle.js"));
+
+            bundles.Add(new ScriptBundle("~/Tutorial").Include(
+                "~/Scripts/tutorial-ey.js"));
 
             bundles.Add(new ScriptBundle("~/ColorPicker").Include(
                 "~/Scripts/colors.js",

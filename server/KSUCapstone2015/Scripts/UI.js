@@ -48,13 +48,13 @@ com.capstone.UI = {
             "z-index" : "1000"
         });
         com.capstone.UI.addMenu(target, menuid);
-        target.addClass("active");
+        target.addClass("activeUI");
         target.data("uimenustate", true);
     },
 
     hideMenuForUIButton: function (target, menuid) {
         $("#" + menuid).css({ display: "none" });
-        $(target).removeClass("active");
+        $(target).removeClass("activeUI");
         $(target).data("uimenustate", false);
     },
 
