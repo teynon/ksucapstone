@@ -9,6 +9,7 @@ com.eynon.tutorialEy = function (options) {
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
         "maxSpacing": 50,
+        "uiRefresh" : 500,
         "tutorialCSS": {
             "min-width": "200px",
             "min-height": "200px"
@@ -24,7 +25,7 @@ com.eynon.tutorialEy = function (options) {
             tutorial.updateArrow();
         }
     });
-
+    this.refreshInterval = null;
     this.tutorialWindowTitle = $("<div></div>");
     this.tutorialWindowTitle.css({
         "background": "#AAAAAA",
@@ -55,6 +56,10 @@ com.eynon.tutorialEy = function (options) {
     }
 
     this.play = function () {
+        if (this.options.uiRefresh > 0) {
+            this.refreshInterval = setInterval(function () { tutorial.updateArrow(); }, this.options.uiRefresh);
+        }
+
         // Open the first section, first step
         var section = this.current();
         var step = section.current();
