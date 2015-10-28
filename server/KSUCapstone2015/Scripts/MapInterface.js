@@ -608,6 +608,8 @@ com.capstone.MapController = function (mapid) {
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
             if (recenterMap) self.updateMapPosition();
         });
+
+        $(".uiOverlayContainer").stop().animate({ "right": "50%" }, 400);
     };
 
     this.hideReportView = function () {
@@ -620,6 +622,8 @@ com.capstone.MapController = function (mapid) {
         $("#chartContainer").stop().animate({ "width": "0%" }, 400, function () {
             $("#chartContainer").css("display", "none");
         });
+
+        $(".uiOverlayContainer").stop().animate({ "right": "0" }, 400);
     };
 
     this.toggleReportView = function () {
