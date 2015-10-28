@@ -406,7 +406,7 @@ com.eynon.iterator = function (items) {
     }
 }
 
-$(document).ready(function () {
+$(window).load(function () {
     var tutorial = new com.eynon.tutorialEy({});
     var section = tutorial.addSection("test", []);
     section.addStep(new com.eynon.tutorialStep($("#timerange"), "test", "content", "link"));
