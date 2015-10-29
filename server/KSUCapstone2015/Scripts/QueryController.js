@@ -437,26 +437,27 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.PolyHitTest = function (latlng, selectionLayer) {
-        console.log(selectionLayer);
         var vertices = null;
-        if (selectionLayer._latlngs) {
-            vertices = selectionLayer._latlngs.slice();
-        } else if (selectionLayer._mRadius) {
-            vertices = query.getCircle(selectionLayer._latlng, selectionLayer._mRadius);
-        }
-        
-        vertices.push(vertices[0]);
-        var j = vertices.length - 2;
-        var c = false;
-        for (var i = 0; i < vertices.length - 1; i++) {
-            if (((vertices[i].lng > latlng.lng) != (vertices[j].lng > latlng.lng)) &&
-                (latlng.lat < (vertices[j].lat - vertices[i].lat) * (latlng.lng - vertices[i].lng) / (vertices[j].lng - vertices[i].lng) + vertices[i].lat)) {
-                c = !c;
+        if (selectionLayer) {
+            if (selectionLayer._latlngs) {
+                vertices = selectionLayer._latlngs.slice();
+            } else if (selectionLayer._mRadius) {
+                vertices = query.getCircle(selectionLayer._latlng, selectionLayer._mRadius);
             }
-            j = i;
-        }
 
-        return c;
+            vertices.push(vertices[0]);
+            var j = vertices.length - 2;
+            var c = false;
+            for (var i = 0; i < vertices.length - 1; i++) {
+                if (((vertices[i].lng > latlng.lng) != (vertices[j].lng > latlng.lng)) &&
+                    (latlng.lat < (vertices[j].lat - vertices[i].lat) * (latlng.lng - vertices[i].lng) / (vertices[j].lng - vertices[i].lng) + vertices[i].lat)) {
+                    c = !c;
+                }
+                j = i;
+            }
+            return c;
+        }
+        return null;
     }
 
     this.RectHitTest = function (latlng, selectionLayer) {
