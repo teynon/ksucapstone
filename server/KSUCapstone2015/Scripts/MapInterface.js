@@ -260,7 +260,6 @@ com.capstone.MapController = function (mapid) {
         for (var i = 0; i < layer._latlngs.length; i++) {
             data.push({ Latitude: layer._latlngs[i].lat, Longitude: layer._latlngs[i].lng });
         }
-        console.log(data);
         return { points: data };
     }
 

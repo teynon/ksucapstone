@@ -437,7 +437,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.PolyHitTest = function (latlng, selectionLayer) {
-        var vertices = selectionLayer._latlngs.slice();
+        console.log(selectionLayer);
+        var vertices = null;
+        if (selectionLayer._latlngs) {
+            vertices = selectionLayer._latlngs.slice();
+        } else if (selectionLayer._mRadius) {
+            vertices = query.getCircle(selectionLayer._latlng, selectionLayer._mRadius);
+        }
+        
         vertices.push(vertices[0]);
         var j = vertices.length - 2;
         var c = false;
@@ -460,6 +467,32 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         }
 
         return hitTest;
+    }
+
+    this.getCircle = function (latlng, meters) {
+        var data = [];
+
+        data.push({ lat: latlng.lat + com.capstone.helpers.metersToLatitude(meters), lng: latlng.lng });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(3) / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(2) / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (1 / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+
+        data.push({ lat: latlng.lat, lng: latlng.lng + com.capstone.helpers.metersToLongitude(meters, latlng.lat) });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (1 / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(2) / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(3) / 2)), lng: latlng.lng + (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+
+        data.push({ lat: latlng.lat - com.capstone.helpers.metersToLatitude(meters), lng: latlng.lng });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(3) / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(2) / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ lat: latlng.lat - (com.capstone.helpers.metersToLatitude(meters) * (1 / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+
+        data.push({ lat: latlng.lat, lng: latlng.lng - com.capstone.helpers.metersToLongitude(meters, latlng.lat) });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (1 / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(3) / 2)) });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(2) / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (Math.sqrt(2) / 2)) });
+        data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(3) / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
+
+        return data;
     }
 
     this.Dispose = function () {
