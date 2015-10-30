@@ -654,6 +654,10 @@ $(document).ready(function () {
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
 
+    $('#btnClear').on("click", com.capstone.ReportController.clearChart);
+
+
+
     $("#playbackBtn").on("click", function () {
         if (com.capstone.mapController.PlaybackPlaying) {
             com.capstone.mapController.stopPlayback();
