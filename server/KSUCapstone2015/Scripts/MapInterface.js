@@ -634,6 +634,12 @@ com.capstone.MapController = function (mapid) {
         }
     };
 
+
+    this.clearChart = function () {
+        self.ReportController.chart();
+    }
+
+
     this.InitMap();
 }
 
@@ -654,7 +660,7 @@ $(document).ready(function () {
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
 
-    $('#btnClear').on("click", com.capstone.ReportController.clearChart);
+    $('#btnClear').on("click", com.capstone.ReportController.clearChart());
 
 
 
