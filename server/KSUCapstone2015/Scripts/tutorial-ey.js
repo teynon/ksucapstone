@@ -77,11 +77,12 @@ com.eynon.tutorialEy = function (options) {
         .appendTo(this.dom['MiddleSection']);
 
         this.dom['Previous'] = $("<button>Previous</button>")
+        .addClass("tutorialEyPrevious")
         .appendTo(this.dom['Buttons'])
         .on("click", this.goBack);
 
         this.dom['Next'] = $("<button>Next</button>")
-        .addClass("tutorialEyBtn")
+        .addClass("tutorialEyNext")
         .appendTo(this.dom['Buttons'])
         .on("click", this.goForward);
 
@@ -195,6 +196,10 @@ com.eynon.tutorialEy = function (options) {
         for (var i in section.items) {
             var item = $("<div></div>")
             .css(this.options.stepItemCSS)
+            .on("mousedown", function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            })
             .on("click", { "section": section, index: i }, function (event) {
                 if (tutorial.open) {
                     tutorial.deactivateStep();

@@ -68,24 +68,35 @@
 }
 
 .tutorialEyButtons {
+    position: relative;
     flex: 1;
     max-height: 40px;
     background: #00FF00;
-    display: flex;
     flex-direction: row;
     align-content: stretch;
 }
 
 .tutorialEyButtons > button {
-    flex: 1;
     background: #000000;
     color: #FFFFFF;
     border: 1px solid #0000FF;
-    border-left: none;
+    max-width: 50%;
 }
 
-.tutorialEyButtons > button:first-child {
-    border-left: 1px solid #0000FF;
+.tutorialEyPrevious { 
+    position: absolute;
+    width: 50%;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.tutorialEyNext { 
+    position: absolute;
+    width: 50%;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .tutorialEyStepList {
