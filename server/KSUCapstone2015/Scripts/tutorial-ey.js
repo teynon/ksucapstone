@@ -9,16 +9,24 @@ com.eynon.tutorialEy = function (options) {
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
         "maxSpacing": 50,
-        "uiRefresh" : 500,
-        "tutorialCSS": {
-            "min-width": "200px",
-            "min-height": "200px"
-        }
+        "uiRefresh": 500,
+        "sectionCSS" : {},
+        "sectionHeaderCSS" : {},
+        "sectionItemCSS" : {},
+        "activeStepCSS" : {},
+        "tutorialCSS": {},
+        "stepsCSS": {},
+        "stepItemCSS": {},
+        "activeStepTitleCSS": {},
+        "activeStepBodyCSS": {}
     };
     this.options = $.extend(this.options, options);
     this.position = 0;
-    this.tutorialWindow = $("<div></div>");
-    this.tutorialWindow.css("display", "none").appendTo($("body"));
+    this.tutorialWindow = $("<div></div>")
+    .addClass("tutorialEy")
+    .css($.extend({
+        "display": "none"
+    }, this.options.tutorialCSS)).appendTo($("body"));
     this.tutorialWindow.draggable({
         "containment" : "parent",
         drag: function (event, ui) {
@@ -26,19 +34,32 @@ com.eynon.tutorialEy = function (options) {
         }
     });
     this.refreshInterval = null;
-    this.tutorialWindowTitle = $("<div></div>");
-    this.tutorialWindowTitle.css({
-        "background": "#AAAAAA",
-        "padding" : "5px",
-        "line-height" : "20px"
-    }).appendTo(this.tutorialWindow);
+    
+    this.dom = {};
 
-    this.tutorialWindowBody = $("<div></div>");
-    this.tutorialWindowBody.css({
-        "padding": "5px",
-        color : "#FFFFFF",
-        "line-height": "20px"
-    }).appendTo(this.tutorialWindow);
+    this.dom['LeftSection'] = $("<div></div>")
+    .addClass("tutorialEySectionList")
+    .css(this.options.sectionCSS).appendTo(this.tutorialWindow);
+
+    this.dom['MiddleSection'] = $("<div></div>")
+    .addClass("tutorialEyActiveStep")
+    .css(this.options.activeStepCSS).appendTo(this.tutorialWindow);
+
+    this.dom['SectionHeader'] = $("<div></div>")
+    .addClass("tutorialEySectionHeader")
+    .css(this.options.sectionHeaderCSS).appendTo(this.dom['MiddleSection']);
+
+    this.dom['Title'] = $("<div></div>")
+    .addClass("tutorialEyActiveStepTitle")
+    .css(this.options.activeStepTitleCSS).appendTo(this.dom['MiddleSection']);
+
+    this.dom['Body'] = $("<div></div>")
+    .addClass("tutorialEyActiveStepBody")
+    .css(this.options.activeStepBodyCSS).appendTo(this.dom['MiddleSection']);
+
+    this.dom['StepsSection'] = $("<div></div>")
+    .addClass("tutorialEyStepList")
+    .css(this.options.stepsCSS).appendTo(this.tutorialWindow);
 
     this.pointerCanvas = $("<canvas></canvas>");
     this.pointerCanvas.on("mousedown", function (event) { event.preventDefault(); });
@@ -55,25 +76,100 @@ com.eynon.tutorialEy = function (options) {
         return section;
     }
 
-    this.play = function () {
+    this.rebuildSections = function () {
+        this.dom['LeftSection'].html("");
+        var activeSection = this.current();
+
+        for (var i in this.items) {
+            var item = $("<div></div>")
+            .css(this.options.sectionItemCSS)
+            .on("click", { index : i }, function(event) {
+                tutorial.setKey(event.data.index);
+                //tutorial.current().setKey(0);
+                tutorial.update();
+            })
+            .on("mousedown", function (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            })
+            .text(this.items[i].name)
+            .appendTo(this.dom['LeftSection']);
+            if (this.items[i] == activeSection) {
+                item.addClass("tutorialEyActive");
+            }
+        }
+    }
+
+    this.rebuildSteps = function () {
+        var section = this.current();
+        this.dom['StepsSection'].html("");
+        var activeStep = section.current();
+        console.log(section.items);
+        for (var i in section.items) {
+            var item = $("<div></div>")
+            .css(this.options.stepItemCSS)
+            .on("click", { "section" : section, index: i }, function (event) {
+                event.data.section.setKey(event.data.index);
+                tutorial.update();
+            })
+            .text(section.items[i].title)
+            .appendTo(this.dom['StepsSection']);
+
+            if (section.items[i] == activeStep) {
+                item.addClass("tutorialEyActive");
+            }
+        }
+    }
+
+    this.update = function() {
+        this.rebuildSections();
+
         if (this.options.uiRefresh > 0) {
             this.refreshInterval = setInterval(function () { tutorial.updateArrow(); }, this.options.uiRefresh);
         }
 
         // Open the first section, first step
         var section = this.current();
+        this.rebuildSteps();
         var step = section.current();
         var bounds = this.getBounds(step.target);
 
-        this.tutorialWindowTitle.html(step.title);
-        this.tutorialWindowBody.html(step.content);
+        this.dom['SectionHeader'].html(section.name);
+
+        this.dom['Title'].html(step.title);
+        this.dom['Body'].html(step.content);
 
         this.tutorialWindow.css($.extend({
-            "display": "block",
+            "display": "flex",
             "visibility": "visible",
-            "background-color": "#444444",
-            "position": "absolute",
-            "z-index" : 999999999
+            "position": "absolute"
+        }, this.options.tutorialCSS));
+
+        this.updateArrow();
+    },
+
+    this.play = function () {
+        this.rebuildSections();
+
+        if (this.options.uiRefresh > 0) {
+            this.refreshInterval = setInterval(function () { tutorial.updateArrow(); }, this.options.uiRefresh);
+        }
+
+        // Open the first section, first step
+        var section = this.current();
+        this.rebuildSteps();
+        var step = section.current();
+        var bounds = this.getBounds(step.target);
+
+        this.dom['SectionHeader'].html(section.name);
+
+        this.dom['Title'].html(step.title);
+        this.dom['Body'].html(step.content);
+
+        this.tutorialWindow.css($.extend({
+            "display": "flex",
+            "visibility": "visible",
+            "position": "absolute"
         }, this.options.tutorialCSS));
 
         var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
@@ -375,6 +471,11 @@ com.eynon.tutorialStep = function (targetElement, title, content, link) {
 
 com.eynon.iterator = function (items) {
     this.items = items;
+    this.position = 0;
+
+    this.setKey = function (key) {
+        this.position = key;
+    }
 
     this.each = function (callback) {
         this.rewind();
@@ -413,7 +514,11 @@ com.eynon.iterator = function (items) {
 
 $(window).load(function () {
     var tutorial = new com.eynon.tutorialEy({});
-    var section = tutorial.addSection("test", []);
-    section.addStep(new com.eynon.tutorialStep($("#timerange"), "test", "content", "link"));
+    var section = tutorial.addSection("Section 1", []);
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 1", "S1 S1 content 1", "link"));
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 2", "S1 S2 content 2", "link"));
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 3", "S1 S3 content 3", "link"));
+    var section = tutorial.addSection("Section 2", []);
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S2 Step 1", "S2 S1 content 1", "link"));
     tutorial.play();
 });

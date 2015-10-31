@@ -232,6 +232,7 @@
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\leaflet.css" />
     <Content Include="Content\leaflet.draw.css" />
+    <Content Include="Content\tutorial-ey.css" />
     <Content Include="Scripts\canvasjs.js" />
     <Content Include="Scripts\colors.js" />
     <Content Include="Scripts\jacwright.date.format.js" />

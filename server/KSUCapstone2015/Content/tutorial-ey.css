@@ -1,0 +1,78 @@
+﻿.tutorialEy {
+    flex-direction: row;
+    align-content: stretch;
+    min-width: 600px;
+    min-height: 200px;
+    border: 1px solid #000000;
+    background: #666666;
+    
+}
+.tutorialEySectionList {
+    min-width: 150px;
+    max-width: 200px;
+    border-right: 1px solid #000000;
+}
+
+.tutorialEySectionList > div {
+    padding: 4px;
+    background: #EEEEEE;
+    cursor: pointer;
+}
+
+.tutorialEySectionList > div:nth-child(2n+1) {
+    background: #FFFFFF;
+}
+
+.tutorialEySectionList > div.tutorialEyActive {
+    background-color: #ff0000 !important;
+}
+
+.tutorialEyActiveStep {
+    min-width: 200px;
+    flex: 1;
+}
+
+.tutorialEySectionHeader {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: bold;
+    background: #000000;
+    padding : 4px;
+}
+
+.tutorialEyActiveStepTitle {
+    background: #AAAAAA;
+    padding: 5px;
+    line-height: 20px;
+}
+
+.tutorialEyActiveStepBody {
+    padding: 5px;
+    color: #FFFFFF;
+    line-height: 20px;
+}
+
+.tutorialEyStepList {
+    border-left: 1px solid #000000;
+    color: #FFFFFF;
+    background: #000000;
+    min-width: 200px;
+    flex: 1;
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.tutorialEyStepList > div {
+    padding: 4px;
+    background: #EEEEEE;
+    color: #000000;
+    cursor: pointer;
+}
+
+.tutorialEyStepList > div:nth-child(2n+1) {
+    background: #FFFFFF;
+}
+
+.tutorialEyStepList > div.tutorialEyActive {
+    background-color: #ff0000 !important;
+}

@@ -71,7 +71,8 @@ namespace KSUCapstone2015
                       "~/Content/leaflet.css",
                       "~/Content/leaflet.draw.css",
                       "~/Content/jquery-ui.css",
-                      "~/Content/jquery.datetimepicker.css"));
+                      "~/Content/jquery.datetimepicker.css",
+                      "~/Content/tutorial-ey.css"));
         }
     }
 }
