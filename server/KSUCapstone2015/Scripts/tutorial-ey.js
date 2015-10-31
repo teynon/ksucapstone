@@ -215,9 +215,16 @@ com.eynon.tutorialEy = function (options) {
             "visibility": "visible",
             "position": "absolute"
         }, this.options.tutorialCSS));
+        
+        if (tutorial.open) {
+            var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
+            this.tutorialWindow.css({
+                "left": winLocation.x,
+                "top": winLocation.y
+            });
 
-        if (tutorial.open)
             this.updateArrow();
+        }
     },
 
     this.play = function () {
@@ -591,9 +598,9 @@ $(window).load(function () {
     var tutorial = new com.eynon.tutorialEy({});
     var section = tutorial.addSection("Section 1", []);
     section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 1", "S1 S1 content 1", "link"));
-    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 2", "S1 S2 content 2", "link"));
-    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 3", "S1 S3 content 3", "link"));
+    section.addStep(new com.eynon.tutorialStep($("#quickSelect"), "S1 Step 2", "S1 S2 content 2", "link"));
+    section.addStep(new com.eynon.tutorialStep($("#selectmode"), "S1 Step 3", "S1 S3 content 3", "link"));
     var section = tutorial.addSection("Section 2", []);
-    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S2 Step 1", "S2 S1 content 1", "link"));
+    section.addStep(new com.eynon.tutorialStep($("#reportView"), "S2 Step 1", "S2 S1 content 1", "link"));
     tutorial.play();
 });

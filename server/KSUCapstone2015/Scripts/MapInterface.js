@@ -90,6 +90,7 @@ com.capstone.MapController = function (mapid) {
             this.map.addControl(this.drawingControls);
 
         var myButtonOptions = {
+            'id' : 'quickSelect',
             'iconUrl': '/Content/images/quick_select.png',  // string
             'onClick': function () { },  // callback function
             'hideText': true,  // bool
