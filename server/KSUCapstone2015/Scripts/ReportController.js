@@ -55,14 +55,14 @@ com.capstone.ReportController = function (reportid) {
 
            ]
        });
-       setInterval(function () { self.chart.render(); }, 1000);
+        setInterval(function () { self.chart.render(); }, 1000);
     };
 
-    this.updateChart = function (activeMapQuery) {
+    this.updateChart = function (QueryResults) {
         if (self.type == "pie") {
-            this.pieChart("Average Passengers", activeMapQuery);
+            this.pieChart("Average Passengers", QueryResults);
         } else if (self.type == "splineArea") {
-            this.lineGraph(self.title, self.subTitle, self.xTitle, self.yTitle, activeMapQuery);
+            this.lineGraph(self.title, self.subTitle, self.xTitle, self.yTitle, QueryResults);
         }
 
         self.chart.render();
@@ -74,7 +74,7 @@ com.capstone.ReportController = function (reportid) {
         self.subTitle = subtitle;
         self.xTitle = xTitle;
         self.yTitle = yTitle;
-        Data.QueryResults.forEach(function (result) {
+        Data.forEach(function (result) {
             var resultSpeed = Math.ceil(result.Distance / (result.Duration / 3600));
             if (resultSpeed < 75 && resultSpeed > 0) {
                 self.dataPoints.push({ label: counter, y: resultSpeed });
@@ -87,16 +87,14 @@ com.capstone.ReportController = function (reportid) {
     this.pieChart = function (title,yData) {
         self.title = title;
         var counter = 1;
-        yData.QueryResults.forEach(function (result) {
+        yData.forEach(function (result) {
             self.dataPoints.push({ label: counter, y: result.Passengers });
         });
     }
 
     this.clearChart = function () {
-        var length = self.dataPoints.length
-        for (var i = 0; i < length; i++){
-            self.dataPoints.pop();
-        }
+        self.dataPoints = [];
+        self.chart.options.data[0].dataPoints = self.dataPoints;
         self.chart.render();
     }
 

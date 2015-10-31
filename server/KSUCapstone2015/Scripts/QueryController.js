@@ -279,7 +279,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             else
                 points = query.QueryResultsSBS;
         }
-
+        var chartPoints = [];
         for (var i = 0; i < points.length; i++) {
             var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
             var latlng2 = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
@@ -287,8 +287,12 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             if ((!sbs && query.SelectionHitTest(latlng, query.MapSelectionLayer[0]) && query.SelectionHitTest(latlng2, query.MapSelectionLayer[1])) || 
                 (sbs && query.SelectionHitTest(latlng, query.SideBySideMapSelectionLayer[0]) && query.SelectionHitTest(latlng2, query.SideBySideMapSelectionLayer[1]))) {
                 query.AddPickupAndDropoff(points[i], sbs);
+                chartPoints.push(points[i]);
             }
         }
+
+        query.MapController.ReportController.clearChart();
+        query.MapController.ReportController.updateChart(chartPoints);
     };
 
     this.UpdateMap = function (points, sideBySide) {
@@ -399,7 +403,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 if (!isSideBySide) query.stopFlashingSelection();
                 else query.stopFlashingSelectionSBS();
             }
-            query.MapController.ReportController.updateChart(query);
+            query.MapController.ReportController.updateChart(query.QueryResults);
         }
         else if (result == -1) {
             query.stopFlashingSelection();

@@ -405,6 +405,7 @@ com.capstone.MapController = function (mapid) {
         self.activeMapQueries = [];
 
         self.selectedPoints.clearLayers();
+        self.clearReport();
         if (self.SelectMode == "trip") {
             $("#filterSelection").val("pick");
         }
@@ -597,7 +598,7 @@ com.capstone.MapController = function (mapid) {
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
        
-        //self.ReportController.updateChart(self.activeMapQueries);
+        //self.ReportController.updateChart(self.activeMapQueries.QueryResults);
 
         // Stop any active animation and begin the new animation.
         $("#chartContainer").stop().animate({ "width": "50%" }, 400, function () {
@@ -634,9 +635,8 @@ com.capstone.MapController = function (mapid) {
         }
     };
 
-
-    this.clearChart = function () {
-        self.ReportController.chart();
+    this.clearReport = function () {
+        self.ReportController.clearChart();
     }
 
 
@@ -659,8 +659,6 @@ $(document).ready(function () {
     $('#sideBySide').on("click", com.capstone.mapController.toggleSideBySide);
 
     $('#btnClear').on("click", com.capstone.mapController.clear);
-
-    $('#btnClear').on("click", com.capstone.ReportController.clearChart());
 
 
 
