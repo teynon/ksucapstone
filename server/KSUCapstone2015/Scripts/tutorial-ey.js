@@ -5,6 +5,7 @@ com.eynon.tutorialEy = function (options) {
     com.eynon.iterator.call(this, []);
     var tutorial = this;
     this.options = {
+        "lockPosition" : false,
         "pointerControlDistance": 0.5,
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
@@ -98,6 +99,7 @@ com.eynon.tutorialEy = function (options) {
     // Sections
     // Steps
     this.close = function () {
+        this.deactivateStep();
         clearInterval(this.refreshInterval);
         this.tutorialWindow.hide();
         this.pointerCanvas.hide();
@@ -111,6 +113,7 @@ com.eynon.tutorialEy = function (options) {
     }
 
     this.goBack = function () {
+        tutorial.deactivateStep();
         if (tutorial.current().position <= 0 && tutorial.position > 0) {
             tutorial.current().setKey(0);
             tutorial.setKey(tutorial.position - 1);
@@ -124,6 +127,8 @@ com.eynon.tutorialEy = function (options) {
     }
 
     this.goForward = function () {
+        tutorial.deactivateStep();
+
         if (tutorial.current().position + 1 < tutorial.current().items.length) {
             tutorial.current().next();
         }
@@ -132,6 +137,14 @@ com.eynon.tutorialEy = function (options) {
         }
 
         tutorial.update();
+    }
+
+    this.activateStep = function () {
+        this.current().current().activate(this);
+    }
+
+    this.deactivateStep = function () {
+        this.current().current().deactivate();
     }
 
     this.rebuildSections = function () {
@@ -156,6 +169,7 @@ com.eynon.tutorialEy = function (options) {
             .css(this.options.sectionItemCSS)
             .on("click", { index: i }, function (event) {
                 if (tutorial.open) {
+                    tutorial.deactivateStep();
                     tutorial.setKey(event.data.index);
                     //tutorial.current().setKey(0);
                     tutorial.update();
@@ -177,12 +191,13 @@ com.eynon.tutorialEy = function (options) {
         var section = this.current();
         this.dom['StepsSection'].html("");
         var activeStep = section.current();
-        console.log(section.items);
+        //console.log(section.items);
         for (var i in section.items) {
             var item = $("<div></div>")
             .css(this.options.stepItemCSS)
             .on("click", { "section": section, index: i }, function (event) {
                 if (tutorial.open) {
+                    tutorial.deactivateStep();
                     event.data.section.setKey(event.data.index);
                     tutorial.update();
                 }
@@ -198,6 +213,7 @@ com.eynon.tutorialEy = function (options) {
 
     this.update = function() {
         this.rebuildSections();
+        this.activateStep();
 
         // Open the first section, first step
         var section = this.current();
@@ -216,18 +232,21 @@ com.eynon.tutorialEy = function (options) {
             "position": "absolute"
         }, this.options.tutorialCSS));
         
-        if (tutorial.open) {
-            var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
-            this.tutorialWindow.css({
-                "left": winLocation.x,
-                "top": winLocation.y
-            });
+        if (this.open) {
+            if (!this.options.lockPosition) {
+                var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
+                this.tutorialWindow.css({
+                    "left": winLocation.x,
+                    "top": winLocation.y
+                });
+            }
 
             this.updateArrow();
         }
     },
 
     this.play = function () {
+        this.activateStep();
         this.open = true;
         this.rebuildSections();
 
@@ -297,7 +316,9 @@ com.eynon.tutorialEy = function (options) {
             result.arrowStopY = bounds.top;
         }
 
-        this.drawArrowToPoint(result.arrowStartX, result.arrowStartY, result.arrowStopX, result.arrowStopY);
+        var ccw = false;
+
+        this.drawArrowToPoint(result.arrowStartX, result.arrowStartY, result.arrowStopX, result.arrowStopY, ccw);
 
         return result;
     }
@@ -378,7 +399,31 @@ com.eynon.tutorialEy = function (options) {
         return result;
     }
 
-    this.drawArrowToPoint = function (startX, startY, endX, endY) {
+    this.getControlPoint = function(startX, startY, endX, endY, hv, rotateCCW) {
+        // Change in X,y
+        var dx = startX - endX;
+        var dy = startY - endY;
+
+        // Scale to max control distance.
+        var multiplier = this.options.pointerControlDistance;// * Math.sqrt(dx * dx + dy * dy);
+        dx *= multiplier;
+        dy *= multiplier;
+
+        // Counter Clockwise arrow.
+        var normal = {
+            x: hv.x + dy,
+            y: hv.y - dx
+        }
+
+        if (!rotateCCW) {
+            normal.x = hv.x - dy;
+            normal.y = hv.y + dx;
+        }
+
+        return normal;
+    }
+
+    this.getCPFlexPoint = function(startX, startY, endX, endY) {
         // Middle Distance Vector
         var mv = {
             x: Math.abs((startX - endX) / 2),
@@ -397,22 +442,21 @@ com.eynon.tutorialEy = function (options) {
         if (endY < startY)
             hv.y = endY + mv.y;
 
-        // Change in X,y
-        var dx = startX - endX;
-        var dy = startY - endY;
+        return hv;        
+    }
 
-        // Scale to max control distance.
-        var multiplier = this.options.pointerControlDistance;// * Math.sqrt(dx * dx + dy * dy);
-        dx *= multiplier;
-        dy *= multiplier;
-
-        var n1 = {
-            x: hv.x + dy,
-            y: hv.y - dx
+    this.drawArrowToPoint = function (startX, startY, endX, endY, rotateCCW) {
+        var hv = this.getCPFlexPoint(startX, startY, endX, endY);
+        var cp = this.getControlPoint(startX, startY, endX, endY, hv, rotateCCW);
+        //console.log(cp);
+        if (cp.x < 0 || cp.y < 0 || cp.x > $(window).width() || cp.y > $(window).height()) {
+            cp = this.getControlPoint(startX, startY, endX, endY, hv, !rotateCCW);
         }
 
-        var cx = n1.x;
-        var cy = n1.y;
+        var halfWayPoint = {
+            x: cp.x - (cp.x - hv.x) / 5,
+            y: cp.y + (cp.y - hv.y) / 5
+        }
 
         this.pointerCanvas.prop("width", $(window).width());
         this.pointerCanvas.prop("height", $(window).height());
@@ -422,10 +466,6 @@ com.eynon.tutorialEy = function (options) {
             "top": 0,
             "left": 0
         });
-        var halfWayPoint = {
-            x: cx - (cx - hv.x) / 5,
-            y: cy + (cy - hv.y) / 5
-        }
         var ahNormals = this.getNormalInfo(endX, endY, halfWayPoint.x, halfWayPoint.y);
 
         var arrowHeadSizeMultiplier = this.options.arrowHeadSize / Math.sqrt(ahNormals.dx * ahNormals.dx + ahNormals.dy * ahNormals.dy);
@@ -445,6 +485,7 @@ com.eynon.tutorialEy = function (options) {
             y: endY + ahNormals.dy * arrowHeadLengthMultiplier + ahNormals.normals[1].y * arrowHeadSizeMultiplier
         };
 
+        // Debug shows control points
         /*this.pointerCtx.lineWidth = 10;
         this.pointerCtx.strokeStyle = "#00FF00";
         this.pointerCtx.beginPath();
@@ -453,7 +494,7 @@ com.eynon.tutorialEy = function (options) {
         this.pointerCtx.lineWidth = 10;
         this.pointerCtx.strokeStyle = "#0000FF";
         this.pointerCtx.beginPath();
-        this.pointerCtx.arc(cx, cy, 50, 0, 2*Math.PI);
+        this.pointerCtx.arc(cp.x, cp.y, 50, 0, 2 * Math.PI);
         this.pointerCtx.stroke();
         this.pointerCtx.lineWidth = 10;
         this.pointerCtx.strokeStyle = "#FF00FF";
@@ -476,7 +517,7 @@ com.eynon.tutorialEy = function (options) {
         this.pointerCtx.strokeStyle = "#FF0000";
         this.pointerCtx.beginPath();
         this.pointerCtx.moveTo(startX, startY);
-        this.pointerCtx.quadraticCurveTo(cx, cy, endX, endY);
+        this.pointerCtx.quadraticCurveTo(cp.x, cp.y, endX, endY);
         this.pointerCtx.stroke();
     }
 
@@ -539,16 +580,62 @@ com.eynon.tutorialSection = function (sectionName, steps) {
     // Add a step to this section.
     this.addStep = function (step) {
         this.items.push(step);
+        return step;
     }
 }
 
-com.eynon.tutorialStep = function (targetElement, title, content, link) {
+/*
+AdvanceOptions:
+    eventListeners : [
+        {
+            jQuery target : $("#example"),
+            string action : "click"
+        }
+    ]
+*/
+com.eynon.tutorialStep = function (targetElement, title, content, advanceOptions) {
     var step = this;
 
+    this.advanceOptions = advanceOptions;
     this.target = $(targetElement);
     this.title = title;
     this.content = content;
-    this.link = link;
+
+    this.activate = function (owner) {
+        if (this.advanceOptions != null) {
+            if (this.advanceOptions.eventListeners) {
+                if (!(this.advanceOptions.eventListeners instanceof Array)) {
+                    this.advanceOptions.eventListeners = [this.advanceOptions.eventListeners];
+                }
+
+                for (var i = 0; i < this.advanceOptions.eventListeners.length; i++) {
+                    var action = this.advanceOptions.eventListeners[i].action;
+                    this.advanceOptions.eventListeners[i].target.on(action + ".tutorialEy", { tutorial : owner }, function (event) {
+                        event.data.tutorial.goForward();
+                    });
+                }
+            }
+
+            if (this.advanceOptions.onStep != null && typeof this.advanceOptions.onStep === "function") {
+                this.advanceOptions.onStep();
+            }
+        }
+    }
+
+    this.deactivate = function () {
+        if (this.advanceOptions != null) {
+            if (this.advanceOptions.eventListeners) {
+                if (!(this.advanceOptions.eventListeners instanceof Array)) {
+                    this.advanceOptions.eventListeners = [this.advanceOptions.eventListeners];
+                }
+
+                for (var i = 0; i < this.advanceOptions.eventListeners.length; i++) {
+                    var action = this.advanceOptions.eventListeners[i].action;
+                    this.advanceOptions.eventListeners[i].target.off(action + ".tutorialEy");
+                }
+            }
+        }
+    }
 }
 
 com.eynon.iterator = function (items) {
@@ -595,12 +682,73 @@ com.eynon.iterator = function (items) {
 }
 
 $(window).load(function () {
-    var tutorial = new com.eynon.tutorialEy({});
-    var section = tutorial.addSection("Section 1", []);
-    section.addStep(new com.eynon.tutorialStep($("#timerange"), "S1 Step 1", "S1 S1 content 1", "link"));
-    section.addStep(new com.eynon.tutorialStep($("#quickSelect"), "S1 Step 2", "S1 S2 content 2", "link"));
-    section.addStep(new com.eynon.tutorialStep($("#selectmode"), "S1 Step 3", "S1 S3 content 3", "link"));
-    var section = tutorial.addSection("Section 2", []);
-    section.addStep(new com.eynon.tutorialStep($("#reportView"), "S2 Step 1", "S2 S1 content 1", "link"));
+    var tutorial = new com.eynon.tutorialEy({ lockPosition : false });
+    var section = tutorial.addSection("Time Range", []);
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "Open Date Time Menu", "Click the clock icon to open the date time editor.", {
+        eventListeners: {
+            target: $("#timerange"),
+            action : "click"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+            com.capstone.UI.hideMenuForUIButton($("#timerange"), "timespan");
+        }
+    }));
+
+    section.addStep(new com.eynon.tutorialStep($("#datestart"), "Modify the From Date & Time", "Click on the input to change the date and time.", {
+        eventListeners: {
+            target: $("#datestart"),
+            action: "change"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+            com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+        }
+    }));
+
+    section.addStep(new com.eynon.tutorialStep($("#dateend"), "Modify the To Date & Time", "Click on the input to change the date and time.", {
+        eventListeners: {
+            target: $("#dateend"),
+            action: "change"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+            com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+        }
+    }));
+
+    section.addStep(new com.eynon.tutorialStep($("#timerange"), "Close Date Time Menu", "Click the clock icon again to close the menu.", {
+        eventListeners: {
+            target: $("#timerange"),
+            action: "click"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+            com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+        }
+
+    }));
+    var section = tutorial.addSection("Filter: Pickups & Dropoffs", []);
+
+    section.addStep(new com.eynon.tutorialStep($("#selectmode"), "Open Pickup / Dropoff Menu", "Click the circle / square icon to open the pickup / dropoff menu.", {
+        eventListeners: {
+            target: $("#selectmode"),
+            action: "click"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+        }
+    }));
+
+    section.addStep(new com.eynon.tutorialStep($("#filterSelection"), "Change the Selection Type", "Select the desired selection type from the dropdown menu.", {
+        eventListeners: {
+            target: $("#filterSelection"),
+            action: "change"
+        },
+        onStep: function () {
+            com.capstone.UI.closeOpenMenus();
+            com.capstone.UI.showMenuForUIButton($("#selectmode"), "typeselect");
+        }
+    }));
     tutorial.play();
 });
