@@ -194,6 +194,7 @@
     <Content Include="Content\images\custom_rgb_r.png" />
     <Content Include="Content\images\custom_submit.png" />
     <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\help.png" />
     <Content Include="Content\images\invisible_marker.png" />
     <Content Include="Content\images\layers-2x.png" />
     <Content Include="Content\images\layers.png" />

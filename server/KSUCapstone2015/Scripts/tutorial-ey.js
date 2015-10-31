@@ -756,4 +756,6 @@ $(window).load(function () {
         }
     }));
     tutorial.play();
+
+    $("#btnHelp").on("click", function () { tutorial.play(); });
 });
