@@ -12,9 +12,10 @@ com.capstone.ReportController = function (reportid) {
     this.dataPoints = [];
     this.title = "Average Speed";
     this.subTitle = "In mph";
-    this.type = "splineArea";
+    this.type = "column";
     this.xTitle = "Trip";
     this.yTitle = "Speed";
+    this.counter = 1;
 
 
     this.initChart = function () {
@@ -61,40 +62,49 @@ com.capstone.ReportController = function (reportid) {
     this.updateChart = function (QueryResults) {
         if (self.type == "pie") {
             this.pieChart("Average Passengers", QueryResults);
-        } else if (self.type == "splineArea") {
-            this.lineGraph(self.title, self.subTitle, self.xTitle, self.yTitle, QueryResults);
+        } else if (self.type == "column") {
+            this.barGraph(self.title, self.subTitle, self.xTitle, self.yTitle, QueryResults);
         }
-
         self.chart.render();
     };
 
-    this.lineGraph = function (title, subtitle, xTitle, yTitle, Data) {
-        var counter = 1;
+    this.barGraph = function (title, subtitle, xTitle, yTitle, Data) {
         self.title = title;
         self.subTitle = subtitle;
         self.xTitle = xTitle;
         self.yTitle = yTitle;
+        var speed = 0;
+        var count = 0;
         Data.forEach(function (result) {
             var resultSpeed = Math.ceil(result.Distance / (result.Duration / 3600));
             if (resultSpeed < 75 && resultSpeed > 0) {
-                self.dataPoints.push({ label: counter, y: resultSpeed });
-                ++counter;
+                speed += resultSpeed;
+                count++;
             }
         });
+        speed = speed / count;
+        self.dataPoints.push({ label: counter, y: speed });
+        counter++;
     }
 
 
     this.pieChart = function (title,yData) {
         self.title = title;
-        var counter = 1;
+        var passengers = 0;
+        var count = 0;
         yData.forEach(function (result) {
-            self.dataPoints.push({ label: counter, y: result.Passengers });
+            passengers += result.Passengers;
+            count++;
         });
+        passengers = passengers / count;
+        self.dataPoints.push({ label: counter, y: passengers });
+        counter++;
     }
 
     this.clearChart = function () {
         self.dataPoints = [];
         self.chart.options.data[0].dataPoints = self.dataPoints;
+        counter = 1;
         self.chart.render();
     }
 
