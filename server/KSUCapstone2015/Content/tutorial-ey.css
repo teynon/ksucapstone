@@ -30,6 +30,9 @@
 .tutorialEyActiveStep {
     min-width: 200px;
     flex: 1;
+    display: flex;
+    align-content: stretch;
+    flex-direction: column;
 }
 
 .tutorialEySectionHeader {
@@ -38,6 +41,17 @@
     font-weight: bold;
     background: #000000;
     padding : 4px;
+    display: flex;
+    flex-direction: row;
+}
+
+.tutorialEySectionTitle {
+    flex: 1;
+}
+
+.tutorialEyClose {
+    padding: 0px 4px;
+    cursor: pointer;
 }
 
 .tutorialEyActiveStepTitle {
@@ -47,9 +61,31 @@
 }
 
 .tutorialEyActiveStepBody {
+    flex: 1;
     padding: 5px;
     color: #FFFFFF;
     line-height: 20px;
+}
+
+.tutorialEyButtons {
+    flex: 1;
+    max-height: 40px;
+    background: #00FF00;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+}
+
+.tutorialEyButtons > button {
+    flex: 1;
+    background: #000000;
+    color: #FFFFFF;
+    border: 1px solid #0000FF;
+    border-left: none;
+}
+
+.tutorialEyButtons > button:first-child {
+    border-left: 1px solid #0000FF;
 }
 
 .tutorialEyStepList {
