@@ -3,28 +3,34 @@
     align-content: stretch;
     min-width: 600px;
     min-height: 300px;
-    border: 1px solid #000000;
-    background: #666666;
-    
+    background: rgba(170,170,170,0.8);
+    border-radius: 5px 0px 0px 5px;
 }
 .tutorialEySectionList {
+    padding:5px 0px 5px 5px;
+    border-radius: 5px 0px 0px 5px;;
     min-width: 150px;
     max-width: 200px;
-    border-right: 1px solid #000000;
 }
 
 .tutorialEySectionList > div {
-    padding: 4px;
-    background: #EEEEEE;
+    padding: 5px 15px 5px 10px;
+    margin-bottom: 1px;
+    background: #162330;
+    color: #FFFFFF;
     cursor: pointer;
-}
-
-.tutorialEySectionList > div:nth-child(2n+1) {
-    background: #FFFFFF;
+    border-radius: 5px 0px 0px 5px;
 }
 
 .tutorialEySectionList > div.tutorialEyActive {
-    background-color: #ff0000 !important;
+    background-color: #e84433 !important;
+}
+
+.tutorialEyMainSection {
+    border: 3px solid #050d14;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .tutorialEyActiveStep {
@@ -35,11 +41,17 @@
     flex-direction: column;
 }
 
+.tutorialEyMainContent {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
 .tutorialEySectionHeader {
     color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
-    background: #000000;
+    background: #050d14;
     padding : 4px;
     display: flex;
     flex-direction: row;
@@ -55,7 +67,9 @@
 }
 
 .tutorialEyActiveStepTitle {
-    background: #AAAAAA;
+    background: #29445b;
+    color: #FFFFFF;
+    font-weight: bold;
     padding: 5px;
     line-height: 20px;
 }
@@ -63,7 +77,8 @@
 .tutorialEyActiveStepBody {
     flex: 1;
     padding: 5px;
-    color: #FFFFFF;
+    background: #f3f3f3;
+    color: #000000;
     line-height: 20px;
 }
 
@@ -71,46 +86,55 @@
     position: relative;
     flex: 1;
     max-height: 40px;
-    background: #00FF00;
+    background: #F3F3F3;
     flex-direction: row;
     align-content: stretch;
 }
 
 .tutorialEyButtons > button {
-    background: #000000;
+    background: #e84433;
     color: #FFFFFF;
-    border: 1px solid #0000FF;
+    border: 1px solid #050d14;
+    border-radius: 2px 2px 2px 2px;
     max-width: 50%;
+}
+
+
+
+.tutorialEyButtons > button:nth-child(2n) {
 }
 
 .tutorialEyPrevious { 
     position: absolute;
-    width: 50%;
-    left: 0;
+    width: calc(50% - 2px);
+    left: 1px;
     top: 0;
-    bottom: 0;
+    bottom: 1px;
 }
 
 .tutorialEyNext { 
     position: absolute;
-    width: 50%;
-    right: 0;
+    width: calc(50% - 1px);
+    right: 1px;
     top: 0;
-    bottom: 0;
+    bottom: 1px;
 }
 
 .tutorialEyStepList {
-    border-left: 1px solid #000000;
     color: #FFFFFF;
     background: #000000;
     min-width: 200px;
     flex: 1;
     min-width: 150px;
     max-width: 200px;
+    padding: 2px;
 }
 
 .tutorialEyStepList > div {
+    margin: 1px;
+    margin-bottom: 2px;
     padding: 4px;
+    border-radius: 4px;
     background: #EEEEEE;
     color: #000000;
     cursor: pointer;
@@ -121,5 +145,5 @@
 }
 
 .tutorialEyStepList > div.tutorialEyActive {
-    background-color: #ff0000 !important;
+    background-color: #e84433 !important;
 }

@@ -6,7 +6,7 @@ com.eynon.tutorialEy = function (options) {
     var tutorial = this;
     this.options = {
         "lockPosition" : false,
-        "pointerControlDistance": 0.5,
+        "pointerControlDistance": 0.3,
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
         "maxSpacing": 50,
@@ -45,24 +45,32 @@ com.eynon.tutorialEy = function (options) {
         .addClass("tutorialEySectionList")
         .css(this.options.sectionCSS).appendTo(this.tutorialWindow);
 
-        this.dom['MiddleSection'] = $("<div></div>")
-        .addClass("tutorialEyActiveStep")
-        .css(this.options.activeStepCSS).appendTo(this.tutorialWindow);
+        this.dom['MainSection'] = $("<div></div>")
+        .addClass("tutorialEyMainSection")
+        .appendTo(this.tutorialWindow);
 
         this.dom['SectionHeader'] = $("<div></div>")
         .addClass("tutorialEySectionHeader")
-        .css(this.options.sectionHeaderCSS).appendTo(this.dom['MiddleSection']);
+        .css(this.options.sectionHeaderCSS).appendTo(this.dom['MainSection']);
+
+        this.dom['MainSectionContent'] = $("<div></div>")
+        .addClass("tutorialEyMainContent")
+        .appendTo(this.dom['MainSection']);
         
         this.dom['ActiveSectionTitle'] = $("<div></div>")
         .addClass("tutorialEySectionTitle")
         .appendTo(this.dom['SectionHeader']);
 
-        this.dom['Close'] = $("<div>X</div>")
+        this.dom['Close'] = $("<div><img src=\"Content/images/tutorial_x.png\" /></div>")
         .addClass("tutorialEyClose")
         .on("click", function () {
             tutorial.close();
         })
         .appendTo(this.dom['SectionHeader']);
+
+        this.dom['MiddleSection'] = $("<div></div>")
+        .addClass("tutorialEyActiveStep")
+        .css(this.options.activeStepCSS).appendTo(this.dom['MainSectionContent']);
 
         this.dom['Title'] = $("<div></div>")
         .addClass("tutorialEyActiveStepTitle")
@@ -88,7 +96,7 @@ com.eynon.tutorialEy = function (options) {
 
         this.dom['StepsSection'] = $("<div></div>")
         .addClass("tutorialEyStepList")
-        .css(this.options.stepsCSS).appendTo(this.tutorialWindow);
+        .css(this.options.stepsCSS).appendTo(this.dom['MainSectionContent']);
 
         this.pointerCanvas = $("<canvas></canvas>");
         this.pointerCanvas.on("mousedown", function (event) { event.preventDefault(); });
