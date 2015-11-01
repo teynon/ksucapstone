@@ -53,7 +53,8 @@ namespace KSUCapstone2015
                  "~/Scripts/L.ToolbarToggle.js"));
 
             bundles.Add(new ScriptBundle("~/Tutorial").Include(
-                "~/Scripts/tutorial-ey.js"));
+                "~/Scripts/tutorial-ey.js",
+                "~/Scripts/MapTutorial.js"));
 
             bundles.Add(new ScriptBundle("~/ColorPicker").Include(
                 "~/Scripts/colors.js",
