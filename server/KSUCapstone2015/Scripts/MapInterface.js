@@ -244,7 +244,9 @@ com.capstone.MapController = function (mapid) {
         if (self.SelectMode == "trip") {
             $("#filterSelection").val("drop");
         }
+
         // Do whatever else you need to. (save to db, add to map etc) 
+        $("#" + self.mapID).trigger("mapQuery");
     }
 
     this.getRectangleSelectionData = function (layer) {
@@ -460,6 +462,8 @@ com.capstone.MapController = function (mapid) {
         if (self.SelectMode == "trip") {
             $("#filterSelection").val("drop");
         }
+
+        $("#" + self.mapID).trigger("mapQuery");
     }
 
 

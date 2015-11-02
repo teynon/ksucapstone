@@ -5,7 +5,8 @@ com.eynon.tutorialEy = function (options) {
     com.eynon.iterator.call(this, []);
     var tutorial = this;
     this.options = {
-        "lockPosition" : false,
+        "lockPosition": false,
+        "keepInFront" : true,
         "pointerControlDistance": 0.3,
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
@@ -208,10 +209,10 @@ com.eynon.tutorialEy = function (options) {
                 event.stopPropagation();
                 event.preventDefault();
             })
-            .on("click", { "section": section, index: i }, function (event) {
+            .on("click", { index: i }, function (event) {
                 if (tutorial.open) {
                     tutorial.deactivateStep();
-                    event.data.section.setKey(event.data.index);
+                    tutorial.current().setKey(event.data.index);
                     tutorial.update();
                 }
             })
@@ -232,7 +233,6 @@ com.eynon.tutorialEy = function (options) {
         var section = this.current();
         this.rebuildSteps();
         var step = section.current();
-        var bounds = this.getBounds(step.target);
 
         this.dom['ActiveSectionTitle'].html(section.name);
 
@@ -256,6 +256,9 @@ com.eynon.tutorialEy = function (options) {
 
             this.updateArrow();
         }
+
+        if (this.options.keepInFront)
+            this.bringToFront();
     },
 
     this.play = function () {
@@ -291,6 +294,31 @@ com.eynon.tutorialEy = function (options) {
         });
 
         this.updateArrow();
+
+        if (this.options.keepInFront)
+            this.bringToFront();
+    }
+
+    this.bringToFront = function () {
+        var zTop = 0;
+
+        var frontIndex = this.getFrontZIndex($("body"));
+        if (frontIndex != parseInt(this.tutorialWindow.css("z-index"), 0)) {
+            this.tutorialWindow.css("z-index", frontIndex + 1);
+            this.pointerCanvas.css("z-index", frontIndex + 1);
+        }
+    }
+
+    this.getFrontZIndex = function(jElement) {
+        var zIndex = 0;
+        jElement.children().each(function(index) {
+            var cZ = parseInt($(this).css('z-index'), 0);
+            if (cZ > zIndex) zIndex = cZ;
+            var cZ2 = tutorial.getFrontZIndex($(this));
+            if (cZ2 > zIndex) zIndex = cZ2;
+        });
+
+        return zIndex;
     }
 
     this.updateArrow = function () {
@@ -302,6 +330,12 @@ com.eynon.tutorialEy = function (options) {
             arrowStartY: 0,
             arrowStopX: 0,
             arrowStopY: 0
+        }
+
+        if (this.current().current().target == null || !this.current().current().target.is(":visible")) {
+            // Clear the arrow, return.
+            this.pointerCtx.clearRect(0, 0, this.pointerCanvas.width(), this.pointerCanvas.height());
+            return result;
         }
 
         var bounds = this.getBounds(this.current().current().target);
@@ -345,68 +379,78 @@ com.eynon.tutorialEy = function (options) {
             arrowStopX: 0,
             arrowStopY: 0
         }
-        var bounds = this.getBounds(target);
-        var tutBounds = this.getBounds(tutorialWindow);
+
         // Which area has the most space available?
         var vp = {
             width: $(window).width(),
             height: $(window).height()
         }
 
-        // Draw on Left
-        if (bounds.left >= vp.width - bounds.right) {
-            if (bounds.left > tutBounds.width + this.options.maxSpacing) {
-                result.x = bounds.left - (tutBounds.width + this.options.maxSpacing);
-                result.arrowStartX = result.x + tutBounds.width;
-                result.arrowStopX = bounds.left;
-            }
-            else {
-                result.x = 0;
-                result.arrowStartX = tutBounds.width;
-                result.arrowStopX = bounds.left;
-            }
-        }
-            // Draw on right
-        else {
-            // Left is most available.
-            // - Center tutorial between right and element's right. (Or as far right as possible without pushing the page size)
-            if (vp.width - bounds.right > tutBounds.width + this.options.maxSpacing) {
-                result.x = bounds.right + this.options.maxSpacing;
-                result.arrowStartX = result.x;
-                result.arrowStopX = bounds.right;
-            }
-            else {
-                result.x = vp.width - tutBounds.width;
-                result.arrowStartX = result.x;
-                result.arrowStopX = bounds.right;
-            }
-        }
+        var tutBounds = this.getBounds(tutorialWindow);
 
-        // Draw on Top
-        if (bounds.top >= vp.height - bounds.bottom) {
-            if (bounds.top > tutBounds.height + this.options.maxSpacing) {
-                result.y = bounds.top - (tutBounds.height + this.options.maxSpacing);
-                result.arrowStartY = result.y + tutBounds.height;
-                result.arrowStopY = bounds.top;
+        if (target != null) {
+            var bounds = this.getBounds(target);
+
+            // Draw on Left
+            if (bounds.left >= vp.width - bounds.right) {
+                if (bounds.left > tutBounds.width + this.options.maxSpacing) {
+                    result.x = bounds.left - (tutBounds.width + this.options.maxSpacing);
+                    result.arrowStartX = result.x + tutBounds.width;
+                    result.arrowStopX = bounds.left;
+                }
+                else {
+                    result.x = 0;
+                    result.arrowStartX = tutBounds.width;
+                    result.arrowStopX = bounds.left;
+                }
             }
+                // Draw on right
             else {
-                result.y = 0;
-                result.arrowStartY = tutBounds.height;
-                result.arrowStopY = bounds.top;
+                // Left is most available.
+                // - Center tutorial between right and element's right. (Or as far right as possible without pushing the page size)
+                if (vp.width - bounds.right > tutBounds.width + this.options.maxSpacing) {
+                    result.x = bounds.right + this.options.maxSpacing;
+                    result.arrowStartX = result.x;
+                    result.arrowStopX = bounds.right;
+                }
+                else {
+                    result.x = vp.width - tutBounds.width;
+                    result.arrowStartX = result.x;
+                    result.arrowStopX = bounds.right;
+                }
+            }
+
+            // Draw on Top
+            if (bounds.top >= vp.height - bounds.bottom) {
+                if (bounds.top > tutBounds.height + this.options.maxSpacing) {
+                    result.y = bounds.top - (tutBounds.height + this.options.maxSpacing);
+                    result.arrowStartY = result.y + tutBounds.height;
+                    result.arrowStopY = bounds.top;
+                }
+                else {
+                    result.y = 0;
+                    result.arrowStartY = tutBounds.height;
+                    result.arrowStopY = bounds.top;
+                }
+            }
+                // Draw on Bottom
+            else {
+                if (vp.height - bounds.bottom > tutBounds.height + this.options.maxSpacing) {
+                    result.y = bounds.bottom + this.options.maxSpacing;
+                    result.arrowStartY = result.y;
+                    result.arrowStopY = bounds.bottom;
+                }
+                else {
+                    result.y = vp.height - tutBounds.height;
+                    result.arrowStartY = result.y;
+                    result.arrowStopY = bounds.bottom;
+                }
             }
         }
-            // Draw on Bottom
         else {
-            if (vp.height - bounds.bottom > tutBounds.height + this.options.maxSpacing) {
-                result.y = bounds.bottom + this.options.maxSpacing;
-                result.arrowStartY = result.y;
-                result.arrowStopY = bounds.bottom;
-            }
-            else {
-                result.y = vp.height - tutBounds.height;
-                result.arrowStartY = result.y;
-                result.arrowStopY = bounds.bottom;
-            }
+            // Center tutorial
+            result.x = (vp.width / 2) - (tutBounds.width / 2);
+            result.y = (vp.height / 2) - (tutBounds.height / 2);
         }
 
         return result;
@@ -610,7 +654,7 @@ com.eynon.tutorialStep = function (targetElement, title, content, advanceOptions
     var step = this;
 
     this.advanceOptions = advanceOptions;
-    this.target = $(targetElement);
+    this.target = (targetElement == null) ? null : $(targetElement);
     this.title = title;
     this.content = content;
 
@@ -656,7 +700,7 @@ com.eynon.iterator = function (items) {
     this.position = 0;
 
     this.setKey = function (key) {
-        this.position = key;
+        this.position = parseInt(key);
     }
 
     this.each = function (callback) {
