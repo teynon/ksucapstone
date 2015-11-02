@@ -13,7 +13,7 @@
                     pointTo: $("#timerange"),
                     advanceOptions: {
                         eventListeners: {
-                            target: $("#target"),
+                            target: $("#timerange"),
                             action: "click"
                         },
                         onStep: function () {
