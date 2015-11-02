@@ -192,6 +192,8 @@ com.capstone.MapController = function (mapid) {
                 // Remove from map queries list.
                 self.activeMapQueries.splice(i, 1);
 
+                self.ReportController.removeQuery(i);
+
                 // Set the index back one, since the current index is now the next index.
                 i--;
             }

@@ -83,8 +83,8 @@ com.capstone.ReportController = function (reportid) {
             }
         });
         speed = speed / count;
-        self.dataPoints.push({ label: counter, y: speed });
-        counter++;
+        self.dataPoints.push({ label: self.counter, y: speed });
+        self.counter++;
     }
 
 
@@ -97,14 +97,21 @@ com.capstone.ReportController = function (reportid) {
             count++;
         });
         passengers = passengers / count;
-        self.dataPoints.push({ label: counter, y: passengers });
-        counter++;
+        self.dataPoints.push({ label: self.counter, y: passengers });
+        self.counter++;
+    }
+
+    this.removeQuery = function (id) {
+        self.dataPoints.splice(id, 1);
+        self.chart.options.data[0].dataPoints = self.dataPoints;
+        self.counter--;
+        self.chart.render();
     }
 
     this.clearChart = function () {
         self.dataPoints = [];
         self.chart.options.data[0].dataPoints = self.dataPoints;
-        counter = 1;
+        self.counter = 1;
         self.chart.render();
     }
 
