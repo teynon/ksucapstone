@@ -614,9 +614,9 @@ com.capstone.MapController = function (mapid) {
        
         self.ReportController = new com.capstone.ReportController('chartContainer');
         if ($("#selectChart").val() == "Average Speed") {
-            self.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH", "Speed: {y} MPH");
+            self.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH","Query ", "Speed: {y} MPH");
         } else if ($("#selectChart").val() == "Trips per Selection") {
-            self.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "", "Trips: {y}");
+            self.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "", "Query ", "Trips: {y}");
         }
 
         self.activeMapQueries.forEach(function(query) {
@@ -756,9 +756,9 @@ $(document).ready(function () {
     $("#selectChart").on("change", function () {
         com.capstone.mapController.ReportController = new com.capstone.ReportController('chartContainer');
         if ($("#selectChart").val() == "Average Speed") {
-            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH", "Speed: {y} MPH");
+            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH","Query ", "Speed: {y} MPH");
         } else if ($("#selectChart").val() == "Trips per Selection") {
-            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "", "Trips: {y}");
+            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "","Query ", "Trips: {y}");
         }
 
         com.capstone.mapController.activeMapQueries.forEach(function (query) {

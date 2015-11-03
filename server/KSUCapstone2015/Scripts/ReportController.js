@@ -17,11 +17,12 @@ com.capstone.ReportController = function (reportid) {
     this.yTitle = null;
     this.xSuffix = null;
     this.ySuffix = null;
+    this.xPrefix = null;
     this.toolTip = null;
     this.counter = 1;
 
 
-    this.barGraph = function (title, subtitle, xTitle, yTitle, xSuffix, ySuffix, toolTip) {
+    this.barGraph = function (title, subtitle, xTitle, yTitle, xSuffix, ySuffix, xPrefix, toolTip) {
         this.type = "column";
         self.title = title;
         self.subTitle = subtitle;
@@ -29,6 +30,7 @@ com.capstone.ReportController = function (reportid) {
         self.yTitle = yTitle;
         self.xSuffix = xSuffix;
         self.ySuffix = ySuffix;
+        self.xPrefix = xPrefix;
         self.toolTip = toolTip;
 
         self.chart = new CanvasJS.Chart("chartContainer",
@@ -47,14 +49,12 @@ com.capstone.ReportController = function (reportid) {
            axisX: {
                title: self.xTitle,
                suffix: self.xSuffix,
-               interval: 0,
-               labelFontColor: "white",
-               tickColor: "white"
+               prefix: self.xPrefix,
+               interval: 0
            },
            axisY: {
                title: self.yTitle,
-               suffix: self.ySuffix,
-               viewportMaximum: 65
+               suffix: self.ySuffix
            },
            data: [
                    {
@@ -116,7 +116,7 @@ com.capstone.ReportController = function (reportid) {
     }
 
     this.removeQuery = function (id) {
-        self.dataPoints.splice(id, 1);
+        self.dataPoints.slice(id, 1);
         self.chart.options.data[0].dataPoints = self.dataPoints;
         self.counter--;
         self.chart.render();
