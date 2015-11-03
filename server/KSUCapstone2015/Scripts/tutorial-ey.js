@@ -6,7 +6,8 @@ com.eynon.tutorialEy = function (options) {
     var tutorial = this;
     this.options = {
         "lockPosition": false,
-        "keepInFront" : true,
+        "keepInFront": true,
+        "sectionSpacer" : 15,
         "pointerControlDistance": 0.3,
         "arrowHeadSize": 10,
         "arrowHeadLength": 20,
@@ -38,6 +39,7 @@ com.eynon.tutorialEy = function (options) {
     });
     this.refreshInterval = null;
     this.pointerCanvas = null;
+    this.sectionStart = 0;
     
     this.dom = {};
 
@@ -174,7 +176,13 @@ com.eynon.tutorialEy = function (options) {
             this.dom['Next'].hide();
         }
 
+        var windowHeight = this.tutorialWindow.height();
+        var showPaging = false;
+        var skip = 0;
+
         for (var i in this.items) {
+            if (skip++ < this.sectionStart) continue;
+
             var item = $("<div></div>")
             .css(this.options.sectionItemCSS)
             .on("click", { index: i }, function (event) {
@@ -191,8 +199,48 @@ com.eynon.tutorialEy = function (options) {
             })
             .text(this.items[i].name)
             .appendTo(this.dom['LeftSection']);
+
             if (this.items[i] == activeSection) {
                 item.addClass("tutorialEyActive");
+            }
+
+            windowHeight -= item.outerHeight();
+            if (windowHeight - (item.outerHeight() * 2) <= this.options.sectionSpacer) {
+                showPaging = true;
+                break;
+            }
+        }
+
+        if (this.sectionStart > 0 || showPaging) {
+            var sectionNav = $("<div></div>")
+            .addClass("tutorialEySectionNav")
+            .appendTo(this.dom['LeftSection']);
+
+            if (this.sectionStart > 0) {
+                // Add previous button.
+                $("<button></button>").addClass("tutorialEyScrollUp").appendTo(sectionNav)
+                .on("click", function () {
+                    // Scroll down.
+                    tutorial.sectionStart--;
+                    if (tutorial.sectionStart < 0) {
+                        tutorial.sectionStart = 0;
+                    }
+
+                    tutorial.update();
+                });
+            }
+
+            if (showPaging) {
+                $("<button></button>").addClass("tutorialEyScrollDown").appendTo(sectionNav)
+                .on("click", function () {
+                    // Scroll down.
+                    tutorial.sectionStart++;
+                    if (tutorial.sectionStart >= tutorial.items.length) {
+                        tutorial.sectionStart = tutorial.items.length - 1;
+                    }
+
+                    tutorial.update();
+                });
             }
         }
     }
@@ -247,7 +295,7 @@ com.eynon.tutorialEy = function (options) {
         
         if (this.open) {
             if (!this.options.lockPosition) {
-                var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
+                var winLocation = this.getWindowLocation(step.getTarget(), this.tutorialWindow);
                 this.tutorialWindow.css({
                     "left": winLocation.x,
                     "top": winLocation.y
@@ -264,17 +312,15 @@ com.eynon.tutorialEy = function (options) {
     this.play = function () {
         this.activateStep();
         this.open = true;
-        this.rebuildSections();
 
         if (this.options.uiRefresh > 0) {
+            clearInterval(this.refreshInterval);
             this.refreshInterval = setInterval(function () { tutorial.updateArrow(); }, this.options.uiRefresh);
         }
 
         // Open the first section, first step
         var section = this.current();
-        this.rebuildSteps();
         var step = section.current();
-        var bounds = this.getBounds(step.target);
 
         this.dom['ActiveSectionTitle'].html(section.name);
 
@@ -286,8 +332,10 @@ com.eynon.tutorialEy = function (options) {
             "visibility": "visible",
             "position": "absolute"
         }, this.options.tutorialCSS));
+        this.rebuildSections();
+        this.rebuildSteps();
 
-        var winLocation = this.getWindowLocation(step.target, this.tutorialWindow);
+        var winLocation = this.getWindowLocation(step.getTarget(), this.tutorialWindow);
         this.tutorialWindow.css({
             "left": winLocation.x,
             "top": winLocation.y
@@ -332,13 +380,14 @@ com.eynon.tutorialEy = function (options) {
             arrowStopY: 0
         }
 
-        if (this.current().current().target == null || !this.current().current().target.is(":visible")) {
+        if (this.current().current().getTarget() == null || !this.current().current().getTarget().is(":visible")) {
+            console.log(this.current().current().getTarget());
             // Clear the arrow, return.
             this.pointerCtx.clearRect(0, 0, this.pointerCanvas.width(), this.pointerCanvas.height());
             return result;
         }
 
-        var bounds = this.getBounds(this.current().current().target);
+        var bounds = this.getBounds(this.current().current().getTarget());
         var tutBounds = this.getBounds(this.tutorialWindow);
 
         // Draw on Left
@@ -654,7 +703,8 @@ com.eynon.tutorialStep = function (targetElement, title, content, advanceOptions
     var step = this;
 
     this.advanceOptions = advanceOptions;
-    this.target = (targetElement == null) ? null : $(targetElement);
+    console.log(targetElement);
+    this.target = (targetElement == null) ? null : targetElement;
     this.title = title;
     this.content = content;
 
@@ -692,6 +742,12 @@ com.eynon.tutorialStep = function (targetElement, title, content, advanceOptions
                 }
             }
         }
+    }
+
+    this.getTarget = function () {
+        if (this.target == null) return null;
+        if (typeof this.target === "function") return this.target();
+        return $(this.target);
     }
 }
 

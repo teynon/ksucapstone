@@ -1,9 +1,90 @@
 ﻿$(window).load(function () {
-    var tutorial = new com.eynon.tutorialEy({ lockPosition: false });
+    var tutorial = new com.eynon.tutorialEy({ lockPosition: true });
 
     // TIME RANGE 
     // ----------------------------------------------------------------------------
+    
     var tutorials = [
+        {
+            Section: "Querying The Map",
+            Contents: [
+                {
+                    title: "Quick Query",
+                    body: "When Quick Query Mode is active, you can click anywhere on the map to perform a quick query. Lets try it. Click somewhere on the map and see what happens.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.setDrawingMode(false);
+                        }
+                    }
+                },
+                {
+                    title: "Advanced Query Mode",
+                    body: "Great. You should now be able to see the results on the map! You can also switch to advanced query mode by clicking the icon in the top left of the screen.",
+                    pointTo: $("#quickSelect"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#quickSelect"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.setDrawingMode(false);
+                        }
+                    }
+                },
+                {
+                    title: "Advanced Query: Rectangle Selection",
+                    body: "Click the rectangle icon on the left and draw a query by clicking and dragging on the map.",
+                    pointTo: function () { return $(".leaflet-draw-draw-rectangle"); },
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.setDrawingMode(true);
+                        }
+                    }
+                },
+                {
+                    title: "Advanced Query: Circle Selection",
+                    body: "Click the circle icon to select the circle query mode. Next, click and drag on the map to create a new circle query.",
+                    pointTo: function () { return $(".leaflet-draw-draw-circle"); },
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.setDrawingMode(true);
+                        }
+                    }
+                },
+                {
+                    title: "Advanced Query: Polygon Selection",
+                    body: "The last query mode is the polygon query mode. To start, click the polygon icon. Then, click a starting point on the map. Continue clicking points until you have the area you want selected. To close the polygon and run the query, click on the first point you added.",
+                    pointTo: function () { return $(".leaflet-draw-draw-polygon"); },
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.setDrawingMode(true);
+                        }
+                    }
+                }
+            ]
+        },
         {
             Section: "Filter: Time Range",
             Contents: [
