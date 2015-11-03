@@ -361,11 +361,18 @@ com.capstone.MapController = function (mapid) {
         
         if (this.draw_selection) {
             $("#simpleQueryRange").css("display", "none");
+            try {
+                this.map.removeControl(this.drawingControls);
+            }
+            catch (e) { }
             this.map.addControl(this.drawingControls);
         }
         else {
             $("#simpleQueryRange").css("display", "block");
-            this.map.removeControl(this.drawingControls);
+            try {
+                this.map.removeControl(this.drawingControls);
+            }
+            catch (e) {}
         }
     }
 

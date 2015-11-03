@@ -215,6 +215,8 @@
     <Content Include="Content\images\slider.png" />
     <Content Include="Content\images\spritesheet-2x.png" />
     <Content Include="Content\images\spritesheet.png" />
+    <Content Include="Content\images\tutorial_down.png" />
+    <Content Include="Content\images\tutorial_up.png" />
     <Content Include="Content\images\tutorial_x.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\images\ui-bg_diagonals-thick_20_666666_40x40.png" />

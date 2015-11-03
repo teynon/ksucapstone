@@ -3,15 +3,50 @@
     align-content: stretch;
     min-width: 600px;
     min-height: 300px;
+    max-height: 300px;
     max-width: 50vw;
     background: rgba(170,170,170,0.8);
-    border-radius: 5px 0px 0px 5px;
+    border-radius: 5px 5px 5px 5px;
 }
 .tutorialEySectionList {
     padding:5px 0px 5px 5px;
-    border-radius: 5px 0px 0px 5px;;
+    border-radius: 5px 0px 0px 5px;
     min-width: 200px;
     max-width: 200px;
+    position: relative;
+}
+
+.tutorialEySectionNav {
+    height: 30px;
+    position: absolute;
+    width: 100%;
+    bottom: 4px;
+}
+
+.tutorialEySectionNav > button {
+    border: none;
+    background-color: rgba(0,0,0,0);
+    width: 50%;
+    height: 20px;
+}
+
+.tutorialEySectionNav > button.tutorialEyScrollUp {
+    background: url(/Content/images/tutorial_up.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: calc(50% + 1px);
+    left: 0px;
+    border-right: 1px solid #e84433;
+}
+
+.tutorialEySectionNav > button.tutorialEyScrollDown {
+    position: absolute;
+    background-image: url(/Content/images/tutorial_down.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    right: 0px;
+    border-left: 1px solid #e84433;
 }
 
 .tutorialEySectionList > div {
