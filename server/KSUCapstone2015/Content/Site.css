@@ -200,6 +200,15 @@ textarea {
     padding: 0px;
 }
 
+#selectChartContainer {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    top: 50px;
+    display: none;
+}
+
+
 section.bottomPanel {
     position: absolute;
     left: 0px;

@@ -19,7 +19,7 @@ com.capstone.MapController = function (mapid) {
     this.map = null;
 
     // Instance of ReportController
-    this.ReportController = new com.capstone.ReportController('chartContainer');
+    this.ReportController = null;
 
     // Current selection mode for map.
     this.queryType = "rectangle";
@@ -605,11 +605,21 @@ com.capstone.MapController = function (mapid) {
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
        
-        //self.ReportController.updateChart(self.activeMapQueries.QueryResults);
+        self.ReportController = new com.capstone.ReportController('chartContainer');
+        if ($("#selectChart").val() == "Average Speed") {
+            self.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH", "Speed: {y} MPH");
+        } else if ($("#selectChart").val() == "Trips per Selection") {
+            self.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "", "Trips: {y}");
+        }
+
+        self.activeMapQueries.forEach(function(query) {
+            self.ReportController.updateChart(query.QueryResults);
+        });
 
         // Stop any active animation and begin the new animation.
         $("#chartContainer").stop().animate({ "width": "50%" }, 400, function () {
             $("#chartContainer").css("display", "block");
+            $("#selectChartContainer").css("display", "block");
         });
 
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
@@ -628,6 +638,7 @@ com.capstone.MapController = function (mapid) {
         // Stop any active animation and begin the new animation.
         $("#chartContainer").stop().animate({ "width": "0%" }, 400, function () {
             $("#chartContainer").css("display", "none");
+            $("#selectChartContainer").css("display", "none");
         });
 
         $(".uiOverlayContainer").stop().animate({ "right": "0" }, 400);
@@ -643,7 +654,8 @@ com.capstone.MapController = function (mapid) {
     };
 
     this.clearReport = function () {
-        self.ReportController.clearChart();
+        if (self.ReportController)
+            self.ReportController.clearChart();
     }
 
 
@@ -727,4 +739,16 @@ $(document).ready(function () {
 
     $(".color").on("change", com.capstone.mapController.RefreshResults);
 
+    $("#selectChart").on("change", function () {
+        com.capstone.mapController.ReportController = new com.capstone.ReportController('chartContainer');
+        if ($("#selectChart").val() == "Average Speed") {
+            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH", "Speed: {y} MPH");
+        } else if ($("#selectChart").val() == "Trips per Selection") {
+            com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "", "Trips: {y}");
+        }
+
+        com.capstone.mapController.activeMapQueries.forEach(function (query) {
+            com.capstone.mapController.ReportController.updateChart(query.QueryResults);
+        });
+    });
 });

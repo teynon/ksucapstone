@@ -10,15 +10,27 @@ com.capstone.ReportController = function (reportid) {
 
     this.chart = null;
     this.dataPoints = [];
-    this.title = "Average Speed";
-    this.subTitle = "In mph";
-    this.type = "column";
-    this.xTitle = "Trip";
-    this.yTitle = "Speed";
+    this.title = null;
+    this.subTitle = null;
+    this.type = null;
+    this.xTitle = null;
+    this.yTitle = null;
+    this.xSuffix = null;
+    this.ySuffix = null;
+    this.toolTip = null;
     this.counter = 1;
 
 
-    this.initChart = function () {
+    this.barGraph = function (title, subtitle, xTitle, yTitle, xSuffix, ySuffix, toolTip) {
+        this.type = "column";
+        self.title = title;
+        self.subTitle = subtitle;
+        self.xTitle = xTitle;
+        self.yTitle = yTitle;
+        self.xSuffix = xSuffix;
+        self.ySuffix = ySuffix;
+        self.toolTip = toolTip;
+
         self.chart = new CanvasJS.Chart("chartContainer",
        {
            theme: "theme2",
@@ -34,13 +46,14 @@ com.capstone.ReportController = function (reportid) {
            animationEnabled: true,
            axisX: {
                title: self.xTitle,
+               suffix: self.xSuffix,
                interval: 0,
                labelFontColor: "white",
                tickColor: "white"
            },
            axisY: {
                title: self.yTitle,
-               suffix: " MPH",
+               suffix: self.ySuffix,
                viewportMaximum: 65
            },
            data: [
@@ -50,7 +63,7 @@ com.capstone.ReportController = function (reportid) {
                        lineThickness: 2,
                        markerType: "square",
                        color: "#008000",
-                       toolTipContent: "Speed: {y}mph",
+                       toolTipContent: self.toolTip,
                        dataPoints: self.dataPoints
                    }
 
@@ -63,28 +76,29 @@ com.capstone.ReportController = function (reportid) {
         if (self.type == "pie") {
             this.pieChart("Average Passengers", QueryResults);
         } else if (self.type == "column") {
-            this.barGraph(self.title, self.subTitle, self.xTitle, self.yTitle, QueryResults);
+            this.updateBarGraph(QueryResults);
         }
         self.chart.render();
     };
 
-    this.barGraph = function (title, subtitle, xTitle, yTitle, Data) {
-        self.title = title;
-        self.subTitle = subtitle;
-        self.xTitle = xTitle;
-        self.yTitle = yTitle;
-        var speed = 0;
-        var count = 0;
-        Data.forEach(function (result) {
-            var resultSpeed = Math.ceil(result.Distance / (result.Duration / 3600));
-            if (resultSpeed < 75 && resultSpeed > 0) {
-                speed += resultSpeed;
-                count++;
-            }
-        });
-        speed = speed / count;
-        self.dataPoints.push({ label: self.counter, y: speed });
-        self.counter++;
+    this.updateBarGraph = function (Data) {
+        if (self.title == "Average Speed") {
+            var speed = 0;
+            var count = 0;
+            Data.forEach(function (result) {
+                var resultSpeed = Math.ceil(result.Distance / (result.Duration / 3600));
+                if (resultSpeed < 75 && resultSpeed > 0) {
+                    speed += resultSpeed;
+                    count++;
+                }
+            });
+            speed = speed / count;
+            self.dataPoints.push({ label: self.counter, y: speed });
+            self.counter++;
+        } else if (self.title == "Trips per Selection") {
+            self.dataPoints.push({ label: self.counter, y: Data.length });
+            self.counter++;
+        }
     }
 
 
@@ -114,6 +128,4 @@ com.capstone.ReportController = function (reportid) {
         self.counter = 1;
         self.chart.render();
     }
-
-    this.initChart();
 }
