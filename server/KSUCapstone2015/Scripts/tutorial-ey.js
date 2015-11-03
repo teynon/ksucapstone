@@ -314,6 +314,7 @@ com.eynon.tutorialEy = function (options) {
         this.open = true;
 
         if (this.options.uiRefresh > 0) {
+            clearInterval(this.refreshInterval);
             this.refreshInterval = setInterval(function () { tutorial.updateArrow(); }, this.options.uiRefresh);
         }
 

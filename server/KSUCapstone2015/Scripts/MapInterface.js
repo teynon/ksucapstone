@@ -78,7 +78,7 @@ com.capstone.MapController = function (mapid) {
         // Build the Leaftlet Map object.
         self.sideBySideMapContainer = $("#mapClone");
 
-        this.map = this.getMap(this.mapID, [40.7127, -74.0059], 13);
+        this.map = this.getMap(this.mapID, [40.7262, -73.9847], 14);
 
         this.mapFeatureGroup = new L.FeatureGroup();
         this.map.addLayer(this.mapFeatureGroup);
@@ -115,7 +115,7 @@ com.capstone.MapController = function (mapid) {
     this.getMap = function (container, center, zoom, includeZoom) {
         if (includeZoom == null) includeZoom = true;
         // Build the Leaftlet Map object.
-        var map = L.map(container, { zoomControl : includeZoom }).setView([40.7127, -74.0059], zoom);
+        var map = L.map(container, { zoomControl : includeZoom }).setView(center, zoom);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
             maxZoom: 18,
@@ -653,6 +653,9 @@ com.capstone.MapController = function (mapid) {
         self.ReportController.clearChart();
     }
 
+    this.getCoordinates = function () {
+        return self.map.getCenter();
+    }
 
     this.InitMap();
 }
@@ -691,6 +694,9 @@ $(document).ready(function () {
 
     var excludeElements = [$("#map").get(0), $(".main_overlay").get(0)];
     $(".hud").each(function () {
+        excludeElements.push($(this).get(0));
+    });
+    $(".bottomPanel").children().each(function () {
         excludeElements.push($(this).get(0));
     });
 
