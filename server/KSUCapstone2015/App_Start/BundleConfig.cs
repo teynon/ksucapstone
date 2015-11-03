@@ -74,6 +74,8 @@ namespace KSUCapstone2015
                       "~/Content/jquery-ui.css",
                       "~/Content/jquery.datetimepicker.css",
                       "~/Content/tutorial-ey.css"));
+
+            BundleTable.EnableOptimizations = false;
         }
     }
 }

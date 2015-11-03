@@ -661,8 +661,9 @@ com.capstone.MapController = function (mapid) {
     };
 
     this.clearReport = function () {
-        if (self.ReportController)
+        if (self.ReportController != null) {
             self.ReportController.clearChart();
+        }
     }
 
     this.getCoordinates = function () {

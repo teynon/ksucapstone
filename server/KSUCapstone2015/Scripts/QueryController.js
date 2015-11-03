@@ -290,9 +290,11 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 chartPoints.push(points[i]);
             }
         }
+        if (query.MapController.ReportController) {
+            query.MapController.ReportController.clearChart();
+            query.MapController.ReportController.updateChart(chartPoints);
+        }
 
-        query.MapController.ReportController.clearChart();
-        query.MapController.ReportController.updateChart(chartPoints);
     };
 
     this.UpdateMap = function (points, sideBySide) {
