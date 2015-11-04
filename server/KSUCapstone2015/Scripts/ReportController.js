@@ -33,9 +33,17 @@ com.capstone.ReportController = function (reportid) {
         self.xPrefix = xPrefix;
         self.toolTip = toolTip;
 
+        CanvasJS.addColorSet("customColorSet",
+        [//colorSet Array
+
+        "#FF0000",
+        "#00FF00",
+        "#0000FF"
+        ]);
+
         self.chart = new CanvasJS.Chart("chartContainer",
        {
-           theme: "theme2",
+           colorSet: "customColorSet",
            title: {
                text: self.title
            },
@@ -59,10 +67,6 @@ com.capstone.ReportController = function (reportid) {
            data: [
                    {
                        type: self.type,
-                       showInLegend: false,
-                       lineThickness: 2,
-                       markerType: "square",
-                       color: "#008000",
                        toolTipContent: self.toolTip,
                        dataPoints: self.dataPoints
                    }
@@ -112,7 +116,6 @@ com.capstone.ReportController = function (reportid) {
         yData.forEach(function (result) {
             passengers += result.Passengers;
             count++;
-
         });
         passengers = passengers / count;
         self.dataPoints.push({ label: self.counter, y: passengers });
