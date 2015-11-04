@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<script type="text/javascript">
+window.onload = function () {
+	        CanvasJS.addColorSet("chartColors",
+                [//colorSet Array
+
+                "#008000",
+                "#FF0000"              
+                ]);
+
+	var chart = new CanvasJS.Chart("chartContainer",
+	{
+		colorSet: "chartColors",
+
+		title:{
+			text: "Valid vs. Invalid Data"
+		},
+        animationEnabled: true,
+		legend:{
+			verticalAlign: "bottom",
+			horizontalAlign: "center"
+		},
+		data: [
+		{       
+			type: "doughnut",
+			showInLegend: true,
+			toolTipContent: "{legendText}: <strong>{y}%</strong>",
+			indexLabel: "{label} {y}%",
+			dataPoints: [
+				{  y: 80, legendText: "Valid", exploded: true, label: "Valid" },
+				{  y: 20, legendText: "Invalid", exploded: true, label: "Invlaid" }
+			]
+	}
+	]
+	});
+	chart.render();
+}
+</script>
+<script type="text/javascript" src="canvasjs.js"></script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+
+</html>
