@@ -74,7 +74,7 @@ com.capstone.ReportController = function (reportid) {
 
     this.updateChart = function (QueryResults) {
         if (self.type == "pie") {
-            this.pieChart("Average Passengers", QueryResults);
+            this.pieChart("Valid vs. Invalid Data", QueryResults);
         } else if (self.type == "column") {
             this.updateBarGraph(QueryResults);
         }
@@ -98,21 +98,25 @@ com.capstone.ReportController = function (reportid) {
         } else if (self.title == "Trips per Selection") {
             self.dataPoints.push({ label: self.counter, y: Data.length });
             self.counter++;
+        } else if (self.title == "Valid vs. Invalid Data") {
+
         }
     }
 
 
-    this.pieChart = function (title,yData) {
+    this.pieChart = function (title, yData) {
         self.title = title;
-        var passengers = 0;
+
+        /*var passengers = 0;
         var count = 0;
         yData.forEach(function (result) {
             passengers += result.Passengers;
             count++;
+
         });
         passengers = passengers / count;
         self.dataPoints.push({ label: self.counter, y: passengers });
-        self.counter++;
+        self.counter++;*/
     }
 
     this.removeQuery = function (id) {
