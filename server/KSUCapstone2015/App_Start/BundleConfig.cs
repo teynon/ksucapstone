@@ -41,6 +41,7 @@ namespace KSUCapstone2015
                  "~/Scripts/QueryController.js",
                  "~/Scripts/MapHelpers.js",
                  "~/Scripts/ReportController.js",
+                 "~/Scripts/Report.js",
                  "~/Scripts/UI.js",
                  "~/Scripts/leaflet.js",
                  "~/Scripts/leaflet.draw.js",

@@ -7,6 +7,8 @@ com.capstone.ReportController = function (reportid) {
 
     // DIV ID for report
     this.reportID = reportid;
+    this.reportList = [];
+    this.container = $("#chartContainer");
 
     this.chart = null;
     this.dataPoints = [];
@@ -21,8 +23,11 @@ com.capstone.ReportController = function (reportid) {
     this.toolTip = null;
     this.counter = 1;
 
-
     this.barGraph = function (title, subtitle, xTitle, yTitle, xSuffix, ySuffix, xPrefix, toolTip) {
+        var report = new com.capstone.Report.BarGraph(this.container, { canvasJS: { title: { text: "Average Speed Per Query" } } }, com.capstone.ReportFilter.AverageSpeed, false);
+        report.update(false);
+        this.reportList.push(report);
+        /*return;
         this.type = "column";
         self.title = title;
         self.subTitle = subtitle;
@@ -73,20 +78,30 @@ com.capstone.ReportController = function (reportid) {
 
            ]
        });
-        setInterval(function () { self.chart.render(); }, 1000);
+        setInterval(function () { self.chart.render(); }, 1000);*/
     };
 
     this.updateChart = function (QueryResults) {
+        for (var i in this.reportList) {
+            this.reportList[i].update();
+        }
+        /*
+        var report = new com.capstone.Report.BarGraph($("#chartContainer"), {}, com.capstone.ReportFilter.AverageSpeed);
+        report.update(false);
+        return;
         if (self.type == "pie") {
             this.pieChart("Valid vs. Invalid Data", QueryResults);
         } else if (self.type == "column") {
             this.updateBarGraph(QueryResults);
         }
-        self.chart.render();
+        self.chart.render();*/
     };
 
     this.updateBarGraph = function (Data) {
-        if (self.title == "Average Speed") {
+        for (var i in this.reportList) {
+            this.reportList[i].update();
+        }
+        /*if (self.title == "Average Speed") {
             var speed = 0;
             var count = 0;
             Data.forEach(function (result) {
@@ -104,7 +119,7 @@ com.capstone.ReportController = function (reportid) {
             self.counter++;
         } else if (self.title == "Valid vs. Invalid Data") {
 
-        }
+        }*/
     }
 
 
@@ -123,6 +138,10 @@ com.capstone.ReportController = function (reportid) {
     }
 
     this.removeQuery = function (id) {
+        for (var i in this.reportList) {
+            this.reportList[i].update();
+        }
+        return;
         self.dataPoints.slice(id, 1);
         self.chart.options.data[0].dataPoints = self.dataPoints;
         self.counter--;
@@ -130,9 +149,47 @@ com.capstone.ReportController = function (reportid) {
     }
 
     this.clearChart = function () {
+        for (var i in this.reportList) {
+            this.reportList[i].update();
+        }
+        return;
         self.dataPoints = [];
         self.chart.options.data[0].dataPoints = self.dataPoints;
         self.counter = 1;
         self.chart.render();
     }
+}
+
+com.capstone.SpeedLimit = 100;
+com.capstone.ReportFilter = {};
+com.capstone.ReportFilter.AverageSpeed = function() {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        var totalSpeed = 0;
+        var count = 0;
+        var outliers = 0;
+        // Sum the speed and divide by total
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            var speed = Math.ceil(result.Distance / (result.Duration / 3600));
+            if (speed < com.capstone.SpeedLimit) {
+                totalSpeed += speed;
+                count++;
+            }
+            else {
+                outliers++;
+            }
+        }
+        
+        // Average speed.
+
+        dataSet.push({
+            y: totalSpeed / count,
+            label: queries[i].queryID
+        });
+    }
+    
+    return dataSet;
 }

@@ -273,6 +273,7 @@
     <Content Include="Scripts\MapTutorial.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\QueryController.js" />
+    <Content Include="Scripts\Report.js" />
     <Content Include="Scripts\ReportController.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
