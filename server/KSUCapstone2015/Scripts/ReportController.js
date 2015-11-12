@@ -24,7 +24,7 @@ com.capstone.ReportController = function (reportid) {
     this.counter = 1;
 
     this.barGraph = function (title, subtitle, xTitle, yTitle, xSuffix, ySuffix, xPrefix, toolTip) {
-        var report = new com.capstone.Report.BarGraph(this.container, { canvasJS: { title: { text: "Average Speed Per Query" } } }, com.capstone.ReportFilter.AverageSpeed, false);
+        var report = new com.capstone.Report.ColumnGraph(this.container, { canvasJS: { title: { text: "Average Speed Per Query" }, axisY: { suffix: " mph" }, axisX: { prefix: "Query " }}}, com.capstone.ReportFilter.AverageSpeed, false);
         report.update(false);
         this.reportList.push(report);
         /*return;

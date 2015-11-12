@@ -96,6 +96,10 @@ com.capstone.Report.BarGraph = function (container, options, updateCallback, mul
     this.options.dataSetOptions.type = "bar";
 }
 
+com.capstone.Report.ColumnGraph = function (container, options, updateCallback, multiset) {
+    com.capstone.ReportBase.call(this, container, options, updateCallback, multiset);
+}
+
 com.capstone.Report.PieGraph = function (container, options, updateCallback, multiset) {
     com.capstone.ReportBase.call(this, container, options, updateCallback, multiset);
     this.options.dataSetOptions.type = "pie";

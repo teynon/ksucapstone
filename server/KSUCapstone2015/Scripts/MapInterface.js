@@ -759,7 +759,7 @@ $(document).ready(function () {
             com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "In mph", "Trip", "Speed", "", " MPH","Query ", "Speed: {y} MPH");
         } else if ($("#selectChart").val() == "Trips per Selection") {
             com.capstone.mapController.ReportController.barGraph($("#selectChart").val(), "", "Selections", "Trips", "", "","Query ", "Trips: {y}");
-        } else if ($("#selectChart").val() == "Valid vs. Invalid Data") { }
+        } 
 
         com.capstone.mapController.activeMapQueries.forEach(function (query) {
             com.capstone.mapController.ReportController.updateChart(query.QueryResults);
