@@ -179,7 +179,7 @@ com.capstone.ReportFilter.AverageTime = function () {
 
         for (var j in queries[i].QueryResults) {
             var result = queries[i].QueryResults[j];
-            totalTime += result.Duration;
+            totalTime += (result.Duration / 60);
             count++;
         }
         dataSet.push({
@@ -226,7 +226,7 @@ $(document).ready(function() {
             filter: com.capstone.ReportFilter.AverageTime,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Time",
-            ySuffix: " Seconds",
+            ySuffix: " min",
             xPrefix: " Query"
         }
     ]
