@@ -130,6 +130,7 @@ com.capstone.ReportFilter.AverageDistance = function () {
         for (var j in queries[i].QueryResults) {
             var result = queries[i].QueryResults[j];
             totalDistance += Math.ceil(result.Distance);
+            count++;
         }
 
         // Average distance
