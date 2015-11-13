@@ -147,6 +147,28 @@ com.capstone.ReportFilter.AverageDistance = function () {
     return dataSet;
 }
 
+com.capstone.ReportFilter.AveragePassengers = function () {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        var totalPassengers = 0;
+        var count = 0;
+
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            totalPassengers += result.passenger_count;
+            count++;
+        }
+        dataSet.push({
+            y: totalPassengers / count,
+            label: queries[i].queryID
+        });
+    }
+
+    return dataSet;
+}
+
 $(document).ready(function() { 
     com.capstone.ReportFilter.chart = [
         {
@@ -168,6 +190,13 @@ $(document).ready(function() {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Distance",
             ySuffix: " miles",
+            xPrefix: " Query"
+        },
+        {
+            filter: com.capstone.ReportFilter.AveragePassengers,
+            type: com.capstone.Report.ColumnGraph,
+            title: "Average Passengers",
+            ySuffix: "",
             xPrefix: " Query"
         }
     ]
