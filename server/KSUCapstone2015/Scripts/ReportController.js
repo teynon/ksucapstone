@@ -24,7 +24,13 @@ com.capstone.ReportController = function (reportid) {
     this.counter = 1;
 
     this.graph = function (val) {
-        var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container, { canvasJS: { title: { text: com.capstone.ReportFilter.chart[Number(val)].title }, axisY: { suffix: " mph" }, axisX: { prefix: "Query " } } }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
+        var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container, {
+            canvasJS: {
+                title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
+                axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix  },
+                axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix }
+            }
+        }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
         report.update(false);
         this.reportList.push(report);
     };
@@ -149,17 +155,23 @@ $(document).ready(function() {
         {
             filter: com.capstone.ReportFilter.AverageSpeed,
             type: com.capstone.Report.ColumnGraph,
-            title: "Average Speed"
+            title: "Average Speed",
+            ySuffix: " mph",
+            xPrefix: " Query"
         },
         {
             filter: com.capstone.ReportFilter.TripsPerQuery,
             type: com.capstone.Report.ColumnGraph,
-            title: "Trips Per Query"
+            title: "Trips Per Query",
+            ySuffix: "",
+            xPrefix: " Query"
         },
         {
             filter: com.capstone.ReportFilter.AverageDistance,
             type: com.capstone.Report.ColumnGraph,
-            title: "Average Distance"
+            title: "Average Distance",
+            ySuffix: " miles",
+            xPrefix: " Query"
         }
     ]
 })
