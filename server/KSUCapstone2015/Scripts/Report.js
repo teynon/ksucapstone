@@ -105,3 +105,8 @@ com.capstone.Report.PieGraph = function (container, options, updateCallback, mul
     com.capstone.ReportBase.call(this, container, options, updateCallback, multiset);
     this.options.dataSetOptions.type = "pie";
 }
+
+com.capstone.Report.PieGraph = function (container, options, updateCallback, multiset) {
+    com.capstone.ReportBase.call(this, container, options, updateCallback, multiset);
+    this.options.dataSetOptions.type = "line";
+}
