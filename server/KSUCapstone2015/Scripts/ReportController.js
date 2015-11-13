@@ -119,17 +119,46 @@ com.capstone.ReportFilter.TripsPerQuery = function () {
     return dataSet;
 }
 
+com.capstone.ReportFilter.AverageDistance = function () {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        var totalDistance = 0;
+        var count = 0;
+        
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            totalDistance += Math.ceil(result.Distance);
+        }
+
+        // Average distance
+
+        dataSet.push({
+            y: totalDistance / count,
+            label: queries[i].queryID
+        });
+    }
+
+    return dataSet;
+}
+
 $(document).ready(function() { 
     com.capstone.ReportFilter.chart = [
         {
             filter: com.capstone.ReportFilter.AverageSpeed,
-            type: com.capstone.Report.BarGraph,
+            type: com.capstone.Report.ColumnGraph,
             title: "Average Speed"
         },
         {
             filter: com.capstone.ReportFilter.TripsPerQuery,
             type: com.capstone.Report.ColumnGraph,
             title: "Trips Per Query"
+        },
+        {
+            filter: com.capstone.ReportFilter.AverageDistance,
+            type: com.capstone.Report.ColumnGraph,
+            title: "Average Distance"
         }
     ]
 })
