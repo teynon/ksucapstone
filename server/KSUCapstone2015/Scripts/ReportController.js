@@ -157,7 +157,7 @@ com.capstone.ReportFilter.AveragePassengers = function () {
 
         for (var j in queries[i].QueryResults) {
             var result = queries[i].QueryResults[j];
-            totalPassengers += result.passenger_count;
+            totalPassengers += result.Passengers;
             count++;
         }
         dataSet.push({
@@ -168,6 +168,29 @@ com.capstone.ReportFilter.AveragePassengers = function () {
 
     return dataSet;
 }
+
+com.capstone.ReportFilter.AverageTime = function () {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        var totalTime = 0;
+        var count = 0;
+
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            totalTime += result.Duration;
+            count++;
+        }
+        dataSet.push({
+            y: totalTime / count,
+            label: queries[i].queryID
+        });
+    }
+
+    return dataSet;
+}
+
 
 $(document).ready(function() { 
     com.capstone.ReportFilter.chart = [
@@ -197,6 +220,13 @@ $(document).ready(function() {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Passengers",
             ySuffix: "",
+            xPrefix: " Query"
+        },
+        {
+            filter: com.capstone.ReportFilter.AverageTime,
+            type: com.capstone.Report.ColumnGraph,
+            title: "Average Time",
+            ySuffix: " Seconds",
             xPrefix: " Query"
         }
     ]
