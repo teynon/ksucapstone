@@ -291,7 +291,6 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             }
         }
         if (query.MapController.ReportController) {
-            query.MapController.ReportController.clearChart();
             query.MapController.ReportController.updateChart(chartPoints);
         }
 

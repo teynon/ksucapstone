@@ -24,6 +24,11 @@ com.capstone.ReportController = function (reportid) {
     this.counter = 1;
 
     this.graph = function (val) {
+        for (var i in this.reportList) {
+            if (this.reportList[i].title == com.capstone.ReportFilter.chart[Number(val)].filter) {
+                return;
+            }
+        }
         var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container, {
             canvasJS: {
                 title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
@@ -32,48 +37,32 @@ com.capstone.ReportController = function (reportid) {
             }
         }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
         report.update(false);
-        this.reportList.push(report);
+        this.reportList.push({ title: com.capstone.ReportFilter.chart[Number(val)].filter, report: report });
     };
 
     this.updateChart = function (QueryResults) {
         for (var i in this.reportList) {
-            this.reportList[i].update();
+            this.reportList[i].report.update();
         }
     };
 
-
-    this.pieChart = function (title, yData) {
-        self.title = title;
-        /*var passengers = 0;
-        var count = 0;
-        yData.forEach(function (result) {
-            passengers += result.Passengers;
-            count++;
-        });
-        passengers = passengers / count;
-        self.dataPoints.push({ label: self.counter, y: passengers });
-        self.counter++;*/
-    }
-
     this.removeQuery = function (id) {
         for (var i in this.reportList) {
-            this.reportList[i].update();
+            this.reportList[i].report.update();
         }
         return;
         self.dataPoints.slice(id, 1);
         self.chart.options.data[0].dataPoints = self.dataPoints;
-        self.counter--;
         self.chart.render();
     }
 
     this.clearChart = function () {
         for (var i in this.reportList) {
-            this.reportList[i].update();
+            this.reportList[i].report.update();
         }
         return;
         self.dataPoints = [];
         self.chart.options.data[0].dataPoints = self.dataPoints;
-        self.counter = 1;
         self.chart.render();
     }
 }

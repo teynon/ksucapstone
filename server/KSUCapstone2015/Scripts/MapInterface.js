@@ -611,8 +611,9 @@ com.capstone.MapController = function (mapid) {
         var recenterMap = true;
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
-       
-        self.ReportController = new com.capstone.ReportController('chartContainer');
+        if (self.ReportController == null) {
+            self.ReportController = new com.capstone.ReportController('chartContainer');
+        }
         self.ReportController.graph($("#selectChart").val());
 
         self.activeMapQueries.forEach(function(query) {
@@ -750,7 +751,9 @@ $(document).ready(function () {
     $(".color").on("change", com.capstone.mapController.RefreshResults);
 
     $("#selectChart").on("change", function () {
-        com.capstone.mapController.ReportController = new com.capstone.ReportController('chartContainer');
+        if (com.capstone.mapController.ReportController == null) {
+            com.capstone.mapController.ReportController = new com.capstone.ReportController('chartContainer');
+        }
         com.capstone.mapController.ReportController.graph($("#selectChart").val());
 
         com.capstone.mapController.activeMapQueries.forEach(function (query) {

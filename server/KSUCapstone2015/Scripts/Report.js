@@ -53,16 +53,19 @@ com.capstone.ReportBase = function (container, options, updateCallback, multiset
 
     this.update = function (multipleSets) {
         var data = report.updateCallback(report);
-        if (data.length > 0) {
-            if (this.initialized) {
-                var dataSet = this.compileDataSet(data);
-
+        if (this.initialized) {
+            var dataSet = this.compileDataSet(data);
+            if (data.length > 0) {
                 this.chart.options.data = dataSet.data;
-                this.chart.render();
             }
-            else {
-                this.init(data, multipleSets);
+            else
+            {
+                this.chart.options.data = []
             }
+            this.chart.render();
+        }
+        else {
+            this.init(data, multipleSets);
         }
     }
 
