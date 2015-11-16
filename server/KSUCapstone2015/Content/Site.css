@@ -187,10 +187,11 @@ textarea {
     right: 0px;
     bottom: 0px;
     top: 50px;
-    height: 310px;
+    height: vh-50px;
     width: 50%;
     background: #EEEEEE;
     display: none;
+    overflow-y: auto;
 }
 
 #chartContainer > h1 {
@@ -200,11 +201,10 @@ textarea {
 }
 
 #selectChartContainer {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    top: 50px;
-    display: none;
+    text-align:right;
+    right:0px;
+    position:absolute;
+    z-index:999;
 }
 
 
