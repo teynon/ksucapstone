@@ -381,7 +381,7 @@ com.eynon.tutorialEy = function (options) {
         }
 
         if (this.current().current().getTarget() == null || !this.current().current().getTarget().is(":visible")) {
-            console.log(this.current().current().getTarget());
+            //console.log(this.current().current().getTarget());
             // Clear the arrow, return.
             this.pointerCtx.clearRect(0, 0, this.pointerCanvas.width(), this.pointerCanvas.height());
             return result;
@@ -703,7 +703,7 @@ com.eynon.tutorialStep = function (targetElement, title, content, advanceOptions
     var step = this;
 
     this.advanceOptions = advanceOptions;
-    console.log(targetElement);
+    //console.log(targetElement);
     this.target = (targetElement == null) ? null : targetElement;
     this.title = title;
     this.content = content;

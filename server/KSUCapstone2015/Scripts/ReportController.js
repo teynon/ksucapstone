@@ -8,7 +8,7 @@ com.capstone.ReportController = function (reportid) {
     // DIV ID for report
     this.reportID = reportid;
     this.reportList = [];
-    this.container = $("#chartContainer");
+    this.container = $("#chartView");
 
     this.chart = null;
     this.dataPoints = [];
@@ -218,5 +218,22 @@ $(document).ready(function() {
             ySuffix: " min",
             xPrefix: " Query"
         }
-    ]
+    ];
+
+    $("#selectChart").empty();
+    for (var chart in com.capstone.ReportFilter.chart) {
+        $("<option value=" + chart + ">" + com.capstone.ReportFilter.chart[chart].title + "</option>").appendTo($("#selectChart"));
+        console.log(chart);
+    }
+
+    $("#selectChart").on("change", function () {
+        if (com.capstone.mapController.ReportController == null) {
+            com.capstone.mapController.ReportController = new com.capstone.ReportController('chartView');
+        }
+        com.capstone.mapController.ReportController.graph($("#selectChart").val());
+        console.log('test');
+        com.capstone.mapController.activeMapQueries.forEach(function (query) {
+            com.capstone.mapController.ReportController.updateChart(query.QueryResults);
+        });
+    });
 })

@@ -1,9 +1,9 @@
 ﻿$(window).load(function () {
+
     var tutorial = new com.eynon.tutorialEy({ lockPosition: true });
 
     // TIME RANGE 
     // ----------------------------------------------------------------------------
-    
     var tutorials = [
         {
             Section: "Querying The Map",
@@ -350,7 +350,11 @@
         tutorial.addSection(tutorials[i].Section, steps);
     }
 
-    tutorial.play();
+    var cookie = document.cookie.replace(/(?:(?:^|.*;\s*)tutorialMode\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    if (cookie != 1) {
+        document.cookie = "tutorialMode=1; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        tutorial.play();
+    }
 
     $("#btnHelp").on("click", function () { tutorial.play(); });
 });

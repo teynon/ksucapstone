@@ -36,8 +36,7 @@ com.capstone.ReportBase = function (container, options, updateCallback, multiset
 
     // Create a new element for the report in the specified container.
     this.target = $("<div></div>").prop("id", this.options.id).css({
-        width: "100%",
-        height: "300px"
+        height: 300
     }).appendTo($(container));
 
     // Draw the initial report.

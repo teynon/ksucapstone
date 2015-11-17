@@ -192,6 +192,7 @@ textarea {
     background: #EEEEEE;
     display: none;
     overflow-y: auto;
+    flex-direction: column;
 }
 
 #chartContainer > h1 {
@@ -201,10 +202,7 @@ textarea {
 }
 
 #selectChartContainer {
-    text-align:right;
-    right:0px;
-    position:absolute;
-    z-index:999;
+    text-align: right;
 }
 
 
@@ -440,4 +438,24 @@ section.headerPanel {
 
 .uiOverlayContainer * {
     pointer-events: all;
+}
+
+#reportContainer {
+    clear: both;
+}
+
+#chartView {
+    flex-grow: 1;
+    margin-top: 5px;
+    border-top: 1px solid #DDDDDD;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: rgba(0,0,0,0.65);
+}
+
+#chartView div {
+    flex-grow: 1;
+    margin: 2px;
+    min-width: 40%;
 }
