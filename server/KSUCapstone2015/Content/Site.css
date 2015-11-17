@@ -263,6 +263,22 @@ section.headerPanel {
     z-index: 1000;
 }
 
+section.graphPanel {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 2000;
+}
+
+section.graphPanel > section {
+    background-color: #162330;
+    padding: 4px;
+    border-radius: 4px 4px 0px 0px;
+    margin-left: 4px;
+    cursor: pointer;
+    float: right;
+}
+
 .main_status {
     padding: 10px;
     margin-bottom: 4px;
@@ -315,6 +331,19 @@ section.headerPanel {
 }
 
 .modeselect {
+    display: none;
+    border: 1px solid #000000;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0.81+0,0.65+100;Neutral+Density */
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0.81) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.81)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0.81) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(0,0,0,0.81) 0%,rgba(0,0,0,0.65) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(0,0,0,0.81) 0%,rgba(0,0,0,0.65) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(0,0,0,0.81) 0%,rgba(0,0,0,0.65) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cf000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+}
+
+.graphlist {
     display: none;
     border: 1px solid #000000;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&amp;0.81+0,0.65+100;Neutral+Density */
@@ -446,7 +475,7 @@ section.headerPanel {
 
 #chartView {
     flex-grow: 1;
-    margin-top: 5px;
+    margin-top: 0px;
     border-top: 1px solid #DDDDDD;
     display: flex;
     flex-direction: row;
