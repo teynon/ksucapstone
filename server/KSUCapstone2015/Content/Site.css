@@ -182,7 +182,7 @@ textarea {
     color: #FFFFFF;
 }
 
-#chartContainer {
+#chartWrapper {
     position: absolute;
     right: 0px;
     bottom: 0px;
@@ -192,6 +192,11 @@ textarea {
     background: #EEEEEE;
     display: none;
     overflow-y: auto;
+}
+
+#chartContainer {
+    height: 100%;
+    display: flex;
     flex-direction: column;
 }
 
@@ -487,4 +492,10 @@ section.graphPanel > section {
     flex-grow: 1;
     margin: 2px;
     min-width: 40%;
+}
+
+#menuContainer {
+    position: fixed;
+    height: calc(100vh - 50px);
+    z-index: 9999;
 }

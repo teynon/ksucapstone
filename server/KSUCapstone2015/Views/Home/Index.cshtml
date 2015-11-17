@@ -10,15 +10,19 @@
     <div id="mapCloneContainer">
         <div id="mapClone" class="mapClone"></div>
     </div>
-    <div id="chartContainer">
-        <div id="chartView">
-
-        </div>
-        <section class="graphPanel">
-            <section id="graphs" onclick="com.capstone.UI.toggleMenuForUIButton(this, 'graphlist');">
-                <img src="~/Content/images/chart_popup.png" />
+    <div id="chartWrapper">
+        <div id="menuContainer">
+            <section class="graphPanel">
+                <section id="graphs" onclick="com.capstone.UI.toggleMenuForUIButton(this, 'graphlist');">
+                    <img src="~/Content/images/chart_popup.png" />
+                </section>
             </section>
-        </section>
+        </div>
+        <div id="chartContainer">
+            <div id="chartView">
+
+            </div>
+        </div>
     </div>
 
     <div class="uiOverlayContainer">
@@ -141,11 +145,6 @@
         <div class="graphlist hud" id="graphlist">
             <label style="margin-left:5px">Graphs:</label>
             <select id="selectChart">
-                <option value="0">Average Speed</option>
-                <option value="1">Trips per Selection</option>
-                <option value="2">Average Distance</option>
-                <option value="3">Average Passengers</option>
-                <option value="4">Average Time</option>
             </select>
         </div>
 

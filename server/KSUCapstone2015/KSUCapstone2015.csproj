@@ -170,6 +170,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\blank.gif" />
     <Content Include="Content\images\calendar.png" />
+    <Content Include="Content\images\chart_popup.png" />
     <Content Include="Content\images\clear.png" />
     <Content Include="Content\images\colorpicker_background.png" />
     <Content Include="Content\images\colorpicker_hex.png" />

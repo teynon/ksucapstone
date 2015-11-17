@@ -607,23 +607,23 @@ com.capstone.MapController = function (mapid) {
 
     this.showReportView = function () {
         com.capstone.mapStateOpen = false;
-        $("#chartContainer").css("display", "flex");
+        $("#chartWrapper").css("display", "flex");
         var recenterMap = true;
         if (self.sideBySide) recenterMap = false;
         self.disableSideBySide();
         if (self.ReportController == null) {
-            self.ReportController = new com.capstone.ReportController('chartContainer');
+            self.ReportController = new com.capstone.ReportController('chartWrapper');
         }
         self.ReportController.graph($("#selectChart").val());
 
-        self.activeMapQueries.forEach(function(query) {
-            self.ReportController.updateChart(query.QueryResults);
+        // Stop any active animation and begin the new animation.
+        $("#chartWrapper").stop().animate({ "width": "50%" }, 400, function () {
+            $("#chartWrapper").css("display", "block");
+            $("#selectChartContainer").css("display", "block");
         });
 
-        // Stop any active animation and begin the new animation.
-        $("#chartContainer").stop().animate({ "width": "50%" }, 400, function () {
-            $("#chartContainer").css("display", "flex");
-            $("#selectChartContainer").css("display", "block");
+        self.activeMapQueries.forEach(function (query) {
+            self.ReportController.updateChart(query.QueryResults);
         });
 
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
@@ -640,8 +640,8 @@ com.capstone.MapController = function (mapid) {
         });
 
         // Stop any active animation and begin the new animation.
-        $("#chartContainer").stop().animate({ "width": "0%" }, 400, function () {
-            $("#chartContainer").css("display", "none");
+        $("#chartWrapper").stop().animate({ "width": "0%" }, 400, function () {
+            $("#chartWrapper").css("display", "none");
             $("#selectChartContainer").css("display", "none");
         });
 
