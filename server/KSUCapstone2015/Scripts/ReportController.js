@@ -22,6 +22,8 @@ com.capstone.ReportController = function (reportid) {
     this.xPrefix = null;
     this.toolTip = null;
     this.counter = 1;
+    this.VTSTotal = 0;
+    this.CMTTotal = 0;
 
     this.graph = function (val) {
         for (var i in this.reportList) {
@@ -220,6 +222,30 @@ com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
     return dataSet;
 }
 
+com.capstone.ReportFilter.VendorTotals = function () {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            if (result.VendorID = "VTS") { this.VTSTotal++; }
+            else { CMTTotal++; }
+            
+        }
+        dataSet.push({
+            y: this.VTSTotal,
+            label: "VTS:"
+        });
+        dataSet.push({
+            y: this.CMTTotal,
+            label: "CMT:"
+        });
+    }
+
+    return dataSet;
+}
+
 $(document).ready(function() { 
     com.capstone.ReportFilter.chart = [
         {
@@ -262,6 +288,13 @@ $(document).ready(function() {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Speed Per Driver",
             ySuffix: " mph",
+            xPrefix: ""
+        },
+        {
+            filter: com.capstone.ReportFilter.VendorTotals,
+            type: com.capstone.Report.PieGraph,
+            title: "Taxi Vendor Totals",
+            ySuffix: "",
             xPrefix: ""
         }
     ];
