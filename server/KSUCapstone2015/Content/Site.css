@@ -281,7 +281,7 @@ section.graphPanel > section {
     border-radius: 4px 4px 0px 0px;
     margin-left: 4px;
     cursor: pointer;
-    float: right;
+    float: left;
 }
 
 .main_status {
@@ -496,6 +496,14 @@ section.graphPanel > section {
 
 #menuContainer {
     position: fixed;
+    width: 50%;
     height: calc(100vh - 50px);
+    bottom: 0;
+    right: 0;
     z-index: 9999;
+    pointer-events: none;
+}
+
+#menuContainer * {
+    pointer-events: all;
 }

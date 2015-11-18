@@ -65,6 +65,11 @@ com.capstone.ReportController = function (reportid) {
         self.chart.options.data[0].dataPoints = self.dataPoints;
         self.chart.render();
     }
+
+    this.clearAll = function () {
+        this.reportList = [];
+        $("#chartView").html("");
+    }
 }
 
 com.capstone.SpeedLimit = 100;
@@ -231,9 +236,12 @@ $(document).ready(function() {
             com.capstone.mapController.ReportController = new com.capstone.ReportController('chartView');
         }
         com.capstone.mapController.ReportController.graph($("#selectChart").val());
-        console.log('test');
         com.capstone.mapController.activeMapQueries.forEach(function (query) {
             com.capstone.mapController.ReportController.updateChart(query.QueryResults);
         });
+    });
+
+    $("#clearGraphs").on("click", function () {
+        com.capstone.mapController.ReportController.clearAll();
     });
 })
