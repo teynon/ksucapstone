@@ -100,7 +100,7 @@ com.capstone.ReportFilter.AverageSpeed = function () {
 
         dataSet.push({
             y: totalSpeed / count,
-            label: queries[i].queryID
+            label: "Query " + queries[i].queryID
         });
     }
     
@@ -114,7 +114,8 @@ com.capstone.ReportFilter.TripsPerQuery = function () {
     for (var i in queries) {
         dataSet.push({
             y: queries[i].QueryResults.length,
-            label: queries[i].queryID});
+            label: "Query " + queries[i].queryID
+        });
     }
     return dataSet;
 }
@@ -134,7 +135,7 @@ com.capstone.ReportFilter.AverageDistance = function () {
         }
         dataSet.push({
             y: totalDistance / count,
-            label: queries[i].queryID
+            label: "Query " + queries[i].queryID
         });
     }
 
@@ -156,7 +157,7 @@ com.capstone.ReportFilter.AveragePassengers = function () {
         }
         dataSet.push({
             y: totalPassengers / count,
-            label: queries[i].queryID
+            label: "Query " + queries[i].queryID
         });
     }
 
@@ -178,7 +179,7 @@ com.capstone.ReportFilter.AverageTime = function () {
         }
         dataSet.push({
             y: totalTime / count,
-            label: queries[i].queryID
+            label: "Query " + queries[i].queryID
         });
     }
 
@@ -210,7 +211,7 @@ com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
         if (speed < com.capstone.SpeedLimit) {
             dataSet.push({
                 y: speed,
-                label: counter
+                label: "Driver " + counter
             });
             ++counter;
         }
@@ -226,42 +227,42 @@ $(document).ready(function() {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Speed",
             ySuffix: " mph",
-            xPrefix: "Query "
+            xPrefix: ""
         },
         {
             filter: com.capstone.ReportFilter.TripsPerQuery,
             type: com.capstone.Report.ColumnGraph,
             title: "Trips Per Query",
             ySuffix: "",
-            xPrefix: "Query "
+            xPrefix: ""
         },
         {
             filter: com.capstone.ReportFilter.AverageDistance,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Distance",
             ySuffix: " miles",
-            xPrefix: "Query "
+            xPrefix: " "
         },
         {
             filter: com.capstone.ReportFilter.AveragePassengers,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Passengers",
             ySuffix: "",
-            xPrefix: "Query "
+            xPrefix: ""
         },
         {
             filter: com.capstone.ReportFilter.AverageTime,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Time",
             ySuffix: " min",
-            xPrefix: "Query "
+            xPrefix: ""
         },
         {
             filter: com.capstone.ReportFilter.AverageSpeedPerDriver,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Speed Per Driver",
             ySuffix: " mph",
-            xPrefix: "Driver "
+            xPrefix: ""
         }
     ];
 
