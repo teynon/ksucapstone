@@ -202,10 +202,12 @@
     <Content Include="Content\images\layers-2x.png" />
     <Content Include="Content\images\layers.png" />
     <Content Include="Content\images\lock.png" />
+    <Content Include="Content\images\map.png" />
     <Content Include="Content\images\marker-icon-2x.png" />
     <Content Include="Content\images\marker-icon.png" />
     <Content Include="Content\images\marker-shadow.png" />
     <Content Include="Content\images\playback.png" />
+    <Content Include="Content\images\quick.png" />
     <Content Include="Content\images\quick_select.png" />
     <Content Include="Content\images\report.png" />
     <Content Include="Content\images\select.png" />
@@ -218,6 +220,7 @@
     <Content Include="Content\images\slider.png" />
     <Content Include="Content\images\spritesheet-2x.png" />
     <Content Include="Content\images\spritesheet.png" />
+    <Content Include="Content\images\toolbar.PNG" />
     <Content Include="Content\images\tutorial_down.png" />
     <Content Include="Content\images\tutorial_up.png" />
     <Content Include="Content\images\tutorial_x.png" />
@@ -235,6 +238,7 @@
     <Content Include="Content\images\ui-icons_ef8c08_256x240.png" />
     <Content Include="Content\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\images\zoom.png" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.datetimepicker.css" />
     <Content Include="Content\leaflet.css" />
