@@ -544,6 +544,7 @@ Date.prototype.addHours = function (h) {
 
 com.capstone.Query = {};
 com.capstone.Query.TaxisInRange = {
+    name : "TaxisInRange",
     formatData : function(queryController) {
 
     },
@@ -579,6 +580,7 @@ com.capstone.Query.TaxisInRange = {
 }
 
 com.capstone.Query.TaxisInPolygon = {
+    name: "TaxisInPolygon",
     formatData: function (queryController) {
 
     },

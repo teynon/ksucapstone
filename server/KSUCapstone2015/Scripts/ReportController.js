@@ -42,7 +42,7 @@ com.capstone.ReportController = function (reportid) {
         this.reportList.push({ title: com.capstone.ReportFilter.chart[Number(val)].filter, report: report });
     };
 
-    this.updateChart = function (QueryResults) {
+    this.updateChart = function () {
         for (var i in this.reportList) {
             this.reportList[i].report.update();
         }

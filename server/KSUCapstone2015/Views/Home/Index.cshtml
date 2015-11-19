@@ -3,6 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <% if (ViewBag.JSON != null) { %>
+    <script>
+        var LoadQueries = @Html.Raw(ViewBag.JSON);
+    </script>
+    <% } %>
 </head>
 <body>
     <div id="map">
@@ -217,6 +222,10 @@
                 </section>
             </div>
         </div>
+    </div>
+    <div id="saveLink" style="display: none;">
+        Use the link below to reload your current map state.<br />
+        <input id="shareLink" />
     </div>
 
 </body>

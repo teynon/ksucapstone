@@ -507,3 +507,8 @@ section.graphPanel > section {
 #menuContainer * {
     pointer-events: all;
 }
+
+#shareLink {
+    width: 100%;
+    max-width: 100%;
+}

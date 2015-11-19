@@ -178,7 +178,8 @@ com.capstone.MapController = function (mapid) {
             // If we only allow one selection at a time, remove all query points.
             if (self.SelectMode == "single") {
                 self.clear();
-            } self.selectRectangle(e);
+            }
+            self.selectRectangle(e);
         }
     };
 
@@ -240,7 +241,7 @@ com.capstone.MapController = function (mapid) {
 
         self.map.removeLayer(layer);
 
-        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData), layer, newLayer2));
+        self.activeMapQueries.push(new com.capstone.MapQuery(self, self.queryMode, $.extend(self.getQueryData(), this.selectionData, { queryType: e.layerType, selectMode: self.SelectMode }), layer, newLayer2));
         if (self.SelectMode == "trip") {
             $("#filterSelection").val("drop");
         }
@@ -270,9 +271,14 @@ com.capstone.MapController = function (mapid) {
 
     this.getCircleSelectionData = function (layer) {
         this.queryType = "polygon";
-        console.log(layer);
-        console.log(layer.getRadius());
-        return { points: com.capstone.helpers.getCircle(layer.getLatLng(), layer.getRadius()) };
+        return {
+            points: com.capstone.helpers.getCircle(layer.getLatLng(), layer.getRadius()),
+            radius: layer.getRadius(),
+            middle: {
+                lat: layer.getLatLng().lat,
+                lng: layer.getLatLng().lng
+            }
+        };
     }
 
     this.onMapMove = function (e) {
@@ -464,7 +470,7 @@ com.capstone.MapController = function (mapid) {
             self.clear();
         }
 
-        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData), layer, clonedLayer));
+        this.activeMapQueries.push(new com.capstone.MapQuery(this, this.queryMode, $.extend(this.getQueryData(), this.selectionData, { queryType: "rectangle", selectMode: self.SelectMode }), layer, clonedLayer));
 
         if (self.SelectMode == "trip") {
             $("#filterSelection").val("drop");
@@ -620,10 +626,7 @@ com.capstone.MapController = function (mapid) {
         $("#chartWrapper").stop().animate({ "width": "50%" }, 400, function () {
             $("#chartWrapper").css("display", "block");
             $("#selectChartContainer").css("display", "block");
-        });
-
-        self.activeMapQueries.forEach(function (query) {
-            self.ReportController.updateChart(query.QueryResults);
+            self.ReportController.updateChart();
         });
 
         $('#map').stop().animate({ "width": "50%" }, 400, function () {
@@ -665,6 +668,94 @@ com.capstone.MapController = function (mapid) {
 
     this.getCoordinates = function () {
         return self.map.getCenter();
+    }
+
+    this.loadSavedQueries = function (data) {
+        var defaultValues = {
+            start: $("#datestart").val(),
+            end: $("#dateend").val(),
+            filter: $("#filterSelection").val(),
+            queryMode: this.queryMode,
+            selectMode: this.SelectMode
+        };
+
+        for (var i in data) {
+            var q = data[i];
+
+            var Layer = null;
+            // Draw the layer.
+            switch (q.type) {
+                case "rectangle":
+                    var bounds = [[q.lat1, q.lng1], [q.lat2, q.lng2]];
+                    Layer = L.rectangle(bounds);
+                    break;
+                case "circle":
+                    Layer = L.circle([ q.middle.lat, q.middle.lng ], q.radius);
+                    break;
+                case "polygon":
+                    var points = [];
+                    for (var j in q.points) {
+                        points.push(L.latLng(q.points[j].Latitude, q.points[j].Longitude));
+                    }
+                    Layer = L.polygon(points);
+                    break;
+            }
+
+            this.SelectMode = q.selectMode;
+            $("#datestart").val(q.start);
+            $("#dateend").val(q.stop);
+            this.queryMode = window["com.capstone.Query.TaxisInPolygon" + q.func];
+            $("#filterSelection").val(q.filter);
+
+            this.onMapDraw({
+                layer: Layer,
+                layerType: q.type
+            });
+        }
+        $("#datestart").val(defaultValues.start);
+        $("#dateend").val(defaultValues.end);
+        $("#filterSelection").val(defaultValues.filter);
+        this.queryMode = defaultValues.queryMode;
+        this.SelectMode = defaultValues.selectMode;
+    }
+
+    this.saveQueries = function () {
+        var queries = com.capstone.mapController.activeMapQueries;
+        var savedQueries = [];
+
+        for (var i in queries) {
+            var q = {
+                func: queries[i].QueryFunction.name,
+                type: queries[i].QueryData.queryType, // rectangle, polygon, circle
+                start: queries[i].QueryData.start,
+                stop: queries[i].QueryData.stop,
+                points: (typeof queries[i].QueryData.points !== "undefined") ? queries[i].QueryData.points : null,
+                lat1: (queries[i].QueryData.latitude1 !== "undefined") ? queries[i].QueryData.latitude1 : null,
+                lat2: (queries[i].QueryData.latitude2 !== "undefined") ? queries[i].QueryData.latitude2 : null,
+                lng1: (queries[i].QueryData.longitude1 !== "undefined") ? queries[i].QueryData.longitude1 : null,
+                lng2: (queries[i].QueryData.longitude2 !== "undefined") ? queries[i].QueryData.longitude2 : null,
+                radius: (queries[i].QueryData.radius !== "undefined") ? queries[i].QueryData.radius : null,
+                middle: (queries[i].QueryData.middle !== "undefined") ? queries[i].QueryData.middle : null,
+                filter: queries[i].QueryData.filterSelection,
+                selectMode: queries[i].QueryData.selectMode
+            };
+            savedQueries.push(q);
+        }
+
+        var query = JSON.stringify(savedQueries);
+
+        // Post to server. Get share link key
+
+        $("#shareLink").val("Retrieving Sharable Key...");
+        $("#saveLink").dialog({
+            title: "Save & Share",
+            width: "50%"
+        });
+
+        $.post("Home/Save", { json: query }, function (result) {
+            $("#shareLink").val("http://" + window.location.host + "/?loadKey=" + result.Key);
+            $("#shareLink").select();
+        }, "json");
     }
 
     this.InitMap();
@@ -749,4 +840,11 @@ $(document).ready(function () {
     $("#sideBySideLocked").on("click", com.capstone.mapController.toggleSideBySideLocked);
 
     $(".color").on("change", com.capstone.mapController.RefreshResults);
+
+    $("#share").on("click", com.capstone.mapController.saveQueries);
+
+    if (typeof LoadQueries !== "undefined") {
+        console.log(LoadQueries);
+        com.capstone.mapController.loadSavedQueries(LoadQueries);
+    }
 });

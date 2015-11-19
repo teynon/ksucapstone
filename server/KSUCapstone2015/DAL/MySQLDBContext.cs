@@ -19,6 +19,7 @@ namespace KSUCapstone2015.DAL
         }
 
         public DbSet<Trip> Trips { get; set; }
+        public DbSet<SavedMap> SavedMaps { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

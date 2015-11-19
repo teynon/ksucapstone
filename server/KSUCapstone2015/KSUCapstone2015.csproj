@@ -133,6 +133,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\Queries\SavedMap.cs" />
     <Compile Include="BLL\Queries\Trip.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Controllers\QueryController.cs" />
     <Compile Include="DAL\MySQLDBContext.cs" />
     <Compile Include="DAL\MySQLDBInitializer.cs" />
+    <Compile Include="DAL\SavedMaps.cs" />
     <Compile Include="DAL\Trips.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,10 +163,15 @@
     <Compile Include="Migrations\201509182307142_IndexedDriverVendor.Designer.cs">
       <DependentUpon>201509182307142_IndexedDriverVendor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511190335123_AddSavedMaps.cs" />
+    <Compile Include="Migrations\201511190335123_AddSavedMaps.Designer.cs">
+      <DependentUpon>201511190335123_AddSavedMaps.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Data\Trip.cs" />
     <Compile Include="Models\FilterTypes.cs" />
     <Compile Include="Models\JsonResponse.cs" />
+    <Compile Include="Models\Data\SavedMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509182307142_IndexedDriverVendor.resx">
       <DependentUpon>201509182307142_IndexedDriverVendor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511190335123_AddSavedMaps.resx">
+      <DependentUpon>201511190335123_AddSavedMaps.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
