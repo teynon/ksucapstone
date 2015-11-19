@@ -34,7 +34,7 @@ com.capstone.ReportController = function (reportid) {
         var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container, {
             canvasJS: {
                 title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
-                axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix  },
+                axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix },
                 axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix }
             }
         }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
@@ -97,7 +97,7 @@ com.capstone.ReportFilter.AverageSpeed = function () {
                 outliers++;
             }
         }
-        
+
         // Average speed.
 
         dataSet.push({
@@ -105,7 +105,7 @@ com.capstone.ReportFilter.AverageSpeed = function () {
             label: "Query " + queries[i].queryID
         });
     }
-    
+
     return dataSet;
 }
 
@@ -191,7 +191,7 @@ com.capstone.ReportFilter.AverageTime = function () {
 com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
     var dataSet = [
     ];
-    var drivers = {}; 
+    var drivers = {};
 
     var queries = com.capstone.mapController.activeMapQueries;
     queries.forEach(function (query) {
@@ -231,7 +231,7 @@ com.capstone.ReportFilter.VendorTotals = function () {
             var result = queries[i].QueryResults[j];
             if (result.VendorID = "VTS") { this.VTSTotal++; }
             else { CMTTotal++; }
-            
+
         }
         dataSet.push({
             y: this.VTSTotal,
@@ -246,7 +246,43 @@ com.capstone.ReportFilter.VendorTotals = function () {
     return dataSet;
 }
 
-$(document).ready(function() { 
+
+
+
+com.capstone.ReportFilter.PassengerDistance = function () {
+    var dataSet = [
+    ];
+    var queries = com.capstone.mapController.activeMapQueries;
+    for (var i in queries) {
+        var totalPassengers = 0;
+        var count = 0;
+        var totalDistance = 0;
+        var countD = 0;
+
+
+        for (var j in queries[i].QueryResults) {
+            var result = queries[i].QueryResults[j];
+            totalPassengers += result.Passengers;
+            count++;
+
+            var resultD = queries[i].QueryResults[j];
+            totalDistance += Math.ceil(result.Distance);
+            countD++;
+        }
+        dataSet.push({
+            y: totalPassengers / totalDistance,
+            label: "Query " + queries[i].queryID
+        });
+    }
+
+    return dataSet;
+}
+
+
+
+
+
+$(document).ready(function () {
     com.capstone.ReportFilter.chart = [
         {
             filter: com.capstone.ReportFilter.AverageSpeed,
@@ -296,7 +332,19 @@ $(document).ready(function() {
             title: "Taxi Vendor Totals",
             ySuffix: "",
             xPrefix: ""
-        }
+        },
+
+
+        {
+            filter: com.capstone.ReportFilter.PassengerDistance,
+            type: com.capstone.Report.ColumnGraph,
+            title: "Average Passengers per Distance",
+            ySuffix: "ppd",
+            xPrefix: ""
+},
+
+
+
     ];
 
     $("#selectChart").empty();
