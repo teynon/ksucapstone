@@ -229,16 +229,16 @@ com.capstone.ReportFilter.VendorTotals = function () {
     for (var i in queries) {
         for (var j in queries[i].QueryResults) {
             var result = queries[i].QueryResults[j];
-            if (result.VendorID = "VTS") { this.VTSTotal++; }
-            else { CMTTotal++; }
+            if (result.VendorID == "VTS") { self.VTSTotal++; }
+            else { self.CMTTotal++; }
 
         }
         dataSet.push({
-            y: this.VTSTotal,
+            y: self.VTSTotal,
             label: "VTS:"
         });
         dataSet.push({
-            y: this.CMTTotal,
+            y: self.CMTTotal,
             label: "CMT:"
         });
     }
