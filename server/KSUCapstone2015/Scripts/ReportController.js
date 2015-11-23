@@ -225,20 +225,26 @@ com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
 com.capstone.ReportFilter.VendorTotals = function () {
     var dataSet = [
     ];
+    var localVTSTotal = 0;
+    var localCMTTotal = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         for (var j in queries[i].QueryResults) {
             var result = queries[i].QueryResults[j];
-            if (result.VendorID == "VTS") { self.VTSTotal++; }
-            else { self.CMTTotal++; }
+            if (result.VendorID == "VTS") { localVTSTotal++; }
+            else { localCMTTotal++; }
 
         }
+
+        this.VTSTotal += localVTSTotal;
+        this.CMTTotal += localCMTTotal;
+
         dataSet.push({
-            y: self.VTSTotal,
+            y: localVTSTotal,
             label: "VTS:"
         });
         dataSet.push({
-            y: self.CMTTotal,
+            y: localCMTTotal,
             label: "CMT:"
         });
     }
