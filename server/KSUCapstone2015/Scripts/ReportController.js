@@ -22,8 +22,6 @@ com.capstone.ReportController = function (reportid) {
     this.xPrefix = null;
     this.toolTip = null;
     this.counter = 1;
-    this.VTSTotal = 0;
-    this.CMTTotal = 0;
 
     this.graph = function (val) {
         for (var i in this.reportList) {
@@ -233,22 +231,16 @@ com.capstone.ReportFilter.VendorTotals = function () {
             var result = queries[i].QueryResults[j];
             if (result.VendorID == "VTS") { localVTSTotal++; }
             else { localCMTTotal++; }
-
-        }
-
-        this.VTSTotal += localVTSTotal;
-        this.CMTTotal += localCMTTotal;
-
-        dataSet.push({
-            y: localVTSTotal,
-            label: "VTS:"
-        });
-        dataSet.push({
-            y: localCMTTotal,
-            label: "CMT:"
-        });
+        }        
     }
-
+    dataSet.push({
+        y: localVTSTotal,
+        label: "VTS:"
+    });
+    dataSet.push({
+        y: localCMTTotal,
+        label: "CMT:"
+    });
     return dataSet;
 }
 
@@ -335,7 +327,7 @@ $(document).ready(function () {
         {
             filter: com.capstone.ReportFilter.VendorTotals,
             type: com.capstone.Report.PieGraph,
-            title: "Taxi Vendor Totals",
+            title: "Points per Vendor",
             ySuffix: "",
             xPrefix: ""
         },
