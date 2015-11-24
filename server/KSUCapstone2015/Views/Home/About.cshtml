@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
     <style>
         #body {
-            background-image: url('../../Content/images/map.png');
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
         }
 
@@ -27,7 +29,7 @@
             padding-left: 1em;
         }
 
-        .img2{
+        .img2 {
             padding-top: 1em;
             padding-left: 1em;
             padding-bottom: 1em;
@@ -49,7 +51,7 @@
 
         .h2 {
             width: 99%;
-            float:left;
+            float: left;
             color: #333333;
             font-weight: bold;
             font-size: 3em;
@@ -104,133 +106,321 @@
             border-right-width: 1em;
         }
 
+        .parent {
+            margin-top: 3em;
+            font-size: 1.2em;
+        }
+
+        .padding {
+            padding-top: 4em;
+        }
+
+        #query {
+        }
+
+        #accordion2 {
+        }
+
+        #accordion3 {
+
+        }
     </style>
+
 
 </head>
 <body id="body">
 
+    <h2>Developed by: </h2>
+    <h3>Aaron Yerman.  Even Dunnel.  Patrick Collins.  Patrick Hoerrle.  Thomas Eynon.</h3>
+
+    <!--
+        <h2 class="h2">Features and Functions</h2>
 
 
-   
-    <h2 class="h2">Features and Functions</h2>
+        <div id="ui">
 
 
-    <div id="ui">
-
-
-        <div class="img">
-            <img src="/Content/images/zoom.png" style="width: 3em; float: left;" />
-            <p class="desc"> Clicking on this button zooms the map inwards <br />
-             <br /> Clicking this button zooms the map outwards  </p>
-        </div>
-        <br />
-
-        <div class="img">
-            <img src="/Content/images/quick.png" style="width: 3em; float: left;" />
-            <p class="desc"> Clicking here opens the Advanced Draw Menu. The advanced menu options are as follows: </p>
-        </div>
-        <br />
-
-        <div class="img">
-        <img src="~/Content/images/advance.png" style="width: 3em; float: left;"/>
-        <p class="desc"> Use the Polygon option to create your own desired area, draw and shape you desire. <br />
-             <br /> Use this option to select a predefined area in Square format <br />
-            <br /> Use this option to select a predefined area in Circle format </p>
-        </div>
-        <br />
-        <br />
-
-        <div class="img">
-            <img src="~/Content/images/calendar.png" style="width: 3em; float: left;" />
-            <p class="desc"> Select the desired "From" and "To" date and times </p>
-        </div> 
-
-        <div class="img">
-            <img src="/Content/images/selection_mode_both.png" style="width: 3em; float: left;" />
-            <p class="desc"> Select whether you want Pickups, Dropoffs, or Both displayed in selection area </p>
-        </div>
-
-        <div class="img">
-            <img src="~/Content/images/selection_type_single.png" style="width: 3em; float: left;" />
-            <p class="desc"> Choose from a Single area, Multiple areas, or see where where passengers were picked up and dropped of in a selected area </p>
-        </div>
-
-        <div class="img">
-            <img src="/Content/images/playback.png" style="width: 3em; float: left;" />
-            <p class="desc"> Display the playback bar </p>
-        </div>
-
-        <div class="img">
-            <img src="~/Content/images/settings.png" style="width: 3em; float: left;" />
-            <p class="desc"> Opens up Settings Menu </p>
-        </div>
-
-        <div class="img">
-            <img src="~/Content/images/share.png" style="width: 3em; float: left;" />
-            <p class="desc"> Share current selection options </p>
-        </div>
-
-        <div class="img">
-            <img src="~/Content/images/clear.png" style="width: 3em; float: left;" />
-            <p class="desc"> Remove current selections from map </p>
-        </div>
-
-        <br />
-        <br />
-
-        <div class="img">
-            <img src="~/Content/images/report.png" style="width: 5em; float: left;" />
-            <br />
-            <p class="desc"> A visual representation of the data in the selection </p>
-
+            <div class="img">
+                <img src="/Content/images/zoom.png" style="width: 3em; float: left;" />
+                <p class="desc"> Clicking on this button zooms the map inwards <br />
+                 <br /> Clicking this button zooms the map outwards  </p>
+            </div>
             <br />
 
             <div class="img">
-                <img src="~/Content/images/chart_popup.png" style="width: 3em; float: left; padding-left: 1em;"/>
-                <p class="desc"> This dropdown menu presents you with the types of reports you wish to display. 
-                Clicking on an options opens it in the report viewport. You may open as many different types as you wish. Graphs are updated as Queries are added and removed.</p>
-        </div>
+                <img src="/Content/images/quick.png" style="width: 3em; float: left;" />
+                <p class="desc"> Clicking here opens the Advanced Draw Menu. The advanced menu options are as follows: </p>
+            </div>
+            <br />
 
             <div class="img">
-                <img src="~/Content/images/clear.png" style="width: 3em; float: left; padding-left: 1em;" />
-                <p class="desc"> This option clears all sleceted reports from the report viewport. </p>
-        </div>
+            <img src="~/Content/images/advance.png" style="width: 3em; float: left;"/>
+            <p class="desc"> Use the Polygon option to create your own desired area, draw and shape you desire. <br />
+                 <br /> Use this option to select a predefined area in Square format <br />
+                <br /> Use this option to select a predefined area in Circle format </p>
+            </div>
+            <br />
+            <br />
+
+            <div class="img">
+                <img src="~/Content/images/calendar.png" style="width: 3em; float: left;" />
+                <p class="desc"> Select the desired "From" and "To" date and times </p>
+            </div>
+
+            <div class="img">
+                <img src="/Content/images/selection_mode_both.png" style="width: 3em; float: left;" />
+                <p class="desc"> Select whether you want Pickups, Dropoffs, or Both displayed in selection area </p>
+            </div>
+
+            <div class="img">
+                <img src="~/Content/images/selection_type_single.png" style="width: 3em; float: left;" />
+                <p class="desc"> Choose from a Single area, Multiple areas, or see where where passengers were picked up and dropped of in a selected area </p>
+            </div>
+
+            <div class="img">
+                <img src="/Content/images/playback.png" style="width: 3em; float: left;" />
+                <p class="desc"> Display the playback bar </p>
+            </div>
+
+            <div class="img">
+                <img src="~/Content/images/settings.png" style="width: 3em; float: left;" />
+                <p class="desc"> Opens up Settings Menu </p>
+            </div>
+
+            <div class="img">
+                <img src="~/Content/images/share.png" style="width: 3em; float: left;" />
+                <p class="desc"> Share current selection options </p>
+            </div>
+
+            <div class="img">
+                <img src="~/Content/images/clear.png" style="width: 3em; float: left;" />
+                <p class="desc"> Remove current selections from map </p>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="img">
+                <img src="~/Content/images/report.png" style="width: 5em; float: left;" />
+                <br />
+                <p class="desc"> A visual representation of the data in the selection </p>
+
+                <br />
+
+                <div class="img">
+                    <img src="~/Content/images/chart_popup.png" style="width: 3em; float: left; padding-left: 1em;"/>
+                    <p class="desc"> This dropdown menu presents you with the types of reports you wish to display.
+                    Clicking on an options opens it in the report viewport. You may open as many different types as you wish. Graphs are updated as Queries are added and removed.</p>
+            </div>
+
+                <div class="img">
+                    <img src="~/Content/images/clear.png" style="width: 3em; float: left; padding-left: 1em;" />
+                    <p class="desc"> This option clears all sleceted reports from the report viewport. </p>
+            </div>
+                </div>
+
+
+            <div class="img">
+                <img src="~/Content/images/sidebyside.png" style="width: 5em; float: left;" />
+                <br />
+                <p class="desc" style="padding-left: 5.5em"> Brings up a side by side map for an advanced view of selections </p>
+            </div>
+    </div>
+        -->
+
+
+
+    <!-- Begin Main Accordion Menu -->
+    <div class="container padding">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Queries</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+
+                        <!-- Inner Accordion Menu -->
+                        <div class="container">
+                            <div class="panel-group" id="accordion2">
+                                <!-- Inner Accordion Option 1 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerOne">QueryController.cs</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerOne" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Accordion Option 1 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerSeven">QueryController.js</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerSeven" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Accordion Option 2 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerTwo">Trips.cs</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerTwo" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Accordion Option 3 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseInnerThree">SavedMaps.cs</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerThree" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
-        <div class="img">
-            <img src="~/Content/images/sidebyside.png" style="width: 5em; float: left;" />
-            <br />
-            <p class="desc" style="padding-left: 5.5em"> Brings up a side by side map for an advanced view of selections </p>
-        </div>
-</div>
+            <!-- Main Accordion 2 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Interface</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <!-- Inner Accordion Menu -->
+                        <div class="container">
+                            <div class="panel-group" id="accordion3">
+                                <!-- Inner Accordion Option 1 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion3" href="#collapseInnerFour">UI.js</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerFour" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Accordion Option 2 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion3" href="#collapseInnerFive">layout.js</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerFive" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Inner Accordion Option 3 -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion3" href="#collapseInnerSix">MapInterface.js</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseInnerSix" class="panel-collapse collapse in">
+                                        <div class="panel-inner tblColMarg">
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <nav class="navMain">
-        <h1 class="h1">Resources</h1>
-        <ul>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="http://leafletjs.com/">Leaflet</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="#">Javascript</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="https://www.mysql.com/">MySQL</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="http://canvasjs.com/">CanvasJS</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="http://getbootstrap.com/">Bootstrap</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="https://jquery.com/">jQuery</a>
-            </li>
-            <li class="navMainElement">
-                <a class="navMainTxt" href="https://github.com/">Github</a>
-            </li>
-        </ul>
-    </nav>
+            <!-- Main Accordion 3 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Reporting</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Accordion 4 -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Tutorial</a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        <nav class="navMain">
+            <h1 class="h1">Resources</h1>
+            <ul>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="http://leafletjs.com/">Leaflet</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="#">Javascript</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="https://www.mysql.com/">MySQL</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="http://canvasjs.com/">CanvasJS</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="http://getbootstrap.com/">Bootstrap</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="https://jquery.com/">jQuery</a>
+                </li>
+                <li class="navMainElement">
+                    <a class="navMainTxt" href="https://github.com/">Github</a>
+                </li>
+            </ul>
+        </nav>
+
+        -->
+
 
 
 </body>
