@@ -235,11 +235,11 @@ com.capstone.ReportFilter.VendorTotals = function () {
     }
     dataSet.push({
         y: localVTSTotal,
-        label: "VTS:"
+        label: "VTS"
     });
     dataSet.push({
         y: localCMTTotal,
-        label: "CMT:"
+        label: "CMT"
     });
     return dataSet;
 }
