@@ -4,6 +4,26 @@ com.capstone = com.capstone || {};
 com.capstone.UI = {
     mapUpdateTimeout : null,
     openMenus: [],
+    queryColorIndex : 0,
+    queryColorList: [
+        "#FF0000",
+        "#00FF00",
+        "#0000FF",
+        "#FFFF00",
+        "#FF00FF",
+        "#00FFFF"
+    ],
+
+    hexToRgba : function(hex, opacity) {
+        
+        hex = hex.replace('#', '');
+        r = parseInt(hex.substring(0, 2), 16);
+        g = parseInt(hex.substring(2, 4), 16);
+        b = parseInt(hex.substring(4, 6), 16);
+
+        result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
+        return result;
+    },
 
     addMenu : function(target, menuid) {
         for (var i = 0; i < com.capstone.UI.openMenus.length; i++) {
@@ -117,7 +137,14 @@ $(document).ready(function () {
     $(".color").colorPicker({
         renderCallback: function () {
             com.capstone.UI.refreshMapDelayed();
-        }
+        },
+        opacity: false
+    });
+    $(".trigger").colorPicker({
+        opacity: true
+    });
+
+    $(".queryInner").on("click", function (e) {
     });
 
     $("#DropoffStroke, #PickupStroke").on("change", function () {

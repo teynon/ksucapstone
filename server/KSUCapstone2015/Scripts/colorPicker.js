@@ -74,6 +74,7 @@
 			gap = _options.gap;
 
 		if (event) {
+		    event.stopPropagation();
 			_$trigger = findElement($this);
 			_colorPicker.$trigger = $this;
 
@@ -121,7 +122,7 @@
 				_$xy_slider = $('.cp-xy-slider', this);
 				_$xy_cursor = $('.cp-xy-cursor', this);
 				_$z_cursor = $('.cp-z-cursor', this);
-				_$alpha = $('.cp-alpha', this).toggle(!!_options.opacity);
+				_$alpha = $('.cp-alpha', this).toggle(!!_$trigger.data('alpha'));
 				_$alpha_cursor = $('.cp-alpha-cursor', this);
 				_options.buildCallback.call(_colorPicker, $this);
 				$this.prepend('<div>').children().eq(0).css('width',
@@ -173,6 +174,9 @@
 	}
 
 	function alpha(event) {
+	    console.log(resolveEventType(event).pageX);
+	    console.log(_$trigger._offset.left);
+
 		var x = resolveEventType(event).pageX - _$trigger._offset.left,
 			alpha = x / _$alpha._width;
 
@@ -180,6 +184,8 @@
 	}
 
 	function preRender(toggled) {
+	    var a = $('.cp-alpha', this).toggle(!!_$trigger.data('alpha'));
+	    if (a === false) _$alpha = false;
 		var colors = _color.colors,
 			hueRGB = colors.hueRGB,
 			RGB = colors.RND.rgb,
@@ -292,24 +298,23 @@
 
  		$(options.body).off('.a').
  		on(_pointerdown, function(e) {
-			var $target = $(e.target);
-
+ 		    var $target = $(e.target);
 			if ($.inArray($target.closest(_selector)[0], _instance) === -1 &&
 				!$target.closest(_$UI).length) {
 				toggle();
 			}
 		}).
 		on('focus.a click.a', _selector, toggle).
-		on('change.a', _selector, function() {
+		on('change.a', _selector, function () {
 			_color.setColor(this.value || '#FFF');
 			_instance.colorPicker.render(true);
 		});
 
-		return this.each(function() {
-			var value = extractValue(this),
+ 		return this.each(function() {
+ 		    var value = extractValue(this),
 				mode = value.split('('),
 				$elm = findElement($(this));
-
+ 		    $elm.data('alpha', options.opacity);
 			$elm.data('colorMode', mode[1] ? mode[0].substr(0, 3) : 'HEX').
 				attr('readonly', _options.preventFocus);
 			options.doRender &&

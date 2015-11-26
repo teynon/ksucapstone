@@ -11,6 +11,7 @@ namespace KSUCapstone2015.Controllers
     {
         public ActionResult Index(string loadKey = null)
         {
+            ViewBag.JSON = "[]";
             if (loadKey != null)
             {
                 ViewBag.JSON = new BLL.Queries.SavedMap().GetByKey(loadKey).JSON;

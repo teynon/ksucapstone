@@ -110,7 +110,23 @@ com.capstone.MapController = function (mapid) {
         this.map.on('contextmenu', this.onMapRightClick);
         this.map.on('draw:created', this.onMapDraw);
         this.map.on('move', this.onMapMove);
+
+        // Update the next map query color.
+        this.updateNextQueryColor();
     };
+
+    this.updateNextQueryColor = function () {
+        var color = com.capstone.UI.queryColorList[com.capstone.UI.queryColorIndex];
+        console.log(color);
+        
+        $("#nextQueryColorFill").css({
+            "background-color": com.capstone.UI.hexToRgba(color, 50)
+        }).val(com.capstone.UI.hexToRgba(color, 50));
+
+        $("#nextQueryColorBorder").css({
+            "background-color": com.capstone.UI.hexToRgba(color, 80)
+        }).val(com.capstone.UI.hexToRgba(color, 80));
+    }
 
     this.getMap = function (container, center, zoom, includeZoom) {
         if (includeZoom == null) includeZoom = true;
@@ -192,8 +208,10 @@ com.capstone.MapController = function (mapid) {
 
                 // Remove from map queries list.
                 self.activeMapQueries.splice(i, 1);
-
-                self.ReportController.removeQuery(i);
+                
+                if (self.ReportController != null) {
+                    self.ReportController.removeQuery(i);
+                }
 
                 // Set the index back one, since the current index is now the next index.
                 i--;
@@ -445,15 +463,13 @@ com.capstone.MapController = function (mapid) {
         };
 
         var layer = L.rectangle(boundingBox, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.25
+            color: $("#nextQueryColorBorder").css("background-color"),
+            fillColor: $("#nextQueryColorFill").css("background-color")
         });
 
         var clonedLayer = L.rectangle(boundingBox, {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.25
+            color: $("#nextQueryColorBorder").css("background-color"),
+            fillColor: $("#nextQueryColorFill").css("background-color")
         });
 
         if (self.SelectMode == "trip" && $("#filterSelection").val() == "drop") {
@@ -477,6 +493,19 @@ com.capstone.MapController = function (mapid) {
         }
 
         $("#" + self.mapID).trigger("mapQuery");
+
+        this.RefreshLegend();
+    }
+
+    this.RefreshLegend = function () {
+        var queries = com.capstone.mapController.activeMapQueries;
+        var savedQueries = [];
+
+        $("#activeQueries").empty();
+
+        for (var i in queries) {
+            $("#activeQueries").append($("<div>" + queries[i].queryID + "</div>"));
+        }
     }
 
 
@@ -573,6 +602,10 @@ com.capstone.MapController = function (mapid) {
             latitude2: layer._latlngs[3].lat,
             longitude2: layer._latlngs[3].lng
         };
+        layer.options = $.extend(layer.options, {
+            fillColor: $("#nextQueryColorFill").css("background-color"),
+            color: $("#nextQueryColorBorder").css("background-color")
+        });
         this.queryMode = com.capstone.Query.TaxisInRange;
         var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
         return L.rectangle(bounds, layer.options);
