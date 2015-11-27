@@ -270,7 +270,7 @@ com.capstone.MapController = function (mapid) {
         // Do whatever else you need to. (save to db, add to map etc) 
         $("#" + self.mapID).trigger("mapQuery");
         self.RefreshLegend();
-        this.updateNextQueryColor();
+        self.updateNextQueryColor();
     }
 
     this.getRectangleSelectionData = function (layer) {
