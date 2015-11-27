@@ -257,12 +257,14 @@
 
 		_options.doRender && _$trigger.css(_$trigger._css);
 		_$trigger.text && _$trigger.val(_$trigger.text);
-
-		_options.renderCallback.call(
-			_colorPicker,
-			_$trigger,
-			typeof toggled === 'boolean' ? toggled : undefined
-		);
+		if (_$trigger.data("renderCallback") != null) {
+		    _$trigger.data("renderCallback").call(
+            //_options.renderCallback.call(
+                _colorPicker,
+                _$trigger,
+                typeof toggled === 'boolean' ? toggled : undefined
+            );
+		}
 	}
 
 	$.fn.colorPicker = function(options) {
@@ -314,7 +316,7 @@
  		    var value = extractValue(this),
 				mode = value.split('('),
 				$elm = findElement($(this));
- 		    $elm.data('alpha', options.opacity);
+ 		    $elm.data('alpha', options.opacity).data('renderCallback', options.renderCallback);
 			$elm.data('colorMode', mode[1] ? mode[0].substr(0, 3) : 'HEX').
 				attr('readonly', _options.preventFocus);
 			options.doRender &&

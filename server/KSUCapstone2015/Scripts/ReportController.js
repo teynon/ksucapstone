@@ -97,10 +97,11 @@ com.capstone.ReportFilter.AverageSpeed = function () {
         }
 
         // Average speed.
-
+        console.log(queries[i].BorderColor);
         dataSet.push({
             y: totalSpeed / count,
-            label: "Query " + queries[i].queryID
+            label: queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
 
@@ -114,7 +115,8 @@ com.capstone.ReportFilter.TripsPerQuery = function () {
     for (var i in queries) {
         dataSet.push({
             y: queries[i].QueryResults.length,
-            label: "Query " + queries[i].queryID
+            label: "Query " + queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
     return dataSet;
@@ -135,7 +137,8 @@ com.capstone.ReportFilter.AverageDistance = function () {
         }
         dataSet.push({
             y: totalDistance / count,
-            label: "Query " + queries[i].queryID
+            label: queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
 
@@ -157,7 +160,8 @@ com.capstone.ReportFilter.AveragePassengers = function () {
         }
         dataSet.push({
             y: totalPassengers / count,
-            label: "Query " + queries[i].queryID
+            label: queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
 
@@ -179,7 +183,8 @@ com.capstone.ReportFilter.AverageTime = function () {
         }
         dataSet.push({
             y: totalTime / count,
-            label: "Query " + queries[i].queryID
+            label: queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
 
@@ -269,7 +274,8 @@ com.capstone.ReportFilter.PassengerDistance = function () {
         }
         dataSet.push({
             y: totalPassengers / totalDistance,
-            label: "Query " + queries[i].queryID
+            label: queries[i].queryID,
+            color: queries[i].BorderColor
         });
     }
 

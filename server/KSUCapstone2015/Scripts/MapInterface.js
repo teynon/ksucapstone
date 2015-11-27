@@ -116,6 +116,7 @@ com.capstone.MapController = function (mapid) {
     };
 
     this.updateNextQueryColor = function () {
+
         var color = com.capstone.UI.queryColorList[com.capstone.UI.queryColorIndex];
         console.log(color);
         
@@ -126,6 +127,7 @@ com.capstone.MapController = function (mapid) {
         $("#nextQueryColorBorder").css({
             "background-color": com.capstone.UI.hexToRgba(color, 80)
         }).val(com.capstone.UI.hexToRgba(color, 80));
+        com.capstone.UI.queryColorIndex = ++com.capstone.UI.queryColorIndex % com.capstone.UI.queryColorList.length;
     }
 
     this.getMap = function (container, center, zoom, includeZoom) {
@@ -217,6 +219,7 @@ com.capstone.MapController = function (mapid) {
                 i--;
             }
         }
+        self.RefreshLegend();
     }
 
     this.onMapDraw = function (e) {
@@ -266,6 +269,8 @@ com.capstone.MapController = function (mapid) {
 
         // Do whatever else you need to. (save to db, add to map etc) 
         $("#" + self.mapID).trigger("mapQuery");
+        self.RefreshLegend();
+        this.updateNextQueryColor();
     }
 
     this.getRectangleSelectionData = function (layer) {
@@ -446,6 +451,7 @@ com.capstone.MapController = function (mapid) {
             $("#filterSelection").val("pick");
         }
         com.capstone.UI.setStatus("Ready.");
+        self.RefreshLegend();
     }
 
     // -------------------------------------------
@@ -495,6 +501,7 @@ com.capstone.MapController = function (mapid) {
         $("#" + self.mapID).trigger("mapQuery");
 
         this.RefreshLegend();
+        this.updateNextQueryColor();
     }
 
     this.RefreshLegend = function () {
@@ -504,7 +511,63 @@ com.capstone.MapController = function (mapid) {
         $("#activeQueries").empty();
 
         for (var i in queries) {
-            $("#activeQueries").append($("<div>" + queries[i].queryID + "</div>"));
+            var container = $("<div></div>").addClass("activeQuery");
+            var borderContainer = $("<div></div>").addClass("activeQueryContainer");
+            var borderDiv = $("<div></div>").data("query", queries[i].uniqueID).data("type", "border").addClass("trigger activeTrigger").prop("value", queries[i].BorderColor).appendTo(borderContainer);
+            var mainContainer = $("<div></div>").addClass("queryInner").appendTo(borderDiv);
+            var mainDiv = $("<div></div>").data("query", queries[i].uniqueID).data("type", "fill").addClass("trigger activeTrigger").prop("value", queries[i].FillColor).appendTo(mainContainer);
+
+            container.append(
+                $("<input type=\"text\" />").data("query", queries[i].uniqueID).val(queries[i].queryID)
+                    .on("keyup", function () {
+                        var uid = $(this).data("query");
+                        for (var i in queries) {
+                            if (queries[i].uniqueID == uid) {
+                                queries[i].queryID = $(this).val();
+                            }
+                        }
+
+                        // Refresh reports.
+                        self.UpdateReports();
+                    }
+                )
+            )
+            .append(borderContainer).appendTo("#activeQueries");
+
+            $(".activeTrigger").colorPicker({
+                renderCallback: function (el) {
+                    if (this.$trigger != null) {
+                        var uid = this.$trigger.data("query");
+                        var type = this.$trigger.data("type");
+                        for (var i in queries) {
+                            if (queries[i].uniqueID == uid) {
+                                var fillColor = queries[i].FillColor;
+                                var borderColor = queries[i].BorderColor;
+                                switch (type) {
+                                    case "border":
+                                        borderColor = this.$trigger.css("background-color");
+                                        break;
+                                    case "fill":
+                                    default:
+                                        fillColor = this.$trigger.css("background-color");
+                                        break;
+                                }
+
+                                queries[i].UpdateColors(fillColor, borderColor);
+                            }
+                        }
+                        // Refresh reports.
+                        self.UpdateReports();
+                    }
+                },
+                opacity: true
+            });
+        }
+    }
+
+    this.UpdateReports = function () {
+        if (self.ReportController != null) {
+            self.ReportController.updateChart();
         }
     }
 
@@ -584,48 +647,56 @@ com.capstone.MapController = function (mapid) {
     this.cloneLayer = function (layerWrapper) {
         switch (layerWrapper.layerType) {
             case "rectangle":
-                return this.cloneRectangle(layerWrapper.layer);
+                this.selectionData = {
+                    latitude1: layerWrapper.layer._latlngs[1].lat,
+                    longitude1: layerWrapper.layer._latlngs[1].lng,
+                    latitude2: layerWrapper.layer._latlngs[3].lat,
+                    longitude2: layerWrapper.layer._latlngs[3].lng
+                };
+                this.queryMode = com.capstone.Query.TaxisInRange;
+                return this.cloneRectangle(layerWrapper.layer, $("#nextQueryColorFill").css("background-color"), $("#nextQueryColorBorder").css("background-color"));
                 break;
             case "polygon":
-                return this.clonePolygon(layerWrapper.layer);
+                this.selectionData = {
+                    points: []
+                };
+                for (var i = 0; i < layerWrapper.layer._latlngs.length; i++) {
+                    this.selectionData.points.push({ Latitude: layerWrapper.layer._latlngs[i].lat, Longitude: layerWrapper.layer._latlngs[i].lng });
+                }
+
+                this.queryMode = com.capstone.Query.TaxisInPolygon;
+                return this.clonePolygon(layerWrapper.layer, $("#nextQueryColorFill").css("background-color"), $("#nextQueryColorBorder").css("background-color"));
                 break;
             case "circle":
-                return this.cloneCircle(layerWrapper.layer);
+                this.queryMode = com.capstone.Query.TaxisInPolygon;
+                return this.cloneCircle(layerWrapper.layer, $("#nextQueryColorFill").css("background-color"), $("#nextQueryColorBorder").css("background-color"));
                 break;
         }
     };
 
-    this.cloneRectangle = function (layer) {
-        this.selectionData = {
-            latitude1: layer._latlngs[1].lat,
-            longitude1: layer._latlngs[1].lng,
-            latitude2: layer._latlngs[3].lat,
-            longitude2: layer._latlngs[3].lng
-        };
+    this.cloneRectangle = function (layer, fillColor, borderColor) {
         layer.options = $.extend(layer.options, {
-            fillColor: $("#nextQueryColorFill").css("background-color"),
-            color: $("#nextQueryColorBorder").css("background-color")
+            fillColor: fillColor,
+            color: borderColor
         });
-        this.queryMode = com.capstone.Query.TaxisInRange;
         var bounds = [[layer._latlngs[0].lat, layer._latlngs[0].lng], [layer._latlngs[2].lat, layer._latlngs[2].lng]];
         return L.rectangle(bounds, layer.options);
     };
 
-    this.clonePolygon = function (layer) {
-        this.selectionData = {
-            points : []
-        };
-        for (var i = 0; i < layer._latlngs.length; i++) {
-            this.selectionData.points.push({ Latitude : layer._latlngs[i].lat, Longitude : layer._latlngs[i].lng });
-        }
-
-        this.queryMode = com.capstone.Query.TaxisInPolygon;
-        return L.polygon(layer._latlngs);
+    this.clonePolygon = function (layer, fillColor, borderColor) {
+        layer.options = $.extend(layer.options, {
+            fillColor: fillColor,
+            color: borderColor
+        });
+        return L.polygon(layer._latlngs, layer.options);
     };
 
-    this.cloneCircle = function (layer) {
-        this.queryMode = com.capstone.Query.TaxisInPolygon;
-        return L.circle(layer._latlng, layer._mRadius);
+    this.cloneCircle = function (layer, fillColor, borderColor) {
+        layer.options = $.extend(layer.options, {
+            fillColor: fillColor,
+            color: borderColor
+        });
+        return L.circle(layer._latlng, layer._mRadius, layer.options);
     };
 
     // ---------------------------------------
@@ -708,12 +779,16 @@ com.capstone.MapController = function (mapid) {
             start: $("#datestart").val(),
             end: $("#dateend").val(),
             filter: $("#filterSelection").val(),
+            fillColor: $("#nextQueryColorFill").css("background-color"),
+            borderColor: $("#nextQueryColorBorder").css("background-color"),
             queryMode: this.queryMode,
             selectMode: this.SelectMode
         };
 
         for (var i in data) {
             var q = data[i];
+            $("#nextQueryColorFill").css("background-color", q.fillColor);
+            $("#nextQueryColorBorder").css("background-color", q.borderColor);
 
             var Layer = null;
             // Draw the layer.
@@ -744,12 +819,27 @@ com.capstone.MapController = function (mapid) {
                 layer: Layer,
                 layerType: q.type
             });
+            var query = this.getQueryByUID(com.capstone.queryCount);
+            if (query != null) {
+                query.queryID = q.queryID;
+            }
         }
         $("#datestart").val(defaultValues.start);
         $("#dateend").val(defaultValues.end);
         $("#filterSelection").val(defaultValues.filter);
+        $("#nextQueryColorFill").css("background-color", defaultValues.fillColor);
+        $("#nextQueryColorBorder").css("background-color", defaultValues.borderColor);
         this.queryMode = defaultValues.queryMode;
         this.SelectMode = defaultValues.selectMode;
+        this.RefreshLegend();
+    }
+
+    this.getQueryByUID = function (uid) {
+        var queries = com.capstone.mapController.activeMapQueries;
+        for (var i in queries) {
+            if (queries[i].uniqueID == uid) return queries[i];
+        }
+        return null;
     }
 
     this.saveQueries = function () {
@@ -770,7 +860,10 @@ com.capstone.MapController = function (mapid) {
                 radius: (queries[i].QueryData.radius !== "undefined") ? queries[i].QueryData.radius : null,
                 middle: (queries[i].QueryData.middle !== "undefined") ? queries[i].QueryData.middle : null,
                 filter: queries[i].QueryData.filterSelection,
-                selectMode: queries[i].QueryData.selectMode
+                selectMode: queries[i].QueryData.selectMode,
+                fillColor: queries[i].FillColor,
+                borderColor: queries[i].BorderColor,
+                queryID: queries[i].queryID
             };
             savedQueries.push(q);
         }

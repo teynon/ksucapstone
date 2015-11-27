@@ -8,6 +8,7 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     var query = this;
     this.SelectMode = controller.SelectMode;
     this.queryID = "Query " + (++com.capstone.queryCount);
+    this.uniqueID = com.capstone.queryCount;
     this.QueryFunction = queryFunction;
     this.QueryData = queryData;
     this.QueryResults = [];
@@ -29,6 +30,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.LoadingTimer = null;
     this.LoadingTimerSBS = null;
     this.Abort = false;
+    this.BorderColor = $("#nextQueryColorBorder").css("background-color");
+    this.FillColor = $("#nextQueryColorFill").css("background-color");
     //this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
     this.DrawMode = queryData.filterSelection;
     this.DrawModeSBS = queryData.filterSelectionSBS;
@@ -72,6 +75,28 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         endTime = this.ConvertUTC(endEST);
 
         return { start: startTime, startEST: startEST, stop: endTime, stopEST: endEST };
+    }
+
+    this.UpdateColors = function (fillColor, borderColor) {
+        for (var i in query.MapSelectionLayer) {
+            var Layer;
+            switch (query.QueryData.queryType) {
+                case "rectangle":
+                    Layer = query.MapController.cloneRectangle(query.MapSelectionLayer[i], fillColor, borderColor);
+                    break;
+                case "circle":
+                    Layer = query.MapController.cloneCircle(query.MapSelectionLayer[i], fillColor, borderColor);
+                    break;
+                case "polygon":
+                    Layer = query.MapController.clonePolygon(query.MapSelectionLayer[i], fillColor, borderColor);
+                    break;
+            }
+            query.FillColor = fillColor;
+            query.BorderColor = borderColor;
+            query.MapController.map.removeLayer(query.MapSelectionLayer[i]);
+            query.MapSelectionLayer[i] = Layer;
+            query.MapController.map.addLayer(query.MapSelectionLayer[i]);
+        }
     }
 
     this.ConvertUTC = function (date) {
