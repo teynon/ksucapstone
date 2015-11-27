@@ -58,6 +58,13 @@ com.capstone.UI = {
         return result;
     },
 
+    legendNumberDisplayValue : function(number) {
+        if (number < 1000) return number;
+        if (number < 1000000) return Math.floor(number / 1000) + "k";
+        if (number < 1000000000) return Math.floor(number / 1000000) + "m";
+        return number;
+    },
+
     addMenu : function(target, menuid) {
         for (var i = 0; i < com.capstone.UI.openMenus.length; i++) {
             if (com.capstone.UI.openMenus[i].target == target) {

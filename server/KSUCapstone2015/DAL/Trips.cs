@@ -13,7 +13,7 @@ namespace KSUCapstone2015.DAL
 {
     public class Trips
     {
-        const int maxResults = 20000;
+        const int maxResults = 200000;
 
         public List<Trip> GetPickupsInSector(DateTime start, DateTime stop, GeoCoordinate p1, GeoCoordinate p2)
         {

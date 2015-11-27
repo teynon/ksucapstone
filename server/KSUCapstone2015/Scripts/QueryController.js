@@ -35,6 +35,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     //this.MapController.mapFeatureGroup.addLayer(this.MapSelectionLayer);
     this.DrawMode = queryData.filterSelection;
     this.DrawModeSBS = queryData.filterSelectionSBS;
+    this.HeatMode = false;
+    this.HeatMapDefaultIntensity = 5000;
+    this.HeatMapResults = 5000; // Number of results that causes the map to switch to heat mode.
+    this.HeatMapDefaultIntensity = 0.5;
+    this.HeatMapBaseIntensity = this.HeatMapDefaultIntensity;
+    this.HeatMapPointDefaultRadius = 15;
+    this.HeatMapPointRadius = this.HeatMapPointDefaultRadius;
+    this.HeatMapBlur = 15;
 
     //this.LabelLatLng = this.MapSelectionLayer[0]._latlngs[0];
 
@@ -322,30 +330,74 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     };
 
     this.UpdateMap = function (points, sideBySide) {
+        if (query.ResultCount > query.HeatMapResults && query.HeatMode == false) {
+            query.HeatMode = true;
+            // Redraw the current points.
+            query.RefreshResults();
+            return;
+        }
+
+        query.HeatMapBaseIntensity = (query.HeatMapResults / query.ResultCount) * query.HeatMapDefaultIntensity;
+        //query.HeatMapPointRadius = (query.HeatMapResults / query.ResultCount) * query.HeatMapPointDefaultRadius;
+        if (query.HeatMapBaseIntensity < 0.01) query.HeatMapPointRadius = 0.01;
+
         var drawMode = (sideBySide) ? this.DrawModeSBS : this.DrawMode;
-        
+        var heatMap = [];
         for (var i = 0; i < points.length; i++) {
             switch (drawMode) {
                 case "pick":
-                    this.AddPickup(points[i], sideBySide);
-                    break;
-                case "drop":
-                    this.AddDropoff(points[i], sideBySide);
-                    break;
-                case "both":
-                    var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
-                    if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
+                    if (!query.HeatMode) {
                         this.AddPickup(points[i], sideBySide);
                     }
-
-                    latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
-                    if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
+                    else {
+                        heatMap.push([points[i].PickupLatitude, points[i].PickupLongitude, query.HeatMapBaseIntensity]);
+                    }
+                    break;
+                case "drop":
+                    if (!query.HeatMode) {
                         this.AddDropoff(points[i], sideBySide);
+                    }
+                    else {
+                        heatMap.push([points[i].DropoffLatitude, points[i].DropoffLongitude, query.HeatMapBaseIntensity]);
+                    }
+                    break;
+                case "both":
+                    if (!query.HeatMode) {
+                        var latlng = L.latLng(points[i].PickupLatitude, points[i].PickupLongitude);
+                        if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
+                            this.AddPickup(points[i], sideBySide);
+                        }
+
+                        latlng = L.latLng(points[i].DropoffLatitude, points[i].DropoffLongitude);
+                        if (this.SelectionHitTest(latlng, query.MapSelectionLayer[0])) {
+                            this.AddDropoff(points[i], sideBySide);
+                        }
+                    }
+                    else {
+                        heatMap.push([points[i].PickupLatitude, points[i].PickupLongitude, query.HeatMapBaseIntensity]);
+                        heatMap.push([points[i].DropoffLatitude, points[i].DropoffLongitude, query.HeatMapBaseIntensity]);
                     }
                 default:
                     break;
             }
         }
+        
+        if (query.HeatMode) {
+            var heatLayer = L.heatLayer(heatMap, {
+                radius: query.HeatMapPointRadius,
+                blur: query.HeatMapBlur
+            });
+            if (!sideBySide) {
+                heatLayer.addTo(query.MapController.map);
+                query.MapResultsLayer.addLayer(heatLayer);
+            }
+            else {
+                heatLayer.addTo(query.MapController.sideBySideMap);
+                query.MapResults2Layer.addLayer(heatLayer);
+            }
+        }
+
+        query.MapController.RefreshLegend();
     };
 
     this.AddPickupAndDropoff = function(point, sideBySide) {
@@ -400,10 +452,10 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.OnQuery = function (result, isSideBySide) {
         if (!query.Abort && result != -1) {
             query.CompletedQueries++;
+
+            // Draw the query data on the map.
             var remaining = (query.SpawnedQueries - query.CompletedQueries);
             var remainingText = (remaining > 0) ? " (" + remaining + " queries remaining)" : "";
-            // Draw the query data on the map.
-            //query.MapResultsLayer.clearLayers();
 
             if (result.Data && result.Data.length > 0) {
                 if (!isSideBySide) {
@@ -416,16 +468,21 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
                 query.ResultCount += result.Count;
                 com.capstone.UI.setStatus("Rendering " + query.ResultCount + " results." + remainingText);
                 setTimeout(function () {
-                    query.UpdateMap(result.Data, isSideBySide);
+                    if (remaining == 0 && query.SpawnedQueries > 1) {
+                        query.RefreshResults();
+                    }
+                    else {
+                        query.UpdateMap(result.Data, isSideBySide);
+                    }
 
-                    com.capstone.UI.setStatus("Displaying " + query.ResultCount + " results." + remainingText);
+                    query.MapController.updateResultCount();
 
                     if (!isSideBySide) query.stopFlashingSelection();
                     else query.stopFlashingSelectionSBS();
                 }, 100);
             }
             else {
-                com.capstone.UI.setStatus("No Results.");
+                query.MapController.updateResultCount();
                 if (!isSideBySide) query.stopFlashingSelection();
                 else query.stopFlashingSelectionSBS();
             }

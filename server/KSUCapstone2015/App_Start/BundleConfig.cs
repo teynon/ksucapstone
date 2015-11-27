@@ -51,7 +51,8 @@ namespace KSUCapstone2015
                  "~/Scripts/jacwright.date.format.js",
                  "~/Scripts/barGraph.js",
                  "~/Scripts/canvasjs.js",
-                 "~/Scripts/L.ToolbarToggle.js"));
+                 "~/Scripts/L.ToolbarToggle.js",
+                 "~/Scripts/leaflet-heat.js"));
 
             bundles.Add(new ScriptBundle("~/Tutorial").Include(
                 "~/Scripts/tutorial-ey.js",

@@ -118,7 +118,6 @@ com.capstone.MapController = function (mapid) {
     this.updateNextQueryColor = function () {
 
         var color = com.capstone.UI.queryColorList[com.capstone.UI.queryColorIndex];
-        console.log(color);
         
         $("#nextQueryColorFill").css({
             "background-color": com.capstone.UI.hexToRgba(color, 50)
@@ -141,6 +140,19 @@ com.capstone.MapController = function (mapid) {
         }).addTo(map);
 
         return map;
+    }
+
+    this.updateResultCount = function () {
+        var result = 0;
+        var pending = 0;
+        for (var i = 0; i < this.activeMapQueries.length; i++) {
+            result += this.activeMapQueries[i].ResultCount;
+            pending += this.activeMapQueries[i].SpawnedQueries - this.activeMapQueries[i].CompletedQueries;
+        }
+        var remainingText = "";
+        if (pending > 0) remainingText = " (" + pending + " remaining...)";
+
+        com.capstone.UI.setStatus("Displaying " + result + " results." + remainingText);
     }
 
     // -------------------------------------------
@@ -532,6 +544,7 @@ com.capstone.MapController = function (mapid) {
                     }
                 )
             )
+            .append("<div>" + com.capstone.UI.legendNumberDisplayValue(queries[i].ResultCount) + "</div>")
             .append(borderContainer).appendTo("#activeQueries");
 
             $(".activeTrigger").colorPicker({
@@ -970,7 +983,6 @@ $(document).ready(function () {
     $("#share").on("click", com.capstone.mapController.saveQueries);
 
     if (typeof LoadQueries !== "undefined") {
-        console.log(LoadQueries);
         com.capstone.mapController.loadSavedQueries(LoadQueries);
     }
 });

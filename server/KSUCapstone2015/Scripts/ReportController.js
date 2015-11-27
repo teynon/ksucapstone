@@ -115,7 +115,7 @@ com.capstone.ReportFilter.TripsPerQuery = function () {
     for (var i in queries) {
         dataSet.push({
             y: queries[i].QueryResults.length,
-            label: "Query " + queries[i].queryID,
+            label: queries[i].queryID,
             color: queries[i].BorderColor
         });
     }
@@ -354,7 +354,6 @@ $(document).ready(function () {
     $("#selectChart").empty();
     for (var chart in com.capstone.ReportFilter.chart) {
         $("<option value=" + chart + ">" + com.capstone.ReportFilter.chart[chart].title + "</option>").appendTo($("#selectChart"));
-        console.log(chart);
     }
 
     $("#selectChart").on("change", function () {

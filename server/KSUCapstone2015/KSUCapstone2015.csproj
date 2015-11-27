@@ -261,6 +261,7 @@
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\L.Path.Drag.js" />
     <Content Include="Scripts\layout.js" />
+    <Content Include="Scripts\leaflet-heat.js" />
     <Content Include="Scripts\leaflet.draw.drag.js" />
     <Content Include="Scripts\leaflet.js" />
     <Content Include="favicon.ico" />

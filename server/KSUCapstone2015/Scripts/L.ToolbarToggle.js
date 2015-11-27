@@ -72,7 +72,6 @@
   	var newButton = L.DomUtil.create('a', 'leaflet-buttons-control-button', this._container);
   	$(newButton).prop("href", "#");
   	$(newButton).prop("id", button.id);
-  	console.log(button);
 
     if(button.toggleStatus)
     	L.DomUtil.addClass(newButton,'leaflet-buttons-control-toggleon');
