@@ -115,6 +115,10 @@
             padding-top: 4em;
         }
 
+        .paddingleft {
+            padding-left: 2em;
+        }
+
         #query {
         }
 
@@ -126,9 +130,12 @@
 
         #purpose {
             padding: 1em;
-            border-width: 1em;
-            border-left-style: groove;
-            border-bottom-style: groove;
+            border-width: .1em;
+            border-color: lightgrey;
+            border-top-style: solid;
+            border-left-style: solid;
+            border-bottom-style: solid;
+            border-right-style: solid;
             font-size: 1.1em;
             font-weight: 800;
         }
@@ -169,7 +176,7 @@
 
 </head>
 <body id="body">
-    <header>
+    <header class="paddingleft">
         <h1> Group 1: Taxi Visualization Analysis Software Documentation</h1>
         <p id="purpose">
             Purpose: The purpose of the application is for business analysis to determine policies that will result in more profit. This includes analyzing areas that pay a higher rate (based on tips?), income per vendor, route optimization to reduce costs (walk through of individuals to see where they went during the day.)
