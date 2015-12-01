@@ -122,16 +122,52 @@
         }
 
         #accordion3 {
+        }
 
+        #purpose {
+            padding: 1em;
+            border-width: 1em;
+            border-left-style: groove;
+            border-bottom-style: groove;
+            font-size: 1.1em;
+            font-weight: 800;
+        }
+
+        .indent {
+            padding-left: 2em;
+        }
+
+        .indent2 {
+            padding-left: 5em;
+        }
+
+        .indent3 {
+            padding-left: 7em;
+        }
+
+        .indent4 {
+            padding-left: 9em;
+        }
+
+        .indent5 {
+            padding-left: 11em;
+        }
+
+        .bold {
+            font-weight: 700;
         }
     </style>
 
 
 </head>
 <body id="body">
+    <header>
+        <h1> Group 1: Taxi Visualization Analysis Software Documentation</h1>
+        <p id="purpose">
+            Purpose: The purpose of the application is for business analysis to determine policies that will result in more profit. This includes analyzing areas that pay a higher rate (based on tips?), income per vendor, route optimization to reduce costs (walk through of individuals to see where they went during the day.)
+        </p>
+    </header>
 
-    <h2>Developed by: </h2>
-    <h3>Aaron Yerman.  Even Dunnel.  Patrick Collins.  Patrick Hoerrle.  Thomas Eynon.</h3>
 
     <!--
         <h2 class="h2">Features and Functions</h2>
@@ -228,7 +264,192 @@
     </div>
         -->
 
+    <div class="container padding">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                            Functional Requirments
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4" class="panel-collapse collapse in">
+                    <div class="panel-body">
 
+                        <!-- Section 1 -->
+
+                        <div>
+                            <div>
+                                <h4>1.0 Framework </h4>
+                                <h4 class="indent">1.1 Language </h4>
+                                <p>
+                                    <ul class="indent2">
+                                        <li>
+                                            This project was implemented using C# with the .NET framework for the server side scripting
+                                            Javascript was used for the client side scripting
+                                        </li>
+                                        <li> Ajax was used to make asynchronous calls from the client to the server</li>
+                                        <li> Models used to abstract the database for easy use</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="indent">1.2 Database </h4>
+                                <p>
+                                    <ul class="indent2">
+                                        <li> A MySQL database was used to hold the data used in this project</li>
+                                        <li> Entity Framework was used to abstract the database to the models in the server side code</li>
+                                    </ul>
+                                </p>
+                            </div>
+                            <div>
+                                <h4 class="indent">1.3 Other Resources </h4>
+                                <p>
+                                    <ul class="indent2">
+                                        <li> canvasjs is used for our charts</li>
+                                        <li> leaflet maps is the map interface the drives the application</li>
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Section 2 -->
+
+                        <div>
+                            <h4>2.0 Map Implementation </h4>
+                            <h4 class="indent">2.1 Region Query </h4>
+                            <h5 class="indent2">2.1.1 Rectangle Region (Draw and Click)</h5>
+                            <ul class="indent3">
+                                <li> The system will allow the user to either click on the map or enter draw mode and draw a rectangle region, after selecting the rectangle region.</li>
+                            </ul>
+                            <p class="indent4 bold">- Draw</p>
+                            <ul class="indent5">
+                                <li> In draw mode the user will select the rectangle tool and draw a rectangle on the map, the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
+                            </ul>
+                            <p class="indent4 bold">- Click</p>
+                            <ul class="indent5">
+                                <li> In Click mode if a left clicks on the map it will create a rectangle region of a predetermined size. the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
+                            </ul>
+                            <h5 class="indent2"> 2.1.2 Polygon Region</h5>
+                            <ul class="indent3">
+                                <li> </li>
+                            </ul>
+                            <h5 class="indent2"> 2.1.3 Circle Region (Nearest point query)</h5>
+                            <ul class="indent3">
+                                <li> </li>
+                            </ul>
+                            <h4 class="indent">2.2 Time Selection </h4>
+                            <p>
+                                <ul class="indent2">
+                                    <li> The System will have a Start time and End time that any new queries will fall between and it will be implemented using two jquery DateTimePickers. A default time range is selected for 1/1/2013 from 12:00am-1:00am.</li>
+                                    <li>
+                                        When overridden it will automatically update so when a query is called it will grab the time range and give it to the server to evaluate it.
+                                        <ul>
+                                            <li> Start time cannot be past End time. </li>
+                                        </ul>
+                                    </li>
+                                    <li> The only functions that act upon the time selection is the javascript files that came with the DateTimePickers and the values are pulled in by other functions, which are discussed in other sections</li>
+                                </ul>
+                            </p>
+                            <h4 class="indent">2.3 Area Selection </h4>
+                            <p>
+                                <ul class="indent2">
+                                    <li> The Application will allow have a drop down for selecting between three different area selection modes.</li>
+                                    <li>
+                                        2.3.1 Single Select
+                                        <ul class="indent1">
+                                            <li> </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.3.2 Multi Select
+                                        <ul class="indent1">
+                                            <li> </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.3.3 Trip Select
+                                        <ul class="indent1">
+                                            <li> If the trip selection mode is selected by the user. The Query type will be set to Pickup Points and once a region is drawn it will display all the points. Once the points are displayed the Query type will switch to drop off points and when another region is created it will verify that all pickups are in the first and drop offs in the second.</li>
+                                            <li>The function that performs this operation is in 2…… of the Functional Implementation</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                            <h4 class="indent">2.4 Query Type </h4>
+                            <p>
+                                <ul class="indent2">
+                                    <li>
+                                        2.4.1 Pickup Point
+                                        <ul class="indent1">
+                                            <li> </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.4.2 Dropoff Point
+                                        <ul class="indent1">
+                                            <li> </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.4.3 Pickup and Dropoff points
+                                        <ul class="indent1">
+                                            <li> </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                            <h4 class="indent">2.5 Clear Query(s) </h4>
+                            <p>
+                                <ul class="indent2">
+                                    <li>
+                                        2.5.1 Delete Single Query
+                                        <ul class="indent1">
+                                            <li> The system will allow users to right click on a specified query on the map and remove this query from the map and all reports.</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.5.2 Delete all Queries
+                                        <ul class="indent1">
+                                            <li> The system will have a button that, once clicked by the user, will remove all queries from the map and reports</li>
+                                        </ul>
+                                    </li>
+                                    <li>The functions that perform these actions are in 2…… of the Functional Implementation </li>
+                                </ul>
+                            </p>
+                            <h4 class="indent">2.6 Playback function for query</h4>
+                            <p>
+                                <ul class="indent2">
+                                    <li>
+                                        2.6.1 Play Function
+                                        <ul class="indent1">
+                                            <li> The system will have a play button, that when clicked will break up all the possible points all the regions on the map into segments based on the time range for that region then will play all the time throughout a day and at each interval will only show the points in all the areas based on that time</li>
+                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.6.2 Pause Function
+                                        <ul class="indent1">
+                                            <li> The system will have a pause button, that when clicked will pause the play function at that moment in time showing only the points in all the queries that fall in that time range</li>
+                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        2.6.3 Click on interval
+                                        <ul class="indent1">
+                                            <li> The system will have a slider based on the time ranges that the play functions will cycle through. When the user clicks on an interval within this slider it will move to that time range and show all the points in all the regions based on that time</li>
+                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Begin Main Accordion Menu -->
     <div class="container padding">
@@ -390,38 +611,5 @@
             </div>
         </div>
     </div>
-
-    <!--
-        <nav class="navMain">
-            <h1 class="h1">Resources</h1>
-            <ul>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="http://leafletjs.com/">Leaflet</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="#">Javascript</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="https://www.mysql.com/">MySQL</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="http://canvasjs.com/">CanvasJS</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="http://getbootstrap.com/">Bootstrap</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="https://jquery.com/">jQuery</a>
-                </li>
-                <li class="navMainElement">
-                    <a class="navMainTxt" href="https://github.com/">Github</a>
-                </li>
-            </ul>
-        </nav>
-
-        -->
-
-
-
 </body>
 </html>
