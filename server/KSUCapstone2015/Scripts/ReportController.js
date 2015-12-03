@@ -33,7 +33,7 @@ com.capstone.ReportController = function (reportid) {
             canvasJS: {
                 title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
                 axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix },
-                axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix }
+                axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix, labelAngle: 45 }
             }
         }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
         report.update(false);

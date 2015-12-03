@@ -1,6 +1,8 @@
 ﻿$(window).load(function () {
 
     var tutorial = new com.eynon.tutorialEy({ lockPosition: true });
+    var tutorialOriginalOffset = null;
+    var uidialogOriginalOffset = null;
 
     // TIME RANGE 
     // ----------------------------------------------------------------------------
@@ -338,6 +340,58 @@
                     }
                 }
             ]
+        },
+        {
+            Section: "Save & Share",
+            Contents: [
+                {
+                    title: "Open Save & Share Menu",
+                    body: "Click the disk icon to open the Save & Share menu.",
+                    pointTo: $("#share"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#share"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                        }
+                    }
+                },
+                {
+                    title: "Copy the Link",
+                    body: "Copy the link located in the Save & Share menu and open another browser",
+                    pointTo: $("#shareLink"),
+                    advanceOptions: {
+                        eventListeners: [{
+                            target: $("#shareLink"),
+                            action: "copy"
+                        },
+                        {
+                            target: $("#shareLink"),
+                            action: "cut"
+                        }],
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            $("#share").trigger("click");
+                            uidialogOriginalOffset = $(".ui-dialog").offset();
+                            $(".ui-dialog").offset({ top: uidialogOriginalOffset.top - 125, left: uidialogOriginalOffset.left });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 180, left: tutorialOriginalOffset.left - 10 });
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                        }
+                    }
+                }
+            ]
         }
     ];
 
@@ -356,5 +410,8 @@
         tutorial.play();
     }
 
-    $("#btnHelp").on("click", function () { tutorial.play(); });
+    $("#btnHelp").on("click", function () {
+        tutorial.play();
+        tutorialOriginalOffset = $(".tutorialEy").offset();
+    });
 });

@@ -897,6 +897,11 @@ com.capstone.MapController = function (mapid) {
         }, "json");
     }
 
+    this.closeSaveQueriesDialog = function (tutorialOriginalOffset) {
+        $(".ui-button-icon-primary").trigger("click");
+        $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left });
+    }
+
     this.InitMap();
 }
 
