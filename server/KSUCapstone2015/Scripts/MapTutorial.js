@@ -342,6 +342,58 @@
             ]
         },
         {
+            Section: "Settings",
+            Contents: [
+                {
+                    title: "Open Settings Menu",
+                    body: "Click the settings icon to open the Settings menu.",
+                    pointTo: $("#settings"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#settings"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                        }
+                    }
+                },
+                {
+                    title: "Copy the Link",
+                    body: "Copy the link located in the Save & Share menu and open another browser",
+                    pointTo: $("#shareLink"),
+                    advanceOptions: {
+                        eventListeners: [{
+                            target: $("#shareLink"),
+                            action: "copy"
+                        },
+                        {
+                            target: $("#shareLink"),
+                            action: "cut"
+                        }],
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
+                            uidialogOriginalOffset = $(".ui-dialog").offset();
+                            $(".ui-dialog").offset({ top: uidialogOriginalOffset.top - 150, left: uidialogOriginalOffset.left });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 195, left: tutorialOriginalOffset.left - 10 });
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                        }
+                    }
+                }
+            ]
+        },
+        {
             Section: "Save & Share",
             Contents: [
                 {
