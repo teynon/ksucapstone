@@ -887,6 +887,7 @@ com.capstone.MapController = function (mapid) {
 
         $("#shareLink").val("Retrieving Sharable Key...");
         $("#saveLink").dialog({
+            dialogClass: "saveDialog",
             title: "Save & Share",
             width: "50%"
         });
@@ -897,9 +898,11 @@ com.capstone.MapController = function (mapid) {
         }, "json");
     }
 
-    this.closeSaveQueriesDialog = function (tutorialOriginalOffset) {
+    this.closeUiDialogs = function (tutorialOriginalOffset) {
         if (tutorialOriginalOffset) {
-            $(".ui-button-icon-primary").trigger("click");
+            $("[title='close']").each (function (index) {
+                $(this).trigger("click");
+            });
             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left });
         }
     }

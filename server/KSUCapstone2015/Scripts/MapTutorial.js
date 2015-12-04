@@ -2,7 +2,8 @@
 
     var tutorial = new com.eynon.tutorialEy({ lockPosition: true });
     var tutorialOriginalOffset = null;
-    var uidialogOriginalOffset = null;
+    var settingsDialogOriginalOffset = null;
+    var saveDialogOriginalOffset = null;
 
     // TIME RANGE 
     // ----------------------------------------------------------------------------
@@ -21,7 +22,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
                         }
                     }
@@ -37,7 +38,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
                         }
                     }
@@ -53,7 +54,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -69,7 +70,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -85,7 +86,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -106,7 +107,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.hideMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -122,7 +123,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -138,6 +139,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -153,7 +155,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -165,7 +167,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -185,7 +187,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -200,7 +202,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selectmode"), "typeselect");
                         }
                     }
@@ -212,7 +214,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -232,7 +234,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -252,7 +254,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selecttype"), "modeselect");
                         }
                     }
@@ -264,7 +266,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -281,6 +283,10 @@
                         eventListeners: {
                             target: $("#map"),
                             action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -295,7 +301,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -310,7 +316,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -326,7 +332,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -342,7 +348,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -354,7 +360,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -375,7 +381,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -395,8 +401,10 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
-                            uidialogOriginalOffset = $(".ui-dialog").offset();
-                            $(".ui-dialog").offset({ top: uidialogOriginalOffset.top - 150, left: uidialogOriginalOffset.left });
+                            if (!settingsDialogOriginalOffset)
+                                settingsDialogOriginalOffset = $(".settingsDialog").offset();
+
+                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 150, left: settingsDialogOriginalOffset.left });
                             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 195, left: tutorialOriginalOffset.left - 10 });
                         }
                     }
@@ -408,6 +416,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -427,7 +436,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -446,9 +455,12 @@
                         }],
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             $("#share").trigger("click");
-                            uidialogOriginalOffset = $(".ui-dialog").offset();
-                            $(".ui-dialog").offset({ top: uidialogOriginalOffset.top - 125, left: uidialogOriginalOffset.left });
+                            if (!saveDialogOriginalOffset)
+                                saveDialogOriginalOffset = $(".saveDialog").offset();
+
+                            $(".saveDialog").offset({ top: saveDialogOriginalOffset.top - 125, left: saveDialogOriginalOffset.left });
                             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 180, left: tutorialOriginalOffset.left - 10 });
                         }
                     }
@@ -460,7 +472,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                         }
                     }
                 }

@@ -130,6 +130,7 @@ com.capstone.UI = {
 
     showSettingsMenu: function (target, menuid, tabsectionid) {
         $("#" + menuid).dialog({
+            dialogClass: "settingsDialog",
             modal: true,
             "minWidth": 500,
             "width": "50%",
