@@ -21,6 +21,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
                         }
                     }
@@ -36,6 +37,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
                         }
                     }
@@ -51,6 +53,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -66,6 +69,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -81,6 +85,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
                         }
                     }
@@ -101,6 +106,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.hideMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -116,6 +122,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -146,6 +153,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
                         }
                     }
@@ -157,6 +165,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -176,6 +185,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -190,6 +200,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selectmode"), "typeselect");
                         }
                     }
@@ -201,6 +212,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -220,6 +232,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -239,6 +252,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selecttype"), "modeselect");
                         }
                     }
@@ -250,6 +264,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 }
@@ -280,6 +295,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 },
@@ -294,6 +310,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -309,6 +326,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -324,6 +342,7 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -335,6 +354,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
                         }
                     }
@@ -440,6 +460,7 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
                         }
                     }
                 }
