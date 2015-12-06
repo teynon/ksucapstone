@@ -16,6 +16,8 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.SpawnedQueries = 0;
     this.CompletedQueries = 0;
     this.ResultCount = 0;
+    this.Map1Count = 0;
+    this.Map2Count = 0;
     this.MapController = controller;
     this.MapSelectionLayer = [];
     this.MapSelectionLayer.push(selectionMap);
@@ -36,13 +38,14 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     this.DrawMode = queryData.filterSelection;
     this.DrawModeSBS = queryData.filterSelectionSBS;
     this.HeatMode = false;
-    this.HeatMapDefaultIntensity = 5000;
-    this.HeatMapResults = 5000; // Number of results that causes the map to switch to heat mode.
-    this.HeatMapDefaultIntensity = 0.5;
+    this.HeatMapDefaultIntensity = 2500;
+    this.HeatMapResults = 2000; // Number of results that causes the map to switch to heat mode.
+    this.HeatMapDefaultIntensity = 0.2;
     this.HeatMapBaseIntensity = this.HeatMapDefaultIntensity;
     this.HeatMapPointDefaultRadius = 15;
     this.HeatMapPointRadius = this.HeatMapPointDefaultRadius;
     this.HeatMapBlur = 15;
+    this.Visible = true;
 
     //this.LabelLatLng = this.MapSelectionLayer[0]._latlngs[0];
 
@@ -130,73 +133,75 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.DrawFrame = function () {
-        var points = [];
-
-        var icon = L.icon({
-            iconUrl: 'Content/images/invisible_marker.png',
-            iconSize: [0, 0],
-            labelAnchor: [-10, 20]
-        });
-
-        var timeRange = this.getPlaybackSpan(false);
-
-        this.MapResultsLayer.clearLayers();
-        this.MapLabelLayer.clearLayers();
-
-        //console.log("Range: " + timeRange.start + ":" + new Date(timeRange.start).toISOString() + " to " + timeRange.stop + ":" + new Date(timeRange.stop).toISOString());
-
-        switch (this.QueryData.filterSelection) {
-            case "drop":
-                points = this.getDropoffsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
-                break;
-            case "both":
-                points = this.getPickupsAndDropoffsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
-                break;
-            case "pick":
-            default:
-                points = this.getPickupsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
-                break;
-        }
-
-        var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
-        this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
-
-        if (query.SelectMode == "trip") {
-            this.UpdateTrip(query.MapSelectionLayer[1], points, false);
-        }
-        else {
-            this.UpdateMap(points, false);
-        }
-
-        // Again for side by side:
-        if (query.MapController.sideBySide) {
+        if (this.Visible) {
             var points = [];
 
-            var timeRange = this.getPlaybackSpan(true);
+            var icon = L.icon({
+                iconUrl: 'Content/images/invisible_marker.png',
+                iconSize: [0, 0],
+                labelAnchor: [-10, 20]
+            });
 
-            this.MapResults2Layer.clearLayers();
-            this.MapLabelLayerSBS.clearLayers();
-            
+            var timeRange = this.getPlaybackSpan(false);
+
+            this.MapResultsLayer.clearLayers();
+            this.MapLabelLayer.clearLayers();
+
+            //console.log("Range: " + timeRange.start + ":" + new Date(timeRange.start).toISOString() + " to " + timeRange.stop + ":" + new Date(timeRange.stop).toISOString());
+
             switch (this.QueryData.filterSelection) {
                 case "drop":
-                    points = this.getDropoffsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                    points = this.getDropoffsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
                     break;
                 case "both":
-                    points = this.getPickupsAndDropoffsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                    points = this.getPickupsAndDropoffsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
                     break;
                 case "pick":
                 default:
-                    points = this.getPickupsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                    points = this.getPickupsInTimeFrame(this.QueryResults, timeRange.start, timeRange.stop);
                     break;
             }
 
             var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
-            this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
+            this.MapLabelLayer.addLayer(L.marker(query.MapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
+
             if (query.SelectMode == "trip") {
-                this.UpdateTrip(query.SideBySideMapSelectionLayer[1], points, true);
+                this.UpdateTrip(query.MapSelectionLayer[1], points, false);
             }
             else {
-                this.UpdateMap(points, true);
+                this.UpdateMap(points, false);
+            }
+
+            // Again for side by side:
+            if (query.MapController.sideBySide) {
+                var points = [];
+
+                var timeRange = this.getPlaybackSpan(true);
+
+                this.MapResults2Layer.clearLayers();
+                this.MapLabelLayerSBS.clearLayers();
+
+                switch (this.QueryData.filterSelection) {
+                    case "drop":
+                        points = this.getDropoffsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                        break;
+                    case "both":
+                        points = this.getPickupsAndDropoffsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                        break;
+                    case "pick":
+                    default:
+                        points = this.getPickupsInTimeFrame(this.QueryResultsSBS, timeRange.start, timeRange.stop);
+                        break;
+                }
+
+                var textRange = "(" + points.length + " results) " + timeRange.startEST.format("m-d-Y h:i:s a") + " - " + timeRange.stopEST.format("m-d-Y h:i:s a");
+                this.MapLabelLayerSBS.addLayer(L.marker(query.SideBySideMapSelectionLayer[0]._latlngs[0], { "icon": icon }).bindLabel(textRange, { noHide: true }));
+                if (query.SelectMode == "trip") {
+                    this.UpdateTrip(query.SideBySideMapSelectionLayer[1], points, true);
+                }
+                else {
+                    this.UpdateMap(points, true);
+                }
             }
         }
     }
@@ -336,10 +341,12 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             query.RefreshResults();
             return;
         }
+        var count = query.Map1Count;
+        if (sideBySide) count = query.Map2Count;
 
-        query.HeatMapBaseIntensity = (query.HeatMapResults / query.ResultCount) * query.HeatMapDefaultIntensity;
-        //query.HeatMapPointRadius = (query.HeatMapResults / query.ResultCount) * query.HeatMapPointDefaultRadius;
-        if (query.HeatMapBaseIntensity < 0.01) query.HeatMapPointRadius = 0.01;
+        query.HeatMapBaseIntensity = (query.HeatMapResults / points.length) * query.HeatMapDefaultIntensity;
+
+        if (query.HeatMapBaseIntensity < 0.01) query.HeatMapBaseIntensity = 0.01;
 
         var drawMode = (sideBySide) ? this.DrawModeSBS : this.DrawMode;
         var heatMap = [];
@@ -460,15 +467,17 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
             if (result.Data && result.Data.length > 0) {
                 if (!isSideBySide) {
                     query.QueryResults = $.merge(query.QueryResults, result.Data);
+                    query.Map1Count += result.Count;
                 }
                 else {
                     query.QueryResultsSBS = $.merge(query.QueryResultsSBS, result.Data);
+                    query.Map2Count += result.Count;
                 }
 
                 query.ResultCount += result.Count;
                 com.capstone.UI.setStatus("Rendering " + query.ResultCount + " results." + remainingText);
                 setTimeout(function () {
-                    if (remaining == 0 && query.SpawnedQueries > 1) {
+                    if (remaining == 0 && query.SpawnedQueries > 1 || query.HeatMode) {
                         query.RefreshResults();
                     }
                     else {
@@ -526,37 +535,42 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
     }
 
     this.PolyHitTest = function (latlng, selectionLayer) {
-        var vertices = null;
-        if (selectionLayer) {
-            if (selectionLayer._latlngs) {
-                vertices = selectionLayer._latlngs.slice();
-            } else if (selectionLayer._mRadius) {
-                vertices = query.getCircle(selectionLayer._latlng, selectionLayer._mRadius);
-            }
-
-            vertices.push(vertices[0]);
-            var j = vertices.length - 2;
-            var c = false;
-            for (var i = 0; i < vertices.length - 1; i++) {
-                if (((vertices[i].lng > latlng.lng) != (vertices[j].lng > latlng.lng)) &&
-                    (latlng.lat < (vertices[j].lat - vertices[i].lat) * (latlng.lng - vertices[i].lng) / (vertices[j].lng - vertices[i].lng) + vertices[i].lat)) {
-                    c = !c;
+        if (this.Visible) {
+            var vertices = null;
+            if (selectionLayer) {
+                if (selectionLayer._latlngs) {
+                    vertices = selectionLayer._latlngs.slice();
+                } else if (selectionLayer._mRadius) {
+                    vertices = query.getCircle(selectionLayer._latlng, selectionLayer._mRadius);
                 }
-                j = i;
+
+                vertices.push(vertices[0]);
+                var j = vertices.length - 2;
+                var c = false;
+                for (var i = 0; i < vertices.length - 1; i++) {
+                    if (((vertices[i].lng > latlng.lng) != (vertices[j].lng > latlng.lng)) &&
+                        (latlng.lat < (vertices[j].lat - vertices[i].lat) * (latlng.lng - vertices[i].lng) / (vertices[j].lng - vertices[i].lng) + vertices[i].lat)) {
+                        c = !c;
+                    }
+                    j = i;
+                }
+                return c;
             }
-            return c;
         }
-        return null;
+        return false;
     }
 
     this.RectHitTest = function (latlng, selectionLayer) {
-        var hitTest = false;
-        var layerlatLng = selectionLayer._latlngs;
-        if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
-            hitTest = true;
-        }
+        if (this.Visible) {
+            var hitTest = false;
+            var layerlatLng = selectionLayer._latlngs;
+            if (latlng.lat <= layerlatLng[1].lat && latlng.lat >= layerlatLng[3].lat && latlng.lng >= layerlatLng[1].lng && latlng.lng <= layerlatLng[3].lng) {
+                hitTest = true;
+            }
 
-        return hitTest;
+            return hitTest;
+        }
+        return false;
     }
 
     this.getCircle = function (latlng, meters) {
@@ -583,6 +597,45 @@ com.capstone.MapQuery = function (controller, queryFunction, queryData, selectio
         data.push({ lat: latlng.lat + (com.capstone.helpers.metersToLatitude(meters) * (Math.sqrt(3) / 2)), lng: latlng.lng - (com.capstone.helpers.metersToLongitude(meters, latlng.lat) * (1 / 2)) });
 
         return data;
+    }
+
+    this.SetVisible = function (visible) {
+        this.Visible = visible;
+
+        if (!this.Visible) {
+            for (var i = 0; i < this.MapSelectionLayer.length; i++) {
+                this.MapController.map.removeLayer(this.MapSelectionLayer[i]);
+            }
+            this.MapController.map.removeLayer(this.MapLabelLayer);
+            this.MapResultsLayer.clearLayers();
+            this.MapResults2Layer.clearLayers();
+
+            try {
+                if (this.MapController.sideBySide) {
+                    for (var i = 0; i < this.SideBySideMapSelectionLayer.length; i++) {
+                        this.MapController.sideBySideMap.removeLayer(this.SideBySideMapSelectionLayer[i]);
+                    }
+                    this.MapController.sideBySideMap.removeLayer(this.MapLabelLayerSBS);
+                }
+            }
+            catch (e) { }
+        }
+        else {
+            for (var i = 0; i < this.MapSelectionLayer.length; i++) {
+                this.MapController.map.addLayer(this.MapSelectionLayer[i]);
+            }
+            this.MapController.map.addLayer(this.MapLabelLayer);
+            try {
+                if (this.MapController.sideBySide) {
+                    for (var i = 0; i < this.SideBySideMapSelectionLayer.length; i++) {
+                        this.MapController.sideBySideMap.addLayer(this.SideBySideMapSelectionLayer[i]);
+                    }
+                    this.MapController.sideBySideMap.addLayer(this.MapLabelLayerSBS);
+                }
+            }
+            catch (e) { }
+            this.RefreshResults();
+        }
     }
 
     this.Dispose = function () {

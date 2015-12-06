@@ -42,16 +42,24 @@ com.capstone.ReportBase = function (container, options, updateCallback, multiset
     // Draw the initial report.
     this.init = function (data) {
         if (data.length == 0) return;
-        var dataSet = this.compileDataSet(data);
+        var dataSet = this.compileDataSet(data, true);
 
         var chartData = $.extend(this.options.canvasJS, dataSet);
+        console.log(chartData);
         this.chart = new CanvasJS.Chart(this.options.id, chartData);
         this.chart.render();
         this.initialized = true;
     }
 
     this.update = function (multipleSets) {
-        var data = report.updateCallback(report);
+        var data;
+        if (this.multiset) {
+            data = [ report.updateCallback(report, ""), report.updateCallback(report, "sbs") ];
+        }
+        else {
+            data = report.updateCallback(report, "");
+        }
+
         if (this.initialized) {
             var dataSet = this.compileDataSet(data);
             if (data.length > 0) {
