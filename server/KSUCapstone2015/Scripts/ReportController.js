@@ -282,9 +282,6 @@ com.capstone.ReportFilter.VendorTotals = function (report, type) {
     return dataSet;
 }
 
-
-
-
 com.capstone.ReportFilter.PassengerDistance = function (report, type) {
     var dataSet = [
     ];
@@ -319,10 +316,6 @@ com.capstone.ReportFilter.PassengerDistance = function (report, type) {
 
     return dataSet;
 }
-
-
-
-
 
 $(document).ready(function () {
     com.capstone.ReportFilter.chart = [
