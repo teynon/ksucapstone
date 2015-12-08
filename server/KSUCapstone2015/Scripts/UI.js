@@ -181,7 +181,8 @@ com.capstone.UI = {
 $(document).ready(function () {
     $.fn.button.noConflict();
     $(".color").colorPicker({
-        renderCallback: function () {
+        renderCallback: function (e) {
+            $(e).trigger("updated");
             com.capstone.UI.refreshMapDelayed();
         },
         opacity: false

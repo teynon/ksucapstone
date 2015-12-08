@@ -72,40 +72,45 @@
 			position = $this.offset(),
 			$window = $(window),
 			gap = _options.gap;
+        
+	    try {
+            
+	        if (event) {
+	            event.stopPropagation();
+	            _$trigger = findElement($this);
+	            _colorPicker.$trigger = $this;
 
-		if (event) {
-		    event.stopPropagation();
-			_$trigger = findElement($this);
-			_colorPicker.$trigger = $this;
+	            (_$UI || build()).css({
+	                // 'width': _$UI[0]._width,
+	                'left': (_$UI[0]._left = position.left) -
+					    ((_$UI[0]._left = _$UI[0]._left + _$UI[0]._width -
+					    ($window.scrollLeft() + $window.width())) + gap > 0 ?
+					    _$UI[0]._left + gap : 0),
+	                'top': (_$UI[0]._top = position.top + $this.outerHeight()) -
+					    ((_$UI[0]._top = _$UI[0]._top + _$UI[0]._height -
+					    ($window.scrollTop() + $window.height())) + gap > 0 ?
+					    _$UI[0]._top + gap : 0)
+	            }).show(_options.animationSpeed, function() {
+	                if (event === true) {
+	                    return;
+	                }
+	                _$alpha._width = _$alpha.width();
+	                _$xy_slider._width = _$xy_slider.width();
+	                _$xy_slider._height = _$xy_slider.height();
+	                _color.setColor(extractValue(_$trigger[0]));
 
-			(_$UI || build()).css({
-				// 'width': _$UI[0]._width,
-				'left': (_$UI[0]._left = position.left) -
-					((_$UI[0]._left = _$UI[0]._left + _$UI[0]._width -
-					($window.scrollLeft() + $window.width())) + gap > 0 ?
-					_$UI[0]._left + gap : 0),
-				'top': (_$UI[0]._top = position.top + $this.outerHeight()) -
-					((_$UI[0]._top = _$UI[0]._top + _$UI[0]._height -
-					($window.scrollTop() + $window.height())) + gap > 0 ?
-					_$UI[0]._top + gap : 0)
-			}).show(_options.animationSpeed, function() {
-				if (event === true) {
-					return;
-				}
-				_$alpha._width = _$alpha.width();
-				_$xy_slider._width = _$xy_slider.width();
-				_$xy_slider._height = _$xy_slider.height();
-				_color.setColor(extractValue(_$trigger[0]));
+	                preRender(true);
+	            });
+	        } else {
+	            $(_$UI).hide(_options.animationSpeed, function() {
+	                _$trigger.blur();
+	                _colorPicker.$trigger = null;
+	                preRender(false);
+	            });
+	        }
+	    } catch (e) {
 
-				preRender(true);
-			});
-		} else {
-			$(_$UI).hide(_options.animationSpeed, function() {
-				_$trigger.blur();
-				_colorPicker.$trigger = null;
-				preRender(false);
-			});
-		}
+	    }
 	}
 
 	function build() {

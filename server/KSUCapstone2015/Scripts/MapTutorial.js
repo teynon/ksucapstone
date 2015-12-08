@@ -415,7 +415,8 @@
                     advanceOptions: {
                         eventListeners: {
                             target: $("#PickupColor"),
-                            action: "change"
+                            action: "updated",
+                            delay: 500
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
