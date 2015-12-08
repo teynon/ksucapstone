@@ -1420,7 +1420,7 @@
                                     </div>
                                     <div id="collapse48" class="panel-collapse collapse">
                                         <div>
-                                           <ul><li>bool lock - If true, prevent events such as mousemove from creating an infinite event loop.</li></ul> 
+                                            <ul><li>bool lock - If true, prevent events such as mousemove from creating an infinite event loop.</li></ul>
                                             Syncs the main map to the second map.
                                         </div>
                                     </div>
@@ -1624,13 +1624,14 @@
                                     <div id="collapse59" class="panel-collapse collapse">
                                         <div>
                                             queryData:
-                                            <ul><li>datetime start - start time of query</li>
-                                            <li> stop - stop time of query</li>
+                                            <ul>
+                                                <li>datetime start - start time of query</li>
+                                                <li> stop - stop time of query</li>
                                                 <li>string selectionMode - single, multi, trip</li>
                                                 <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
                                                 <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
                                                 <li>string filterSelectionSBS - pickup, dropoff, pickup & dropoff</li>
-                                                </ul>
+                                            </ul>
                                             Gets data to be used to generate a new query.
                                         </div>
                                     </div>
@@ -1730,11 +1731,11 @@
                                     <div id="collapse64" class="panel-collapse collapse">
                                         <div>
                                             <ul>
-                                            <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>L.layer layer - The layer to be cloned.</li>
                                                 <li>color fillColor - The inside color for the selection.</li>
                                                 <li>color borderColor - The edge color for the selection</li>
                                                 <li>L.layer - The cloned layer</li>
-                                                </ul>
+                                            </ul>
                                             Clones a rectangle selection layer.
                                         </div>
                                     </div>
@@ -1894,7 +1895,7 @@
                                     </div>
                                     <div id="collapse72" class="panel-collapse collapse">
                                         <div>
-                                           <ul><li> L.latlng - The latlng of the map center.</li></ul>
+                                            <ul><li> L.latlng - The latlng of the map center.</li></ul>
                                             Gets the current center position of the main map.
                                         </div>
                                     </div>
@@ -1934,7 +1935,7 @@
                                     </div>
                                     <div id="collapse74" class="panel-collapse collapse">
                                         <div>
-                                           <ul><li> int uid - The unique id of the query.</li></ul>
+                                            <ul><li> int uid - The unique id of the query.</li></ul>
                                             Gets a query by it’s unique id. (Assigned when created in javascript.)
                                         </div>
                                     </div>
@@ -2286,17 +2287,343 @@
     </div>
 
 
-
+    <!-- QueryController.js -->
     <div class="container">
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse94">   </a>
+                        <a data-toggle="collapse" href="#collapse94"> QueryController.js  </a>
                     </h4>
                 </div>
+                <p>The QueryController is used to manage all the data about each query on the map.</p>
                 <div id="collapse94" class="panel-collapse collapse">
-                    <div>
+                    <div class="pr">
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse95"> com.capstone.MapQuery = function (controller, queryFunction, queryData, selectionMap, sideBySideSelectionMap)   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse96" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    controller is an instance of the MapController, queryFunction is the mode of the query, the queryData is the Results returned from the server, the selectionMap is the points for the bounding box and the sideBySideSelectionMap just signifies if the side by side map is available
+                                                </li>
+                                                <li> function creates a new object housing all the information about a single query </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse97"> this.getPlaybackSpan = function (sideBySide)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse97" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    sideBySide - a bool that signifies if the sideBySide map is active
+                                                </li>
+                                                <li>
+                                                    this return and object containing the start and end time of the next segment
+                                                </li>
+                                                <li>
+                                                    This function is used to find the next time range when the playback function is being used
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse98"> this.DrawFrame = function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse98" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    there are no parameters
+                                                </li>
+                                                <li>
+                                                    there are no returned values
+                                                </li>
+                                                <li>
+                                                    This function is going to get all the points that lie in a segmented time range based on that query and display them on the map
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse99"> this.get……...InTimeFrame = function(results, timestart, timeend)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse99" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    results - a set of points, timestart and timeend are the timerange they fall between
+                                                </li>
+                                                <li>
+                                                    returned a set of points that fall in the timerange
+                                                </li>
+                                                <li>
+                                                    This function has 3 different types, pickups, dropoffs or both. it will only return the points that fall inbetween the time range based on the type
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse100"> this.UpdateTrip = function (layer, points, sbs)   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse100" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    layer - the new selection area on the map , points - set of points, sbs-whether there is a side by side map
+                                                </li>
+                                                <li>
+                                                    this returns nothing
+                                                </li>
+                                                <li>
+                                                    this function takes the new layer and makes sure the points are picked up initial layer and dropped off in the new layer then adds the new layer to the querycontroller object to keep track of it and displays the results on the map
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse101"> this.UpdateMap = function (points, sideBySide)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse101" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    points - a set of points, sideBySide-indicates if side by side map is available
+                                                </li>
+                                                <li>
+                                                    this returns nothing
+                                                </li>
+                                                <li>
+                                                    this function takes the points and places them on the map
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse102"> this.AddPickup/Dropoff = function (point, sideBySide)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse102" class="panel-collapse collapse">
+                                        <div>
+<ul>
+    <li>
+        takes a point
+    </li>
+    <li>
+        returns nothing
+    </li>
+    <li>
+        these two functions will add the point based on which function is called to the map
+    </li>
+</ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse103">  this.OnQuery = function (result, isSideBySide) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse103" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    result-object returned from server
+                                                </li>
+                                                <li>
+                                                    returns nothing
+                                                </li>
+                                                <li>
+                                                    This function retrieved the results when the are returned from the server and is responsible to have the query interact with the map such as blinking the query and updating the map objects
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse104"> this.stopFlashingSelection = function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse104" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    takes nothing
+                                                </li>
+                                                <li>
+                                                    returnes nothing
+                                                </li>
+                                                <li>
+                                                    stops the query bounding box from flashing
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse105"> this.PolyHitTest = function (latlng, selectionLayer)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse105" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    takes the latitude and longitude and the points of the bounding box on the map
+                                                </li>
+                                                <li>
+                                                    returns true if the latlng is in the selectionLayer and false if it doesn't
+                                                    This function tests to see if the latitude and longitude that have been
+
+                                                </li>
+                                                <li>
+                                                    This function tests to see if the latitude and longitude that have been passed are inside the SelectionLayer
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse106">  this.Dispose = function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse106" class="panel-collapse collapse">
+                                        <div>
+<ul>
+    <li>
+        takes nothing
+    </li>
+    <li>
+        returns nothing
+    </li>
+    <li>
+        this function clears the map
+    </li>
+</ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse107"> com.capstone.Query.TaxisInRange  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse107" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    takes nothing
+                                                </li>
+                                                <li>
+                                                    returns whether the query succeeded
+                                                </li>
+                                                <li>
+                                                    this function calls the server and passes the data and receives the data before passing it off
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -2304,60 +2631,11 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse95">   </a>
-                    </h4>
-                </div>
-                <div id="collapse96" class="panel-collapse collapse">
-                    <div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse97">   </a>
-                    </h4>
-                </div>
-                <div id="collapse97" class="panel-collapse collapse">
-                    <div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse98">   </a>
-                    </h4>
-                </div>
-                <div id="collapse98" class="panel-collapse collapse">
-                    <div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- -------------------------------------------------------- -->
     <!--
-        
+
     <div class="container">
         <div class="panel-group">
             <div class="panel panel-default">
