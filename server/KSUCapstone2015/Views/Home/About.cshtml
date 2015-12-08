@@ -115,6 +115,10 @@
             padding-top: 4em;
         }
 
+        .spt {
+            margin-top: 1em;
+        }
+
         .paddingleft {
             padding-left: 2em;
         }
@@ -168,6 +172,14 @@
             border-bottom-style: solid;
             border-bottom-width: 2px;
             border-bottom-color: lightgrey;
+        }
+
+        .pr {
+            padding-right: 10em;
+        }
+
+        .clr {
+            background-color: black;
         }
     </style>
 
@@ -277,729 +289,2094 @@
     </div>
         -->
 
-    <div class="container padding">
-        <div class="panel-group" id="accordion">
+
+    <div class="container">
+        <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                            Functional Requirments
-                        </a>
+                        <a data-toggle="collapse" href="#collapse1">Functional Requirements</a>
                     </h4>
                 </div>
-                <div id="collapse1" class="panel-collapse collapse in">
+                <div id="collapse1" class="panel-collapse collapse">
+                    <!-- COLLAPSE INSIDE -->
                     <div class="panel-body">
 
-                        <!-- Section 1 -->
+                        <!-- Inside 1 -->
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse2">1.0 Framework</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <h4 class="indent">1.1 Language </h4>
+                                                <p>
+                                                    <ul class="indent2">
+                                                        <li>
+                                                            This project was implemented using C# with the .NET framework for the server side scripting
+                                                            Javascript was used for the client side scripting
+                                                        </li>
+                                                        <li> Ajax was used to make asynchronous calls from the client to the server</li>
+                                                        <li> Models used to abstract the database for easy use</li>
+                                                    </ul>
+                                                </p>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h4 class="indent">1.2 Database </h4>
+                                                <p>
+                                                    <ul class="indent2">
+                                                        <li> A MySQL database was used to hold the data used in this project</li>
+                                                        <li> Entity Framework was used to abstract the database to the models in the server side code</li>
+                                                    </ul>
+                                                </p>
+                                            </li>
+                                            <li class="list-group-item">
+                                                <h4 class="indent">1.3 Other Resources </h4>
+                                                <p>
+                                                    <ul class="indent2">
+                                                        <li> canvasjs is used for our charts</li>
+                                                        <li> leaflet maps is the map interface the drives the application</li>
+                                                    </ul>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div>
-                            <div>
-                                <h4>1.0 Framework </h4>
-                                <h4 class="indent">1.1 Language </h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            This project was implemented using C# with the .NET framework for the server side scripting
-                                            Javascript was used for the client side scripting
-                                        </li>
-                                        <li> Ajax was used to make asynchronous calls from the client to the server</li>
-                                        <li> Models used to abstract the database for easy use</li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div>
-                                <h4 class="indent">1.2 Database </h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li> A MySQL database was used to hold the data used in this project</li>
-                                        <li> Entity Framework was used to abstract the database to the models in the server side code</li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div>
-                                <h4 class="indent">1.3 Other Resources </h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li> canvasjs is used for our charts</li>
-                                        <li> leaflet maps is the map interface the drives the application</li>
-                                    </ul>
-                                </p>
+                        <!-- Inside 2 -->
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse3">2.0 Map Implementation</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse4">2.1 Region Query</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse4" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <h5 class="indent2">2.1.1 Rectangle Region (Draw and Click)</h5>
+                                                                <ul class="indent3">
+                                                                    <li> The system will allow the user to either click on the map or enter draw mode and draw a rectangle region, after selecting the rectangle region.</li>
+                                                                </ul>
+                                                                <p class="indent4 bold">- Draw</p>
+                                                                <ul class="indent5">
+                                                                    <li> In draw mode the user will select the rectangle tool and draw a rectangle on the map, the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
+                                                                </ul>
+                                                                <p class="indent4 bold">- Click</p>
+                                                                <ul class="indent5">
+                                                                    <li> In Click mode if a left clicks on the map it will create a rectangle region of a predetermined size. the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
+                                                                </ul>
+                                                                <h5 class="indent2"> 2.1.2 Polygon Region</h5>
+                                                                <ul class="indent3">
+                                                                    <li> The system will have a mode to draw a polygon on the map to query that location and display all results</li>
+                                                                </ul>
+                                                                <h5 class="indent2"> 2.1.3 Circle Region (Nearest point query)</h5>
+                                                                <ul class="indent3">
+                                                                    <li> The system will have a mode to draw a Circle on the map to query that location and display all results</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse5">2.2 Time Selection</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse5" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li> The System will have a Start time and End time that any new queries will fall between and it will be implemented using two jquery DateTimePickers. A default time range is selected for 1/1/2013 from 12:00am-1:00am.</li>
+                                                                        <li>
+                                                                            When overridden it will automatically update so when a query is called it will grab the time range and give it to the server to evaluate it.
+                                                                            <ul>
+                                                                                <li> Start time cannot be past End time. </li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li> The only functions that act upon the time selection is the javascript files that came with the DateTimePickers and the values are pulled in by other functions, which are discussed in other sections</li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse6">2.3 Area Selection </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse6" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li> The Application will allow have a drop down for selecting between three different area selection modes.</li>
+                                                                        <li>
+                                                                            2.3.1 Single Select
+                                                                            <ul class="indent1">
+                                                                                <li> The single select mode only allows one query to be on the map at a time, if you try to create another query it will remove the first query that was created</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.3.2 Multi Select
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a mode that allows the user to create multiple queries to be displayed simultaneously on the map.</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.3.3 Trip Select
+                                                                            <ul class="indent1">
+                                                                                <li> If the trip selection mode is selected by the user. The Query type will be set to Pickup Points and once a region is drawn it will display all the points. Once the points are displayed the Query type will switch to drop off points and when another region is created it will verify that all pickups are in the first and drop offs in the second.</li>
+                                                                                <li>The function that performs this operation is in 2…… of the Functional Implementation</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse7">2.4 Query Type</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse7" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li> The system will allow the user to select what points they would like to see on the map, the different types are specified below.</li>
+                                                                        <li>
+                                                                            2.4.1 Pickup Point
+                                                                            <ul class="indent1">
+                                                                                <li> Only the pickup points that are in the region selected will be displayed</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.4.2 Dropoff Point
+                                                                            <ul class="indent1">
+                                                                                <li> Only the Dropoff points that are in the region selected will be displayed</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.4.3 Pickup and Dropoff points
+                                                                            <ul class="indent1">
+                                                                                <li> both the pickup and dropoff points will be displayed within the region that has been selected</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse8">2.5 Clear Query(s) </a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse8" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            2.5.1 Delete Single Query
+                                                                            <ul class="indent1">
+                                                                                <li> The system will allow users to right click on a specified query on the map and remove this query from the map and all reports.</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.5.2 Delete all Queries
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a button that, once clicked by the user, will remove all queries from the map and reports</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>The functions that perform these actions are in 2…… of the Functional Implementation </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse9">2.6 Playback function for query</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse9" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            2.6.1 Play Function
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a play button, that when clicked will break up all the possible points all the regions on the map into segments based on the time range for that region then will play all the time throughout a day and at each interval will only show the points in all the areas based on that time</li>
+                                                                                <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.6.2 Pause Function
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a pause button, that when clicked will pause the play function at that moment in time showing only the points in all the queries that fall in that time range</li>
+                                                                                <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.6.3 Click on interval
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a slider based on the time ranges that the play functions will cycle through. When the user clicks on an interval within this slider it will move to that time range and show all the points in all the regions based on that time</li>
+                                                                                <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse10">2.7 Map Side-by-Side</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse10" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            2.7.1 Map Lock/Unlock
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a button that allows the user to have the side by side look at a different area of the map than the main map</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.7.2 Time Range
+                                                                            <ul class="indent1">
+                                                                                <li> The System will allow the user to change the time range on the side-by-side map</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.7.3 Side-by-Side enable/disable
+                                                                            <ul class="indent1">
+                                                                                <li> There will be a button that when clicked will display or hide the side-by-side map, this also enables it when it is being shown and disables it when its hidden.</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse11">2.8 Save Query</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse11" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            2.9.1 Save query Implementation
+                                                                            <ul class="indent1">
+                                                                                <li> The System will have a button that when pressed will save all the current queries on the map and give you an address that you can use to reload it at a later time.</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            2.9.2 Load query Implementation
+                                                                            <ul class="indent1">
+                                                                                <li> The user will have the ability to enter any saved queries address to reload any query that has been saved.</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Section 2 -->
+                        <!-- Inside 3 -->
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse12"> 3.0 Chart Implementation</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse12" class="panel-collapse collapse">
+                                        <div class="panel-body">
 
-                        <div>
-                            <h4>2.0 Map Implementation </h4>
-                            <h4 class="indent">2.1 Region Query </h4>
-                            <h5 class="indent2">2.1.1 Rectangle Region (Draw and Click)</h5>
-                            <ul class="indent3">
-                                <li> The system will allow the user to either click on the map or enter draw mode and draw a rectangle region, after selecting the rectangle region.</li>
-                            </ul>
-                            <p class="indent4 bold">- Draw</p>
-                            <ul class="indent5">
-                                <li> In draw mode the user will select the rectangle tool and draw a rectangle on the map, the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
-                            </ul>
-                            <p class="indent4 bold">- Click</p>
-                            <ul class="indent5">
-                                <li> In Click mode if a left clicks on the map it will create a rectangle region of a predetermined size. the method used to act on this action is discussed in 2….. of the Functional Implementation section</li>
-                            </ul>
-                            <h5 class="indent2"> 2.1.2 Polygon Region</h5>
-                            <ul class="indent3">
-                                <li> The system will have a mode to draw a polygon on the map to query that location and display all results</li>
-                            </ul>
-                            <h5 class="indent2"> 2.1.3 Circle Region (Nearest point query)</h5>
-                            <ul class="indent3">
-                                <li> The system will have a mode to draw a Circle on the map to query that location and display all results</li>
-                            </ul>
-                            <h4 class="indent">2.2 Time Selection </h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li> The System will have a Start time and End time that any new queries will fall between and it will be implemented using two jquery DateTimePickers. A default time range is selected for 1/1/2013 from 12:00am-1:00am.</li>
-                                    <li>
-                                        When overridden it will automatically update so when a query is called it will grab the time range and give it to the server to evaluate it.
-                                        <ul>
-                                            <li> Start time cannot be past End time. </li>
-                                        </ul>
-                                    </li>
-                                    <li> The only functions that act upon the time selection is the javascript files that came with the DateTimePickers and the values are pulled in by other functions, which are discussed in other sections</li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.3 Area Selection </h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li> The Application will allow have a drop down for selecting between three different area selection modes.</li>
-                                    <li>
-                                        2.3.1 Single Select
-                                        <ul class="indent1">
-                                            <li> The single select mode only allows one query to be on the map at a time, if you try to create another query it will remove the first query that was created</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.3.2 Multi Select
-                                        <ul class="indent1">
-                                            <li> The system will have a mode that allows the user to create multiple queries to be displayed simultaneously on the map.</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.3.3 Trip Select
-                                        <ul class="indent1">
-                                            <li> If the trip selection mode is selected by the user. The Query type will be set to Pickup Points and once a region is drawn it will display all the points. Once the points are displayed the Query type will switch to drop off points and when another region is created it will verify that all pickups are in the first and drop offs in the second.</li>
-                                            <li>The function that performs this operation is in 2…… of the Functional Implementation</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.4 Query Type </h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li> The system will allow the user to select what points they would like to see on the map, the different types are specified below.</li>
-                                    <li>
-                                        2.4.1 Pickup Point
-                                        <ul class="indent1">
-                                            <li> Only the pickup points that are in the region selected will be displayed</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.4.2 Dropoff Point
-                                        <ul class="indent1">
-                                            <li> Only the Dropoff points that are in the region selected will be displayed</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.4.3 Pickup and Dropoff points
-                                        <ul class="indent1">
-                                            <li> both the pickup and dropoff points will be displayed within the region that has been selected</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.5 Clear Query(s) </h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li>
-                                        2.5.1 Delete Single Query
-                                        <ul class="indent1">
-                                            <li> The system will allow users to right click on a specified query on the map and remove this query from the map and all reports.</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.5.2 Delete all Queries
-                                        <ul class="indent1">
-                                            <li> The system will have a button that, once clicked by the user, will remove all queries from the map and reports</li>
-                                        </ul>
-                                    </li>
-                                    <li>The functions that perform these actions are in 2…… of the Functional Implementation </li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.6 Playback function for query</h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li>
-                                        2.6.1 Play Function
-                                        <ul class="indent1">
-                                            <li> The system will have a play button, that when clicked will break up all the possible points all the regions on the map into segments based on the time range for that region then will play all the time throughout a day and at each interval will only show the points in all the areas based on that time</li>
-                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.6.2 Pause Function
-                                        <ul class="indent1">
-                                            <li> The system will have a pause button, that when clicked will pause the play function at that moment in time showing only the points in all the queries that fall in that time range</li>
-                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.6.3 Click on interval
-                                        <ul class="indent1">
-                                            <li> The system will have a slider based on the time ranges that the play functions will cycle through. When the user clicks on an interval within this slider it will move to that time range and show all the points in all the regions based on that time</li>
-                                            <li> The function that performs this actions is in section 2……. in the Functional Implementation section</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.7 Map Side-by-Side</h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li>
-                                        2.7.1 Map Lock/Unlock
-                                        <ul class="indent1">
-                                            <li> The system will have a button that allows the user to have the side by side look at a different area of the map than the main map</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.7.2 Time Range
-                                        <ul class="indent1">
-                                            <li> The System will allow the user to change the time range on the side-by-side map</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.7.3 Side-by-Side enable/disable
-                                        <ul class="indent1">
-                                            <li> There will be a button that when clicked will display or hide the side-by-side map, this also enables it when it is being shown and disables it when its hidden.</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </p>
-                            <h4 class="indent">2.8 Tutorial Mode</h4>
-                            <h4 class="indent">2.9 Save Query</h4>
-                            <p>
-                                <ul class="indent2">
-                                    <li>
-                                        2.9.1 Save query Implementation
-                                        <ul class="indent1">
-                                            <li> The System will have a button that when pressed will save all the current queries on the map and give you an address that you can use to reload it at a later time.</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        2.9.2 Load query Implementation
-                                        <ul class="indent1">
-                                            <li> The user will have the ability to enter any saved queries address to reload any query that has been saved.</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </p>
-                            <div>
-                                <h4> 3.0 Chart Implementation</h4>
-                                <h4 class="indent"> 3.1 Enable chart function</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            3.1.1 Enable/Disable Charts
-                                            <ul class="indent1">
-                                                <li> The system will have a button to allows users to display or hide all the reports that are available for the queries on the map</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 3.2 Default chart</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            3.2.1 Default
-                                            <ul class="indent1">
-                                                <li> The system will implement a default chart automatically so when the reports are enabled it will automatically create the average speed chart</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 3.3 Update chart</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            3.3.1 Adding Queries
-                                            <ul class="indent1">
-                                                <li> Every time a user adds a query to the map it will be added to the charts</li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            3.3.2 Removing Queries
-                                            <ul class="indent1">
-                                                <li> Every time a user removes a query from the map it will be removed from the chart</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 3.4 Clear chart</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The system will have a button to remove all the charts from the report view.
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 3.5 Select chart type</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The system will have multiple reports for the user to select using a text box, that when selected will automatically display a new report with all the current queries from the map.
-                                        </li>
-                                    </ul>
-                                </p>
-                            </div>
-                            <div>
-                                <h4> 4.0 UI Implementation</h4>
-                                <h4 class="indent"> 4.1 UI Buttons</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The UI will contain multiple buttons on the button of the screen to access all the different functions as explained above.
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 4.2 Map Placement</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The main map will automatically cover the entire page unless a side by side map or the reports are enabled, which will shrink the main map to the left half of the page
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 4.3 Chart Placement</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            Once the charts are enabled the main map will be shrunk and the reports will be displayed on the right half of the page.
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 4.4 Status bar</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The System will display a status bar at the top of the page that alerts the user to different information such as, the map being ready for more queries or even how many results a query contains
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 4.5 Settings</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The system will have a button that displays settings to change different specifications about the page such as scheme.
-                                        </li>
-                                    </ul>
-                                </p>
-                                <h4 class="indent"> 4.6 Queries</h4>
-                                <p>
-                                    <ul class="indent2">
-                                        <li>
-                                            The system will have a key at the top left of the main map section that allows the user to change the name of queries on the map and even the color of the region and report indicator
-                                        </li>
-                                    </ul>
-                                </p>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse13">3.1 Enable chart function</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse13" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            3.1.1 Enable/Disable Charts
+                                                                            <ul class="indent1">
+                                                                                <li> The system will have a button to allows users to display or hide all the reports that are available for the queries on the map</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse14">3.2 Default Chart</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse14" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            3.2.1 Default
+                                                                            <ul class="indent1">
+                                                                                <li> The system will implement a default chart automatically so when the reports are enabled it will automatically create the average speed chart</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse15">3.3 Update Chart</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse15" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            3.3.1 Adding Queries
+                                                                            <ul class="indent1">
+                                                                                <li> Every time a user adds a query to the map it will be added to the charts</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li>
+                                                                            3.3.2 Removing Queries
+                                                                            <ul class="indent1">
+                                                                                <li> Every time a user removes a query from the map it will be removed from the chart</li>
+                                                                            </ul>
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse16">3.4 Clear Chart</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse16" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The system will have a button to remove all the charts from the report view.
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse17">3.5 Select chart type</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse17" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The system will have multiple reports for the user to select using a text box, that when selected will automatically display a new report with all the current queries from the map.
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Inside 4 -->
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse18">4.0 UI Implementation</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse18" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse19">4.1 UI Buttons</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse19" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The UI will contain multiple buttons on the button of the screen to access all the different functions as explained above.
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse20">4.2 Map Placement</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse20" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The main map will automatically cover the entire page unless a side by side map or the reports are enabled, which will shrink the main map to the left half of the page
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse21">4.3 Chart Placement</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse21" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            Once the charts are enabled the main map will be shrunk and the reports will be displayed on the right half of the page.
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse22">4.4 Status bar</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse22" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The System will display a status bar at the top of the page that alerts the user to different information such as, the map being ready for more queries or even how many results a query contains
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse23"> 4.5 Settings</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse23" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The system will have a button that displays settings to change different specifications about the page such as scheme.
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="container">
+                                                <div class="panel-group">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" href="#collapse24">4.6 Queries</a>
+                                                            </h4>
+                                                        </div>
+                                                        <div id="collapse24" class="panel-collapse collapse">
+                                                            <div class="panel-body pr">
+                                                                <p>
+                                                                    <ul class="indent2">
+                                                                        <li>
+                                                                            The system will have a key at the top left of the main map section that allows the user to change the name of queries on the map and even the color of the region and report indicator
+                                                                        </li>
+                                                                    </ul>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- End Inside Items-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Inside 4 -->
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <h2 class="bottomborder"> Functional Implementation </h2>
 
     <!-- ------------------------------------------------------------- -->
-    <div class="panel-group paddingleft" id="accordion2">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2">
-                        MapInterface.js
-                    </a>
-                </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse in">
-                <div class="panel-body">
-                    <p> The MapInterface.js file is the main javascript file for managing the Interactive Map. It manages the current window state, current open maps (main map or side by side), tracks active queries, and updates the report controller. Each component is described below.</p>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController(int mapid)</h4>
-                        <ul>
-                            <li> int mapid - HTML ID of the div to be used for the main leaflet map.</li>
-                        </ul>
-                        The MapController is the main function that tracks state of maps and queries.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.InitMap()</h4>
-                        The InitMap initializes the map on first load. (Essentially the constructor.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.map com.capstone.MapController.getMap(int container, L.latlng center, int zoom, bool includeZoom)</h4>
-                        <ul>
-                            <li>
-                                int container - HTML ID of the container to be used for the map.
-                            </li>
-                            <li>
-                                L.latlng center - Latitude and longitude to initialize the map.
-                            </li>
-                            <li> int zoom - Zoom level of map</li>
-                            <li> bool includeZoom - include the zoom control?</li>
-                        </ul>
-                        Creates a new map object. This is used for the side by side map creation.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updateResultCount()</h4>
-                        Updates the “state bar” to show the current number of results being displayed on screen.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.startPlayback()</h4>
-                        Begins playback of frames over a set interval.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.stopPlayback()</h4>
-                        Ends query playback.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updatePlaybackPosition()</h4>
-                        Loads the specific playback frame specified by the playback slider.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapClick(event e)</h4>
-                        <ul>
-                            <li>event e - The click event that occurred. When quick query is enabled, triggers the creation of a new query.</li>
-                        </ul>
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapRightClick(event e)</h4>
-                        <ul>
-                            <li>
-                                event e - The right click event that occured. If right click occured on a query, removes the specified query.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapDraw(event e)</h4>
-                        <ul>
-                            <li>
-                                event e - The event for drawing including the selection layer. Processes a new query (Circle, Polygon, Rectangle).
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.getRectangleSelectionData(L.layer layer)</h4>
-                        Gets the information for a rectangle layer. (Useful for cloning or saving.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.getPolygonSelectionData(L.layer layer)</h4>
-                        Gets the information for a polygon layer. (Useful for cloning or saving.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.getCircleSelectionData(L.layer layer)</h4>
-                        Gets the information for a circle layer. (Useful for cloning or saving.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMove(event e)</h4>
-                        When side by side is enabled and map lock is enabled, updates the side by side map to view the same area as the main map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMoveSBS(event e)</h4>
-                        Updates the main map when the side by side map is moved and the map is locked.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMoveStartSBS(event e)</h4>
-                        Sets a flag to let the controller know that the map is in a moving state.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMoveEndSBS(event e)</h4>
-                        Sets the flag back to false for monitoring the side by side map lock.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMouseOverSBS(event e)</h4>
-                        Sets a flag letting the controller know the user is interacting with the side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapZoomSBS(event e)</h4>
-                        When locked, updates the zoom level of the main map to match the side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.onMapMouseoutSBS(event e)</h4>
-                        Unsets the flag letting the controller know the user is no longer interacting with side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updateMap2()</h4>
-                        Synchronizes the second map to match the first map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.syncMap1ToMap2(bool lock)</h4>
-                        <ul>
-                            <li> bool lock - If true, prevent events such as mousemove from creating an infinite event loop.</li>
-                        </ul>
-                        Syncs the main map to the second map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.setDrawingMode(bool drawing)</h4>
-                        <ul>
-                            <li>
-                                bool drawing - True if advanced drawing mode enabled. Sets the map to advanced or simple query mode.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.toggleDrawingMode()</h4>
-                        Flips the drawing mode between advanced or simple query mode.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updateSelectionMode(string mode)</h4>
-                        <ul>
-                            <li>
-                                string mode - The mode to use. (“single”, “multi”, “trip”) Sets the selection mode for the map.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.toggleSideBySideLocked()</h4>
-                        Toggles whether the side by side map should mimick the main map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.setSideBySideLocked(bool locked)</h4>
-                        <ul>
-                            <li>
-                                bool locked - If true, lock side by side map to main map.
-                            </li>
-                        </ul>
-                        Sets whether the side by side map is locked or not.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.RefreshResults()</h4>
-                        Sends a refresh signal to all active map queries.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.clear()</h4>
-                        Clears all active map queries.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.selectRectangle(event e)</h4>
-                        <ul>
-                            <li>
-                                event e - The event that triggered the action.
-                            </li>
-                        </ul>
-                        Creates a new quick query at the point specified in e.latlng.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.RefreshLegend()</h4>
-                        Refreshes the data shown in the map legend.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.UpdateReports()</h4>
-                        Triggers a refresh on the report controller.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> queryData com.capstone.MapController.getQueryData()</h4>
-                        <ul>
-                            <li> queryData: </li>
-                            <li>
-                                <ul>
-                                    <li>
-                                        datetime start - start time of query
-                                    </li>
-                                    <li>
-                                        datetime stop - stop time of query
-                                    </li>
-                                    <li>
-                                        string selectionMode - single, multi, trip
-                                    </li>
-                                    <li>
-                                        string filterSelection - pickup, dropoff, pickup & dropoff
-                                    </li>
-                                    <li>
-                                        string filterSelectionSBS - pickup, dropoff, pickup & dropoff
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        Gets data to be used to generate a new query.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.toggleSideBySide()</h4>
-                        Opens or closes the side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.enableSideBySide()</h4>
-                        Opens the side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.disableSideBySide()</h4>
-                        Closes the side by side map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.layer com.capstone.MapController.cloneLayer(layerwrapper layerWrapper)</h4>
-                        <ul>
-                            <li>
-                                layerwrapper layerWrapper - wrapper containing layer to be cloned
-                            </li>
-                            <li>
-                                L.layer - Cloned layer.
-                            </li>
-                        </ul>
-                        Clones a layer so it can be reused.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.layer com.capstone.MapController.cloneRectangle(L.layer layer, color fillColor, color borderColor)</h4>
-                        <ul>
-                            <li>
-                                L.layer layer - The layer to be cloned.
-                            </li>
-                            <li>
-                                color fillColor - The inside color for the selection.
-                            </li>
-                            <li>
-                                color borderColor - The edge color for the selection
-                            </li>
-                            <li>
-                                L.layer - The cloned layer
-                            </li>
-                        </ul>
-                        Clones a rectangle selection layer.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.layer com.capstone.MapController.clonePolygon(L.layer, color fillColor, color borderColor)</h4>
-                        <ul>
-                            <li>
-                                L.layer layer - The layer to be cloned.
-                            </li>
-                            <li>
-                                color fillColor - The inside color for the selection.
-                            </li>
-                            <li>
-                                color borderColor - The edge color for the selection
-                            </li>
-                            <li>
-                                L.layer - The cloned layer
-                            </li>
-                        </ul>
-                        Clones a polygon selection layer.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.layer com.capstone.MapController.cloneCircle(L.layer, color fillColor, color borderColor)</h4>
-                        <ul>
-                            <li>
-                                L.layer layer - The layer to be cloned.
-                            </li>
-                            <li>
-                                color fillColor - The inside color for the selection.
-                            </li>
-                            <li>
-                                color borderColor - The edge color for the selection
-                            </li>
-                            <li>
-                                L.layer - The cloned layer
-                            </li>
-                        </ul>
-                        Clones a circle selection layer.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updateMapPosition()</h4>
-                        Updates the map position. (Adjusts for resizing of screen, etc.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.showReportView()</h4>
-                        Shows the report slide out.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.hideReportView()</h4>
-                        Hides the report slide out.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.toggleReportView()</h4>
-                        Shows or hides the report slide out.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.clearReport()</h4>
-                        Signals to the report controller to clear the data.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> L.latlng com.capstone.MapController.getCoordinates()</h4>
-                        <ul>
-                            <li>
-                                L.latlng - The latlng of the map center.
-                            </li>
-                        </ul>
-                        Gets the current center position of the main map.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.loadSavedQueries(json query)</h4>
-                        <ul>
-                            <li>
-                                json query - The data for the previously saved query.
-                            </li>
-                        </ul>
-                        Loads a previously saved map state stored in the json query.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> QueryController com.capstone.MapController.getQueryByUID(int uid)</h4>
-                        <ul>
-                            <li>
-                                int uid - The unique id of the query.
-                            </li>
-                        </ul>
-                        Gets a query by it’s unique id. (Assigned when created in javascript.)
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.saveQueries()</h4>
-                        Saves the current state of the map and it’s active queries. Sends that data to the server to generate a unique token and then displays that token to the user.
-                    </div>
-                    <div class="indent2">
-                        <h4 class="bold"> void com.capstone.MapController.updateMapPosition()</h4>
-                        Updates the map position. (Adjusts for resizing of screen, etc.)
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse25"> MapInterface.js</a>
+                    </h4>
+                </div>
+                <p> The MapInterface.js file is the main javascript file for managing the Interactive Map. It manages the current window state, current open maps (main map or side by side), tracks active queries, and updates the report controller. Each component is described below.</p>
+
+                <div id="collapse25" class="panel-collapse collapse">
+                    <div class="panel-body pr">
+
+                        <!-- Inner -->
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse26">void com.capstone.MapController(int mapid)</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse26" class="panel-collapse collapse">
+                                        <div class="panel-body pr">
+                                            <ul>
+                                                <li> int mapid - HTML ID of the div to be used for the main leaflet map.</li>
+                                            </ul>
+                                            The MapController is the main function that tracks state of maps and queries.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse27">void com.capstone.MapController.InitMap()</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse27" class="panel-collapse collapse">
+                                        <div class="panel-body pr">
+                                            The InitMap initializes the map on first load. (Essentially the constructor.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse28">void com.capstone.MapController.updateNextQueryColor()</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse28" class="panel-collapse collapse">
+                                        <div class="panel-body pr">
+                                            Sets the next selection border and fill color. This function allows each query to automatically change colors. This makes distinguishing queries in reports easier.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse29">L.map com.capstone.MapController.getMap(int container, L.latlng center, int zoom, bool includeZoom)</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse29" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    int container - HTML ID of the container to be used for the map.
+                                                </li>
+                                                <li>
+                                                    L.latlng center - Latitude and longitude to initialize the map.
+                                                </li>
+                                                <li>
+                                                    int zoom - Zoom level of map
+                                                </li>
+                                                <li>
+                                                    bool includeZoom - include the zoom control?
+                                                </li>
+                                            </ul>
+                                            Creates a new map object. This is used for the side by side map creation.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse30">void com.capstone.MapController.updateResultCount()</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse30" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the “state bar” to show the current number of results being displayed on screen.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse31">void com.capstone.MapController.startPlayback()</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse31" class="panel-collapse collapse">
+                                        <div>
+                                            Begins playback of frames over a set interval.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse32">void com.capstone.MapController.stopPlayback()</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse32" class="panel-collapse collapse">
+                                        <div>
+                                            Ends query playback.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse33"> void com.capstone.MapController.updatePlaybackPosition() </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse33" class="panel-collapse collapse">
+                                        <div>
+                                            Loads the specific playback frame specified by the playback slider.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse34"> void com.capstone.MapController.onMapClick(event e) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse34" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li> event e - The click event that occurred.</li>
+                                            </ul>
+                                            When quick query is enabled, triggers the creation of a new query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse35"> void com.capstone.MapController.onMapRightClick(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse35" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>event e - The right click event that occured.</li></ul>
+                                            If right click occured on a query, removes the specified query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse36"> void com.capstone.MapController.onMapDraw(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse36" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>event e - The event for drawing including the selection layer.</li></ul>
+                                            Processes a new query (Circle, Polygon, Rectangle).
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse37">void com.capstone.MapController.getRectangleSelectionData(L.layer layer)</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse37" class="panel-collapse collapse">
+                                        <div>
+                                            Gets the information for a rectangle layer. (Useful for cloning or saving.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse38"> void com.capstone.MapController.getPolygonSelectionData(L.layer layer) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse38" class="panel-collapse collapse">
+                                        <div>
+                                            Gets the information for a polygon layer. (Useful for cloning or saving.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse39">  void com.capstone.MapController.getCircleSelectionData(L.layer layer) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse39" class="panel-collapse collapse">
+                                        <div>
+                                            Gets the information for a circle layer. (Useful for cloning or saving.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse40"> void com.capstone.MapController.onMapMove(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse40" class="panel-collapse collapse">
+                                        <div>
+                                            When side by side is enabled and map lock is enabled, updates the side by side map to view the same area as the main map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse41"> void com.capstone.MapController.onMapMoveSBS(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse41" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the main map when the side by side map is moved and the map is locked.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse42"> void com.capstone.MapController.onMapMoveStartSBS(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse42" class="panel-collapse collapse">
+                                        <div>
+                                            Sets a flag to let the controller know that the map is in a moving state.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse43"> void com.capstone.MapController.onMapMoveEndSBS(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse43" class="panel-collapse collapse">
+                                        <div>
+                                            Sets the flag back to false for monitoring the side by side map lock.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse44"> void com.capstone.MapController.onMapMouseOverSBS(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse44" class="panel-collapse collapse">
+                                        <div>
+                                            Sets a flag letting the controller know the user is interacting with the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse45">  void com.capstone.MapController.onMapZoomSBS(event e) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse45" class="panel-collapse collapse">
+                                        <div>
+                                            When locked, updates the zoom level of the main map to match the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse46">  void com.capstone.MapController.onMapMouseoutSBS(event e) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse46" class="panel-collapse collapse">
+                                        <div>
+                                            Unsets the flag letting the controller know the user is no longer interacting with side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse47">void com.capstone.MapController.updateMap2()   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse47" class="panel-collapse collapse">
+                                        <div>
+                                            Synchronizes the second map to match the first map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse48"> void com.capstone.MapController.syncMap1ToMap2(bool lock)</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse48" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li>bool lock - If true, prevent events such as mousemove from creating an infinite event loop.</li></ul> 
+                                            Syncs the main map to the second map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse49"> void com.capstone.MapController.setDrawingMode(bool drawing)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse49" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>bool drawing - True if advanced drawing mode enabled.</li></ul>
+                                            Sets the map to advanced or simple query mode.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse50">void com.capstone.MapController.toggleDrawingMode()   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse50" class="panel-collapse collapse">
+                                        <div>
+                                            Flips the drawing mode between advanced or simple query mode.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse51">void com.capstone.MapController.updateSelectionMode(string mode)   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse51" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>string mode - The mode to use. (“single”, “multi”, “trip”)</li></ul>
+                                            Sets the selection mode for the map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse52"> void com.capstone.MapController.toggleSideBySideLocked()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse52" class="panel-collapse collapse">
+                                        <div>
+                                            Toggles whether the side by side map should mimick the main map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse53"> void com.capstone.MapController.setSideBySideLocked(bool locked)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse53" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>bool locked - If true, lock side by side map to main map.</li></ul>
+                                            Sets whether the side by side map is locked or not.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse54"> void com.capstone.MapController.RefreshResults()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse54" class="panel-collapse collapse">
+                                        <div>
+                                            Sends a refresh signal to all active map queries.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse55">void com.capstone.MapController.clear()   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse55" class="panel-collapse collapse">
+                                        <div>
+                                            Clears all active map queries.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse56"> void com.capstone.MapController.selectRectangle(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse56" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>event e - The event that triggered the action.</li></ul>
+                                            Creates a new quick query at the point specified in e.latlng.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse57"> void com.capstone.MapController.RefreshLegend()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse57" class="panel-collapse collapse">
+                                        <div>
+                                            Refreshes the data shown in the map legend.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse58"> void com.capstone.MapController.UpdateReports()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse58" class="panel-collapse collapse">
+                                        <div>
+                                            Triggers a refresh on the report controller.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse59"> queryData com.capstone.MapController.getQueryData()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse59" class="panel-collapse collapse">
+                                        <div>
+                                            queryData:
+                                            <ul><li>datetime start - start time of query</li>
+                                            <li> stop - stop time of query</li>
+                                                <li>string selectionMode - single, multi, trip</li>
+                                                <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
+                                                <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
+                                                <li>string filterSelectionSBS - pickup, dropoff, pickup & dropoff</li>
+                                                </ul>
+                                            Gets data to be used to generate a new query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse60"> void com.capstone.MapController.toggleSideBySide()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse60" class="panel-collapse collapse">
+                                        <div>
+                                            Opens or closes the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse61"> void com.capstone.MapController.enableSideBySide()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse61" class="panel-collapse collapse">
+                                        <div>
+                                            Opens the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse62">  void com.capstone.MapController.disableSideBySide() </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse62" class="panel-collapse collapse">
+                                        <div>
+                                            Closes the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse63"> L.layer com.capstone.MapController.cloneLayer(layerwrapper layerWrapper)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse63" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    layerwrapper layerWrapper - wrapper containing layer to be cloned
+                                                </li>
+                                                <li>
+                                                    L.layer - Cloned layer.
+                                                </li>
+                                            </ul>
+                                            Clones a layer so it can be reused.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse64">  L.layer com.capstone.MapController.cloneRectangle(L.layer layer, color fillColor, color borderColor) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse64" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                            <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                                </ul>
+                                            Clones a rectangle selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse65"> L.layer com.capstone.MapController.clonePolygon(L.layer, color fillColor, color borderColor)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse65" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                            </ul>
+                                            Clones a polygon selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse66"> L.layer com.capstone.MapController.cloneCircle(L.layer, color fillColor, color borderColor)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse66" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                            </ul>
+                                            Clones a circle selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse67"> void com.capstone.MapController.updateMapPosition()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse67" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the map position. (Adjusts for resizing of screen, etc.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse68"> void com.capstone.MapController.showReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse68" class="panel-collapse collapse">
+                                        <div>
+                                            Shows the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse69"> void com.capstone.MapController.hideReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse69" class="panel-collapse collapse">
+                                        <div>
+                                            Hides the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse70"> void com.capstone.MapController.toggleReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse70" class="panel-collapse collapse">
+                                        <div>
+                                            Shows or hides the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse71">  void com.capstone.MapController.clearReport() </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse71" class="panel-collapse collapse">
+                                        <div>
+                                            Signals to the report controller to clear the data.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse72"> L.latlng com.capstone.MapController.getCoordinates()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse72" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li> L.latlng - The latlng of the map center.</li></ul>
+                                            Gets the current center position of the main map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse73"> void com.capstone.MapController.loadSavedQueries(json query)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse73" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li> query - The data for the previously saved query.</li></ul>
+                                            Loads a previously saved map state stored in the json query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse74"> QueryController com.capstone.MapController.getQueryByUID(int uid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse74" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li> int uid - The unique id of the query.</li></ul>
+                                            Gets a query by it’s unique id. (Assigned when created in javascript.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse75"> void com.capstone.MapController.saveQueries()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse75" class="panel-collapse collapse">
+                                        <div>
+                                            Saves the current state of the map and it’s active queries. Sends that data to the server to generate a unique token and then displays that token to the user.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse76"> void com.capstone.MapController.updateMapPosition()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse76" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the map position. (Adjusts for resizing of screen, etc.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!--         <div class="indent2">
-                     <h4 class="bold"> </h4>
-
-                    </div>
-         -->
-        <!-- -------------------------------------------------------- -->
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                        UI.js
-                    </a>
-                </h4>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                  -------------------
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                        ReportController.js
-                    </a>
-                </h4>
-            </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                   -------------
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse77"> UI.js  </a>
+                    </h4>
+                </div>
+                <div id="collapse77" class="panel-collapse collapse">
+                    <div class="panel-body pr">
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse78"> hexToRgba:function(hex, opacity)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse78" class="panel-collapse collapse">
+                                        <div class="panel-body pr">
+                                            Takes in Hexidecimel colors and the opacity. Breaks hex number into rgba, and returns this value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse79"> legendNumberDisplayValue : function(number)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse79" class="panel-collapse collapse">
+                                        <div>
+                                            Takes in the number for the legend, if over 1000000 or 1000000000, the number is divided by 1000 and 1000000 respectively. The floor of that is then appended a “k”(over 1000000) or “m” (over 1000000000)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse80">  addMenu : function(target, menuid) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse80" class="panel-collapse collapse">
+                                        <div>
+                                            Accepts target and menuid, opens targeted menu.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse81"> setStatus : function (status)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse81" class="panel-collapse collapse">
+                                        <div>
+                                            Sets the main status
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse82"> getStatus : function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse82" class="panel-collapse collapse">
+                                        <div>
+                                            Returns the text of the main status as a string
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse83"> closeOpenMenus : function()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse83" class="panel-collapse collapse">
+                                        <div>
+                                            Closes the open menus
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse84"> showMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse84" class="panel-collapse collapse">
+                                        <div>
+                                            Opens menu for targeted UI menu button
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse85"> hideMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse85" class="panel-collapse collapse">
+                                        <div>
+                                            Hides the menu of the targeted UI menu button
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse86"> toggleMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse86" class="panel-collapse collapse">
+                                        <div>
+                                            Opens and Closes targeted menus
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse87">  showSettingsMenu: function (target, menuid, tabsectionid) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse87" class="panel-collapse collapse">
+                                        <div>
+                                            Opens the setting menu
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse88">  getPickupColor: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse88" class="panel-collapse collapse">
+                                        <div>
+                                            Returns color of the pickup marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse89"> getPickupFillColor: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse89" class="panel-collapse collapse">
+                                        <div>
+                                            Returns inside color of the pickup marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse90"> getDropoffColor: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse90" class="panel-collapse collapse">
+                                        <div>
+                                            Returns color of the dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse91"> getDropoffFillColor: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse91" class="panel-collapse collapse">
+                                        <div>
+                                            Returns inside color of the dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse92"> getDropoffStrokeWeight: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse92" class="panel-collapse collapse">
+                                        <div>
+                                            Returns size of Dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse93">  refreshMapDelayed: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse93" class="panel-collapse collapse">
+                                        <div>
+                                            Refresh map timeout
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse94">   </a>
+                    </h4>
+                </div>
+                <div id="collapse94" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse95">   </a>
+                    </h4>
+                </div>
+                <div id="collapse96" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse97">   </a>
+                    </h4>
+                </div>
+                <div id="collapse97" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse98">   </a>
+                    </h4>
+                </div>
+                <div id="collapse98" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+    <!--
+        
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse76">   </a>
+                    </h4>
+                </div>
+                <div id="collapse76" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    -->
+    <!-- -------------------------------------------------------- -->
 
 </body>
 </html>

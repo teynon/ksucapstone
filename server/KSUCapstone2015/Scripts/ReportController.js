@@ -29,13 +29,16 @@ com.capstone.ReportController = function (reportid) {
                 return;
             }
         }
-        var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container, {
-            canvasJS: {
-                title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
-                axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix },
-                axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix, labelAngle: 45 }
-            }
-        }, com.capstone.ReportFilter.chart[Number(val)].filter, false);
+        var report = new com.capstone.ReportFilter.chart[Number(val)].type(this.container,
+            {
+                canvasJS: {
+                    title: { text: com.capstone.ReportFilter.chart[Number(val)].title },
+                    axisY: { suffix: com.capstone.ReportFilter.chart[Number(val)].ySuffix },
+                    axisX: { prefix: com.capstone.ReportFilter.chart[Number(val)].xPrefix, labelAngle: 45 }
+                }
+            },
+            com.capstone.ReportFilter.chart[Number(val)].filter,
+            com.capstone.ReportFilter.chart[Number(val)].multi);
         report.update(false);
         this.reportList.push({ title: com.capstone.ReportFilter.chart[Number(val)].filter, report: report });
     };
@@ -75,17 +78,23 @@ com.capstone.ReportController = function (reportid) {
 com.capstone.SpeedLimit = 100;
 com.capstone.ReportFilter = {};
 
-com.capstone.ReportFilter.AverageSpeed = function () {
+com.capstone.ReportFilter.AverageSpeed = function (report, type) {
     var dataSet = [
     ];
+    if (type == undefined) type = "";
     var queries = com.capstone.mapController.activeMapQueries;
+    var axis = 0;
     for (var i in queries) {
         var totalSpeed = 0;
         var count = 0;
         var outliers = 0;
         // Sum the speed and divide by total
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
+
+        for (var j in resultObject) {
+            var result = resultObject[j];
             var speed = Math.ceil(result.Distance / (result.Duration / 3600));
             if (speed < com.capstone.SpeedLimit) {
                 totalSpeed += speed;
@@ -97,7 +106,6 @@ com.capstone.ReportFilter.AverageSpeed = function () {
         }
 
         // Average speed.
-        console.log(queries[i].BorderColor);
         dataSet.push({
             y: totalSpeed / count,
             label: queries[i].queryID,
@@ -108,13 +116,15 @@ com.capstone.ReportFilter.AverageSpeed = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.TripsPerQuery = function () {
+com.capstone.ReportFilter.TripsPerQuery = function (report, type) {
     var dataSet = [
     ];
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         dataSet.push({
-            y: queries[i].QueryResults.length,
+            x: axis++,
+            y: (type == "sbs") ? queries[i].QueryResultsSBS.length : queries[i].QueryResults.length,
             label: queries[i].queryID,
             color: queries[i].BorderColor
         });
@@ -122,20 +132,26 @@ com.capstone.ReportFilter.TripsPerQuery = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.AverageDistance = function () {
+com.capstone.ReportFilter.AverageDistance = function (report, type) {
     var dataSet = [
     ];
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         var totalDistance = 0;
         var count = 0;
 
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
+
+        for (var j in resultObject) {
+            var result = resultObject[j];
             totalDistance += Math.ceil(result.Distance);
             count++;
         }
         dataSet.push({
+            x: axis++,
             y: totalDistance / count,
             label: queries[i].queryID,
             color: queries[i].BorderColor
@@ -145,20 +161,26 @@ com.capstone.ReportFilter.AverageDistance = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.AveragePassengers = function () {
+com.capstone.ReportFilter.AveragePassengers = function (report, type) {
     var dataSet = [
     ];
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         var totalPassengers = 0;
         var count = 0;
 
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
+
+        for (var j in resultObject) {
+            var result = resultObject[j];
             totalPassengers += result.Passengers;
             count++;
         }
         dataSet.push({
+            x: axis++,
             y: totalPassengers / count,
             label: queries[i].queryID,
             color: queries[i].BorderColor
@@ -168,20 +190,26 @@ com.capstone.ReportFilter.AveragePassengers = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.AverageTime = function () {
+com.capstone.ReportFilter.AverageTime = function (report, type) {
     var dataSet = [
     ];
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         var totalTime = 0;
         var count = 0;
 
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
+
+        for (var j in resultObject) {
+            var result = resultObject[j];
             totalTime += (result.Duration / 60);
             count++;
         }
         dataSet.push({
+            x: axis++,
             y: totalTime / count,
             label: queries[i].queryID,
             color: queries[i].BorderColor
@@ -191,11 +219,12 @@ com.capstone.ReportFilter.AverageTime = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
+com.capstone.ReportFilter.AverageSpeedPerDriver = function (report, type) {
     var dataSet = [
     ];
+    if (type == "sbs") return dataSet;
     var drivers = {};
-
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     queries.forEach(function (query) {
         query.QueryResults.forEach(function (queryResult) {
@@ -225,15 +254,19 @@ com.capstone.ReportFilter.AverageSpeedPerDriver = function () {
     return dataSet;
 }
 
-com.capstone.ReportFilter.VendorTotals = function () {
+com.capstone.ReportFilter.VendorTotals = function (report, type) {
     var dataSet = [
     ];
     var localVTSTotal = 0;
     var localCMTTotal = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
+
+        for (var j in resultObject) {
+            var result = resultObject[j];
             if (result.VendorID == "VTS") { localVTSTotal++; }
             else { localCMTTotal++; }
         }        
@@ -252,9 +285,10 @@ com.capstone.ReportFilter.VendorTotals = function () {
 
 
 
-com.capstone.ReportFilter.PassengerDistance = function () {
+com.capstone.ReportFilter.PassengerDistance = function (report, type) {
     var dataSet = [
     ];
+    var axis = 0;
     var queries = com.capstone.mapController.activeMapQueries;
     for (var i in queries) {
         var totalPassengers = 0;
@@ -262,17 +296,21 @@ com.capstone.ReportFilter.PassengerDistance = function () {
         var totalDistance = 0;
         var countD = 0;
 
+        var resultObject = queries[i].QueryResults;
+        if (type == "sbs")
+            resultObject = queries[i].QueryResultsSBS;
 
-        for (var j in queries[i].QueryResults) {
-            var result = queries[i].QueryResults[j];
+        for (var j in resultObject) {
+            var result = resultObject[j];
             totalPassengers += result.Passengers;
             count++;
 
-            var resultD = queries[i].QueryResults[j];
+            var resultD = resultObject[j];
             totalDistance += Math.ceil(result.Distance);
             countD++;
         }
         dataSet.push({
+            x: axis++,
             y: totalPassengers / totalDistance,
             label: queries[i].queryID,
             color: queries[i].BorderColor
@@ -293,49 +331,56 @@ $(document).ready(function () {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Speed",
             ySuffix: " mph",
-            xPrefix: ""
+            xPrefix: "",
+            multi: true
         },
         {
             filter: com.capstone.ReportFilter.TripsPerQuery,
             type: com.capstone.Report.ColumnGraph,
             title: "Trips Per Query",
             ySuffix: "",
-            xPrefix: ""
+            xPrefix: "",
+            multi: true
         },
         {
             filter: com.capstone.ReportFilter.AverageDistance,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Distance",
             ySuffix: " miles",
-            xPrefix: " "
+            xPrefix: " ",
+            multi: true
         },
         {
             filter: com.capstone.ReportFilter.AveragePassengers,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Passengers",
             ySuffix: "",
-            xPrefix: ""
+            xPrefix: "",
+            multi: true
         },
         {
             filter: com.capstone.ReportFilter.AverageTime,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Time",
             ySuffix: " min",
-            xPrefix: ""
+            xPrefix: "",
+            multi: true
         },
         {
             filter: com.capstone.ReportFilter.AverageSpeedPerDriver,
             type: com.capstone.Report.ColumnGraph,
             title: "Average Speed Per Driver",
             ySuffix: " mph",
-            xPrefix: ""
+            xPrefix: "",
+            multi: false
         },
         {
             filter: com.capstone.ReportFilter.VendorTotals,
             type: com.capstone.Report.PieGraph,
             title: "Points per Vendor",
             ySuffix: "",
-            xPrefix: ""
+            xPrefix: "",
+            multi: false
         },
 
 
@@ -344,7 +389,8 @@ $(document).ready(function () {
             type: com.capstone.Report.ColumnGraph,
             title: "Average Passengers per Distance",
             ySuffix: "ppd",
-            xPrefix: ""
+            xPrefix: "",
+            multi: true
 },
 
 

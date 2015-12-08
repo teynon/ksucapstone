@@ -528,7 +528,18 @@ com.capstone.MapController = function (mapid) {
             var borderDiv = $("<div></div>").data("query", queries[i].uniqueID).data("type", "border").addClass("trigger activeTrigger").prop("value", queries[i].BorderColor).appendTo(borderContainer);
             var mainContainer = $("<div></div>").addClass("queryInner").appendTo(borderDiv);
             var mainDiv = $("<div></div>").data("query", queries[i].uniqueID).data("type", "fill").addClass("trigger activeTrigger").prop("value", queries[i].FillColor).appendTo(mainContainer);
+            var visBox = $("<div></div>").addClass("queryVisibility").on("click", { query: queries[i], visibility: queries[i].Visible }, function (e) {
+                e.data.query.SetVisible(!e.data.visibility);
+                e.data.query.MapController.RefreshLegend();
+            });
+            var resultBox = $("<div title=\"" + queries[i].ResultCount + "\">" + com.capstone.UI.legendNumberDisplayValue(queries[i].ResultCount) + "</div>");
+            if (queries[i].Map2Count > 0) {
+                resultBox = $("<div><span title=\"" + queries[i].Map1Count + "\">" + com.capstone.UI.legendNumberDisplayValue(queries[i].Map1Count) + "</span><span class=\"resultSeparator\">|</span><span title=\"" + queries[i].Map2Count + "\">" + com.capstone.UI.legendNumberDisplayValue(queries[i].Map2Count) + "</span></div>");
+            }
 
+            if (!queries[i].Visible) {
+                visBox.addClass("queryHidden");
+            }
             container.append(
                 $("<input type=\"text\" />").data("query", queries[i].uniqueID).val(queries[i].queryID)
                     .on("keyup", function () {
@@ -544,7 +555,8 @@ com.capstone.MapController = function (mapid) {
                     }
                 )
             )
-            .append("<div>" + com.capstone.UI.legendNumberDisplayValue(queries[i].ResultCount) + "</div>")
+            .append(resultBox)
+            .append(visBox)
             .append(borderContainer).appendTo("#activeQueries");
 
             $(".activeTrigger").colorPicker({
