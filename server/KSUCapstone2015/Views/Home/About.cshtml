@@ -1293,12 +1293,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse41">   </a>
+                                            <a data-toggle="collapse" href="#collapse41"> void com.capstone.MapController.onMapMoveSBS(event e)  </a>
                                         </h4>
                                     </div>
                                     <div id="collapse41" class="panel-collapse collapse">
                                         <div>
-
+                                            Updates the main map when the side by side map is moved and the map is locked.
                                         </div>
                                     </div>
                                 </div>
@@ -1310,12 +1310,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse42">   </a>
+                                            <a data-toggle="collapse" href="#collapse42"> void com.capstone.MapController.onMapMoveStartSBS(event e)  </a>
                                         </h4>
                                     </div>
                                     <div id="collapse42" class="panel-collapse collapse">
                                         <div>
-
+                                            Sets a flag to let the controller know that the map is in a moving state.
                                         </div>
                                     </div>
                                 </div>
@@ -1328,12 +1328,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse43">   </a>
+                                            <a data-toggle="collapse" href="#collapse43"> void com.capstone.MapController.onMapMoveEndSBS(event e)  </a>
                                         </h4>
                                     </div>
                                     <div id="collapse43" class="panel-collapse collapse">
                                         <div>
-
+                                            Sets the flag back to false for monitoring the side by side map lock.
                                         </div>
                                     </div>
                                 </div>
@@ -1345,12 +1345,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse44">   </a>
+                                            <a data-toggle="collapse" href="#collapse44"> void com.capstone.MapController.onMapMouseOverSBS(event e)  </a>
                                         </h4>
                                     </div>
                                     <div id="collapse44" class="panel-collapse collapse">
                                         <div>
-
+                                            Sets a flag letting the controller know the user is interacting with the side by side map.
                                         </div>
                                     </div>
                                 </div>
@@ -1362,12 +1362,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse45">   </a>
+                                            <a data-toggle="collapse" href="#collapse45">  void com.capstone.MapController.onMapZoomSBS(event e) </a>
                                         </h4>
                                     </div>
                                     <div id="collapse45" class="panel-collapse collapse">
                                         <div>
-
+                                            When locked, updates the zoom level of the main map to match the side by side map.
                                         </div>
                                     </div>
                                 </div>
@@ -1379,12 +1379,12 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse46">   </a>
+                                            <a data-toggle="collapse" href="#collapse46">  void com.capstone.MapController.onMapMouseoutSBS(event e) </a>
                                         </h4>
                                     </div>
                                     <div id="collapse46" class="panel-collapse collapse">
                                         <div>
-
+                                            Unsets the flag letting the controller know the user is no longer interacting with side by side map.
                                         </div>
                                     </div>
                                 </div>
@@ -1397,12 +1397,882 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse47">   </a>
+                                            <a data-toggle="collapse" href="#collapse47">void com.capstone.MapController.updateMap2()   </a>
                                         </h4>
                                     </div>
                                     <div id="collapse47" class="panel-collapse collapse">
                                         <div>
+                                            Synchronizes the second map to match the first map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse48"> void com.capstone.MapController.syncMap1ToMap2(bool lock)</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse48" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li>bool lock - If true, prevent events such as mousemove from creating an infinite event loop.</li></ul> 
+                                            Syncs the main map to the second map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse49"> void com.capstone.MapController.setDrawingMode(bool drawing)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse49" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>bool drawing - True if advanced drawing mode enabled.</li></ul>
+                                            Sets the map to advanced or simple query mode.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse50">void com.capstone.MapController.toggleDrawingMode()   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse50" class="panel-collapse collapse">
+                                        <div>
+                                            Flips the drawing mode between advanced or simple query mode.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse51">void com.capstone.MapController.updateSelectionMode(string mode)   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse51" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>string mode - The mode to use. (“single”, “multi”, “trip”)</li></ul>
+                                            Sets the selection mode for the map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse52"> void com.capstone.MapController.toggleSideBySideLocked()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse52" class="panel-collapse collapse">
+                                        <div>
+                                            Toggles whether the side by side map should mimick the main map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse53"> void com.capstone.MapController.setSideBySideLocked(bool locked)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse53" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>bool locked - If true, lock side by side map to main map.</li></ul>
+                                            Sets whether the side by side map is locked or not.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse54"> void com.capstone.MapController.RefreshResults()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse54" class="panel-collapse collapse">
+                                        <div>
+                                            Sends a refresh signal to all active map queries.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse55">void com.capstone.MapController.clear()   </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse55" class="panel-collapse collapse">
+                                        <div>
+                                            Clears all active map queries.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse56"> void com.capstone.MapController.selectRectangle(event e)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse56" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li>event e - The event that triggered the action.</li></ul>
+                                            Creates a new quick query at the point specified in e.latlng.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse57"> void com.capstone.MapController.RefreshLegend()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse57" class="panel-collapse collapse">
+                                        <div>
+                                            Refreshes the data shown in the map legend.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse58"> void com.capstone.MapController.UpdateReports()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse58" class="panel-collapse collapse">
+                                        <div>
+                                            Triggers a refresh on the report controller.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse59"> queryData com.capstone.MapController.getQueryData()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse59" class="panel-collapse collapse">
+                                        <div>
+                                            queryData:
+                                            <ul><li>datetime start - start time of query</li>
+                                            <li> stop - stop time of query</li>
+                                                <li>string selectionMode - single, multi, trip</li>
+                                                <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
+                                                <li>string filterSelection - pickup, dropoff, pickup & dropoff</li>
+                                                <li>string filterSelectionSBS - pickup, dropoff, pickup & dropoff</li>
+                                                </ul>
+                                            Gets data to be used to generate a new query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse60"> void com.capstone.MapController.toggleSideBySide()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse60" class="panel-collapse collapse">
+                                        <div>
+                                            Opens or closes the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse61"> void com.capstone.MapController.enableSideBySide()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse61" class="panel-collapse collapse">
+                                        <div>
+                                            Opens the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse62">  void com.capstone.MapController.disableSideBySide() </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse62" class="panel-collapse collapse">
+                                        <div>
+                                            Closes the side by side map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse63"> L.layer com.capstone.MapController.cloneLayer(layerwrapper layerWrapper)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse63" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    layerwrapper layerWrapper - wrapper containing layer to be cloned
+                                                </li>
+                                                <li>
+                                                    L.layer - Cloned layer.
+                                                </li>
+                                            </ul>
+                                            Clones a layer so it can be reused.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse64">  L.layer com.capstone.MapController.cloneRectangle(L.layer layer, color fillColor, color borderColor) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse64" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                            <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                                </ul>
+                                            Clones a rectangle selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse65"> L.layer com.capstone.MapController.clonePolygon(L.layer, color fillColor, color borderColor)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse65" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                            </ul>
+                                            Clones a polygon selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse66"> L.layer com.capstone.MapController.cloneCircle(L.layer, color fillColor, color borderColor)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse66" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>L.layer layer - The layer to be cloned.</li>
+                                                <li>color fillColor - The inside color for the selection.</li>
+                                                <li>color borderColor - The edge color for the selection</li>
+                                                <li>L.layer - The cloned layer</li>
+                                            </ul>
+                                            Clones a circle selection layer.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse67"> void com.capstone.MapController.updateMapPosition()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse67" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the map position. (Adjusts for resizing of screen, etc.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse68"> void com.capstone.MapController.showReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse68" class="panel-collapse collapse">
+                                        <div>
+                                            Shows the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse69"> void com.capstone.MapController.hideReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse69" class="panel-collapse collapse">
+                                        <div>
+                                            Hides the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse70"> void com.capstone.MapController.toggleReportView()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse70" class="panel-collapse collapse">
+                                        <div>
+                                            Shows or hides the report slide out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse71">  void com.capstone.MapController.clearReport() </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse71" class="panel-collapse collapse">
+                                        <div>
+                                            Signals to the report controller to clear the data.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse72"> L.latlng com.capstone.MapController.getCoordinates()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse72" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li> L.latlng - The latlng of the map center.</li></ul>
+                                            Gets the current center position of the main map.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse73"> void com.capstone.MapController.loadSavedQueries(json query)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse73" class="panel-collapse collapse">
+                                        <div>
+                                            <ul><li> query - The data for the previously saved query.</li></ul>
+                                            Loads a previously saved map state stored in the json query.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse74"> QueryController com.capstone.MapController.getQueryByUID(int uid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse74" class="panel-collapse collapse">
+                                        <div>
+                                           <ul><li> int uid - The unique id of the query.</li></ul>
+                                            Gets a query by it’s unique id. (Assigned when created in javascript.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse75"> void com.capstone.MapController.saveQueries()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse75" class="panel-collapse collapse">
+                                        <div>
+                                            Saves the current state of the map and it’s active queries. Sends that data to the server to generate a unique token and then displays that token to the user.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse76"> void com.capstone.MapController.updateMapPosition()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse76" class="panel-collapse collapse">
+                                        <div>
+                                            Updates the map position. (Adjusts for resizing of screen, etc.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse77"> UI.js  </a>
+                    </h4>
+                </div>
+                <div id="collapse77" class="panel-collapse collapse">
+                    <div class="panel-body pr">
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse78"> hexToRgba:function(hex, opacity)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse78" class="panel-collapse collapse">
+                                        <div class="panel-body pr">
+                                            Takes in Hexidecimel colors and the opacity. Breaks hex number into rgba, and returns this value.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse79"> legendNumberDisplayValue : function(number)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse79" class="panel-collapse collapse">
+                                        <div>
+                                            Takes in the number for the legend, if over 1000000 or 1000000000, the number is divided by 1000 and 1000000 respectively. The floor of that is then appended a “k”(over 1000000) or “m” (over 1000000000)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse80">  addMenu : function(target, menuid) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse80" class="panel-collapse collapse">
+                                        <div>
+                                            Accepts target and menuid, opens targeted menu.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse81"> setStatus : function (status)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse81" class="panel-collapse collapse">
+                                        <div>
+                                            Sets the main status
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse82"> getStatus : function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse82" class="panel-collapse collapse">
+                                        <div>
+                                            Returns the text of the main status as a string
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse83"> closeOpenMenus : function()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse83" class="panel-collapse collapse">
+                                        <div>
+                                            Closes the open menus
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse84"> showMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse84" class="panel-collapse collapse">
+                                        <div>
+                                            Opens menu for targeted UI menu button
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse85"> hideMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse85" class="panel-collapse collapse">
+                                        <div>
+                                            Hides the menu of the targeted UI menu button
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse86"> toggleMenuForUIButton: function (target, menuid)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse86" class="panel-collapse collapse">
+                                        <div>
+                                            Opens and Closes targeted menus
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse87">  showSettingsMenu: function (target, menuid, tabsectionid) </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse87" class="panel-collapse collapse">
+                                        <div>
+                                            Opens the setting menu
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse88">  getPickupColor: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse88" class="panel-collapse collapse">
+                                        <div>
+                                            Returns color of the pickup marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse89"> getPickupFillColor: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse89" class="panel-collapse collapse">
+                                        <div>
+                                            Returns inside color of the pickup marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse90"> getDropoffColor: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse90" class="panel-collapse collapse">
+                                        <div>
+                                            Returns color of the dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse91"> getDropoffFillColor: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse91" class="panel-collapse collapse">
+                                        <div>
+                                            Returns inside color of the dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse92"> getDropoffStrokeWeight: function ()  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse92" class="panel-collapse collapse">
+                                        <div>
+                                            Returns size of Dropoff marker
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse93">  refreshMapDelayed: function () </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse93" class="panel-collapse collapse">
+                                        <div>
+                                            Refresh map timeout
                                         </div>
                                     </div>
                                 </div>
@@ -1416,35 +2286,97 @@
     </div>
 
 
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse94">   </a>
+                    </h4>
+                </div>
+                <div id="collapse94" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse95">   </a>
+                    </h4>
+                </div>
+                <div id="collapse96" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse97">   </a>
+                    </h4>
+                </div>
+                <div id="collapse97" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse98">   </a>
+                    </h4>
+                </div>
+                <div id="collapse98" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- -------------------------------------------------------- -->
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                    UI.js
-                </a>
-            </h4>
-        </div>
-        <div id="collapse3" class="panel-collapse collapse">
-            <div class="panel-body">
-                -------------------
+    <!--
+        
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse76">   </a>
+                    </h4>
+                </div>
+                <div id="collapse76" class="panel-collapse collapse">
+                    <div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                    ReportController.js
-                </a>
-            </h4>
-        </div>
-        <div id="collapse4" class="panel-collapse collapse">
-            <div class="panel-body">
-                -------------
-            </div>
-        </div>
-    </div>
+
+    -->
+    <!-- -------------------------------------------------------- -->
 
 </body>
 </html>
