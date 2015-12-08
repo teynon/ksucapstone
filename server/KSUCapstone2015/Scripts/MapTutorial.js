@@ -517,11 +517,13 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
                 {
-                    title: "Select a Report",
+                    title: "Open the Reports panel",
                     body: "Click the graph icon located at the bottom left corner of the Reports panel.",
                     pointTo: $("#graphs"),
                     advanceOptions: {
@@ -532,17 +534,43 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapStateOpen) 
+                                com.capstone.mapController.showReportView();
+                            
+                        }
+                    }
+                },
+                {
+                    title: "Select a different Report",
+                    body: "Click the displayed dropdown and select a report other than Average Speed to create a second report.",
+                    pointTo: $("#selectChart"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#selectChart"),
+                            action: "change"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                            
+                            com.capstone.UI.showMenuForUIButton($("#graphs"), "graphlist");
                         }
                     }
                 },
                 {
                     title: "Summary",
-                    body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    body: "Congratulations! You now have two reports representing the data from the active queries.",
                     pointTo: null,
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
                         }
                     }
                 }
