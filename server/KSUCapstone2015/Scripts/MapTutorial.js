@@ -382,41 +382,65 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.hideColorPicker();
                         }
                     }
                 },
                 {
-                    title: "Copy the Link",
-                    body: "Copy the link located in the Save & Share menu and open another browser",
-                    pointTo: $("#shareLink"),
+                    title: "Edit the Pickup Point Border Color",
+                    body: "Click the colored rectangle next to where it says Pickup Point Border Color to open the color selector.",
+                    pointTo: $('#PickupColor'),
                     advanceOptions: {
-                        eventListeners: [{
-                            target: $("#shareLink"),
-                            action: "copy"
+                        eventListeners: {
+                            target: $("#PickupColor"),
+                            action: "click"
                         },
-                        {
-                            target: $("#shareLink"),
-                            action: "cut"
-                        }],
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            com.capstone.UI.hideColorPicker();
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
                             if (!settingsDialogOriginalOffset)
                                 settingsDialogOriginalOffset = $(".settingsDialog").offset();
 
-                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 150, left: settingsDialogOriginalOffset.left });
-                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 195, left: tutorialOriginalOffset.left - 10 });
+                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 100, left: settingsDialogOriginalOffset.left - 100 });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left + 275 });
+                        }
+                    }
+                },
+                {
+                    title: "Choose a Color",
+                    body: "Select a color by clicking a color in the color selector then click outside of the color selector to set the color.",
+                    pointTo: $(".cp-color-picker"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#PickupColor"),
+                            action: "change"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
+                            if (!settingsDialogOriginalOffset)
+                                settingsDialogOriginalOffset = $(".settingsDialog").offset();
+
+                            
+
+                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 100, left: settingsDialogOriginalOffset.left - 100 });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left + 275 });
+                            $('#PickupColor').trigger("click");
                         }
                     }
                 },
                 {
                     title: "Summary",
-                    body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    body: "Congratulations! You have edited the marker settings. You can see your changes on the map when you run a query.",
                     pointTo: null,
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.hideColorPicker();
                         }
                     }
                 }
@@ -468,6 +492,83 @@
                 {
                     title: "Summary",
                     body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Reports",
+            Contents: [
+                {
+                    title: "Open the Reports panel",
+                    body: "Click the graph icon to open the Reports panel.",
+                    pointTo: $("#reportView"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#reportView"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                        }
+                    }
+                },
+                {
+                    title: "Select a Report",
+                    body: "Click the graph icon located at the bottom left corner of the Reports panel.",
+                    pointTo: $("#graphs"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#graphs"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have saved your current map. Now paste the link to the saved map into a browser to gain access to your saved map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Clear the Map",
+            Contents: [
+                {
+                    title: "Clear the Map",
+                    body: "Click the trash can icon to remove all the active queries from the map.",
+                    pointTo: $("#btnClear"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#btnClear"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have cleared your current map. Now there are no active queries on the map.",
                     pointTo: null,
                     advanceOptions: {
                         onStep: function () {

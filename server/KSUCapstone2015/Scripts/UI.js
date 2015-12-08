@@ -170,6 +170,11 @@ com.capstone.UI = {
         com.capstone.UI.mapUpdateTimeout = setTimeout(function () {
             com.capstone.mapController.RefreshResults();
         }, 1000);
+    },
+
+    hideColorPicker: function () {
+        if ($('.cp-color-picker').length)
+            $('.cp-color-picker').hide();
     }
 };
 
