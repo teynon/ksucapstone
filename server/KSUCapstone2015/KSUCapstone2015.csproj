@@ -181,6 +181,8 @@
     <Content Include="Content\images\blank.gif" />
     <Content Include="Content\images\calendar.png" />
     <Content Include="Content\images\chart_popup.png" />
+    <Content Include="Content\images\ClassDiagram Web Server.jpg" />
+    <Content Include="Content\images\ClassDiagram_Front End.jpg" />
     <Content Include="Content\images\clear.png" />
     <Content Include="Content\images\colorpicker_background.png" />
     <Content Include="Content\images\colorpicker_hex.png" />
@@ -205,6 +207,7 @@
     <Content Include="Content\images\custom_rgb_r.png" />
     <Content Include="Content\images\custom_submit.png" />
     <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\General Use Case.jpg" />
     <Content Include="Content\images\help.png" />
     <Content Include="Content\images\hiddenQuery.png" />
     <Content Include="Content\images\invisible_marker.png" />
@@ -223,6 +226,7 @@
     <Content Include="Content\images\select2.png" />
     <Content Include="Content\images\selection_mode_both.png" />
     <Content Include="Content\images\selection_type_single.png" />
+    <Content Include="Content\images\Sequence Simple Query.jpg" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\share.png" />
     <Content Include="Content\images\sidebyside.png" />
