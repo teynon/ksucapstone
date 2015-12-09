@@ -2298,7 +2298,7 @@
                 </div>
                 <p>The QueryController is used to manage all the data about each query on the map.</p>
                 <div id="collapse94" class="panel-collapse collapse">
-                    <div class="pr">
+                    <div class="pr ">
 
 
                         <div class="container">
@@ -2471,17 +2471,17 @@
                                     </div>
                                     <div id="collapse102" class="panel-collapse collapse">
                                         <div>
-<ul>
-    <li>
-        takes a point
-    </li>
-    <li>
-        returns nothing
-    </li>
-    <li>
-        these two functions will add the point based on which function is called to the map
-    </li>
-</ul>
+                                            <ul>
+                                                <li>
+                                                    takes a point
+                                                </li>
+                                                <li>
+                                                    returns nothing
+                                                </li>
+                                                <li>
+                                                    these two functions will add the point based on which function is called to the map
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -2581,17 +2581,17 @@
                                     </div>
                                     <div id="collapse106" class="panel-collapse collapse">
                                         <div>
-<ul>
-    <li>
-        takes nothing
-    </li>
-    <li>
-        returns nothing
-    </li>
-    <li>
-        this function clears the map
-    </li>
-</ul>
+                                            <ul>
+                                                <li>
+                                                    takes nothing
+                                                </li>
+                                                <li>
+                                                    returns nothing
+                                                </li>
+                                                <li>
+                                                    this function clears the map
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -2632,6 +2632,369 @@
     </div>
 
 
+
+    <!-- ReportController.js -->
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse108"> ReportController.js  </a>
+                    </h4>
+                </div>
+                <div id="collapse108" class="panel-collapse collapse">
+                    <div class="pr">
+
+                        <div class="container spt">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse109">ReportController </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse109" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    reportid
+                                                </li>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    sets main and axis titles, handles graph updates, removal of queries, clearing of individual charts, and clearing of all charts in report slideout
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse110"> AverageSpeed  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse110" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    calculates average speed for each trip in query and then averages all speeds together for current query
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse111"> TripsPerQuery </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse111" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    counts number of trips in query
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse112"> AverageDistance  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse112" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    adds distances for all trips in query together then divides by number of trips
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse113"> AveragePassengers </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse113" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    adds passenger count for all trips in query together then divides by number of trips
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse114">  AverageTime </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse114" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    adds trip distance for all trips in query together then divides by number of trips
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse115"> AverageSpeedPerDriver </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse115" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    picks first driver, calculates average speed for all of his trips in the selected query, if more than one trip then they are averaged together, then pushes all the different driver’s average speeds into the dataset
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse117">  VendorTotals </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse117" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    counts how many trips are handled in the query from each of the two vendors and adds them to the two part pie graph
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse118">  PassengerDistance </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse118" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    computes average distance each passenger in each taxi trip and then averages them all together
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse119"> Ready  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse119" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    dataSet
+                                                </li>
+                                                <li>
+                                                    where the type, titles, filter type, and axis suffix and prefixes are defined for each graph
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- -------------------------------------------------------- -->
+
+    <div class="container">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse120"> Report.js  </a>
+                    </h4>
+                </div>
+                <div id="collapse120" class="panel-collapse collapse">
+                    <div>
+
+                        <div class="container spt">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse121"> ReportBase  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse121" class="panel-collapse collapse">
+                                        <div>
+<ul>
+    <li>
+        (container, options, updateCallback, multiset)
+    </li>
+    <li>
+        returns dataSet for specified graph
+    </li>
+    <li>
+        Builds basic report void of type; sets sizes, default title, default type, legend options
+    </li>
+</ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" href="#collapse122"> TypeGraph (BarGraph, ColumnGraph, PieGraph, LineGraph)  </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse122" class="panel-collapse collapse">
+                                        <div>
+                                            <ul>
+                                                <li>
+                                                    (container, options, updateCallback, multiset)
+                                                </li>
+                                                <li>
+                                                    none
+                                                </li>
+                                                <li>
+                                                    sets graph type depending on what is specified in the report controller
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- -------------------------------------------------------- -->
     <!--
