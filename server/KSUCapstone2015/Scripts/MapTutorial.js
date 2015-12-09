@@ -24,6 +24,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -40,6 +42,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -56,6 +60,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -72,6 +78,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -88,6 +96,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -109,6 +119,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.hideMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -125,6 +137,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -141,6 +155,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -157,6 +173,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -168,6 +186,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -188,6 +208,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -204,6 +226,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selectmode"), "typeselect");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -215,6 +239,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -235,6 +261,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -256,6 +284,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selecttype"), "modeselect");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -267,6 +297,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -287,6 +319,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -302,6 +336,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -318,6 +354,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -334,6 +372,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -350,6 +390,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -362,6 +404,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -382,6 +426,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                             com.capstone.UI.hideColorPicker();
                         }
                     }
@@ -398,6 +444,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                             com.capstone.UI.hideColorPicker();
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
                             if (!settingsDialogOriginalOffset)
@@ -421,6 +469,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
                             if (!settingsDialogOriginalOffset)
                                 settingsDialogOriginalOffset = $(".settingsDialog").offset();
@@ -442,6 +492,8 @@
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.hideColorPicker();
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -462,6 +514,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -481,6 +535,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                             $("#share").trigger("click");
                             if (!saveDialogOriginalOffset)
                                 saveDialogOriginalOffset = $(".saveDialog").offset();
@@ -498,6 +554,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 }
@@ -525,7 +583,7 @@
                 },
                 {
                     title: "Open the Reports panel",
-                    body: "Click the graph icon located at the bottom left corner of the Reports panel.",
+                    body: "Click the small graph icon located at the bottom left corner of the Reports panel to access a list of available graphs.",
                     pointTo: $("#graphs"),
                     advanceOptions: {
                         eventListeners: {
@@ -563,15 +621,38 @@
                     }
                 },
                 {
-                    title: "Summary",
-                    body: "Congratulations! You now have two reports representing the data from the active queries.",
-                    pointTo: null,
+                    title: "Clear the Reports",
+                    body: "Click the garbage can icon to delete the displayed graphs.",
+                    pointTo: $("#clearGraphs"),
                     advanceOptions: {
+                        eventListeners: {
+                            target: $("#clearGraphs"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have successfully created a graph and deleted. Click the large graph icon to close the Reports panel.",
+                    pointTo: $("#reportView"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#reportView"),
+                            action: "click"
+                        },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             if (com.capstone.mapStateOpen)
                                 com.capstone.mapController.showReportView();
+                            com.capstone.mapController.ReportController.clearAll();
                         }
                     }
                 }
@@ -582,7 +663,7 @@
             Contents: [
                 {
                     title: "Clear the Map",
-                    body: "Click the trash can icon to remove all the active queries from the map.",
+                    body: "Click the garbage can icon to remove all the active queries from the map.",
                     pointTo: $("#btnClear"),
                     advanceOptions: {
                         eventListeners: {
@@ -592,6 +673,8 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
                         }
                     }
                 },
@@ -603,6 +686,9 @@
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            com.capstone.mapController.clear
                         }
                     }
                 }
