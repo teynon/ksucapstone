@@ -412,6 +412,113 @@
             ]
         },
         {
+            Section: "Legend",
+            Contents: [
+                {
+                    title: "Run a Query",
+                    body: "Create a new query on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Open the Playback Menu",
+                    body: "Click on the playback icon <span style=\"background: #162330; display: inline-block; padding:2px;\"><img src=\"/Content/images/playback.png\" /></span> to open the playback menu.",
+                    pointTo: $("#playback"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#playback"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Start Playback",
+                    body: "Click the <b><u>Play</u></b> button to begin playback.",
+                    pointTo: $("#playbackBtn"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#playbackBtn"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Pause Playback",
+                    body: "Click the <b><u>Pause</u></b> button to stop playback.",
+                    pointTo: $("#playbackBtn"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#playbackBtn"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Scrub Playback",
+                    body: "You can also use the slider bar to select a specific frame in the playback window. Click and drag the bar to put it to a specific frame.",
+                    pointTo: $("#playbackScroller"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#playbackScroller"),
+                            action: "change"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "When you process new queries, if playback is paused, the query will show its full result (not the specific frame). You can drag the slider bar again to get the specific range.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                }
+            ]
+        },
+        {
             Section: "Settings",
             Contents: [
                 {
@@ -565,6 +672,23 @@
             Section: "Reports",
             Contents: [
                 {
+                    title: "Run a Query",
+                    body: "Create a new query on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                        }
+                    }
+                },
+                {
                     title: "Open the Reports panel",
                     body: "Click the graph icon to open the Reports panel.",
                     pointTo: $("#reportView"),
@@ -688,7 +812,7 @@
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             if (!com.capstone.mapStateOpen)
                                 com.capstone.mapController.hideReportView();
-                            com.capstone.mapController.clear
+                            com.capstone.mapController.clear();
                         }
                     }
                 }
