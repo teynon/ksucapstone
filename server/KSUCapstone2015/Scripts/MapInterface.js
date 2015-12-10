@@ -429,10 +429,10 @@ com.capstone.MapController = function (mapid) {
         self.sideBySideLocked = !self.sideBySideLocked;
         self.updateMap2();
         if (self.sideBySideLocked) {
-            $("#sideBySideLocked").addClass("active");
+            $("#sideBySideLocked").addClass("activeUI");
         }
         else {
-            $("#sideBySideLocked").removeClass("active");
+            $("#sideBySideLocked").removeClass("activeUI");
         }
     }
 

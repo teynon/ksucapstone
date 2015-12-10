@@ -772,8 +772,8 @@
                                 com.capstone.mapController.enableSideBySide();
                             com.capstone.mapController.sideBySideLocked = false;
                             com.capstone.mapController.updateMap2();
-                            if (com.capstone.mapController.sideBySideLocked && $("#sideBySideLocked").attr("class") == "active") {
-                                $("#sideBySideLocked").removeClass("active");
+                            if (com.capstone.mapController.sideBySideLocked && $("#sideBySideLocked").attr("class") == "activeUI") {
+                                $("#sideBySideLocked").removeClass("activeUI");
                             }
                         }
                     }
@@ -797,7 +797,7 @@
                             com.capstone.mapController.sideBySideLocked = true;
                             com.capstone.mapController.updateMap2();
                             if (com.capstone.mapController.sideBySideLocked && !$("#sideBySideLocked").attr("class")) {
-                                $("#sideBySideLocked").addClass("active");
+                                $("#sideBySideLocked").addClass("activeUI");
                             }
                         }
                     }
@@ -868,15 +868,11 @@
                     advanceOptions: {
                         eventListeners: {
                             target: $("#PickupColor"),
-                            action: "click"
+                            action: "openColorPicker"
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
                             com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
-                            if (!com.capstone.mapStateOpen)
-                                com.capstone.mapController.hideReportView();
-                            if (com.capstone.mapController.sideBySide)
-                                com.capstone.mapController.disableSideBySide();
                             com.capstone.UI.hideColorPicker();
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
                             if (!settingsDialogOriginalOffset)
@@ -890,20 +886,15 @@
                 {
                     title: "Choose a Color",
                     body: "Select a color by clicking a color in the color selector then click outside of the color selector to set the color.",
-                    pointTo: $(".cp-color-picker"),
+                    pointTo: $("#PickupColor"),
                     advanceOptions: {
                         eventListeners: {
-                            target: $("#PickupColor"),
-                            action: "updated",
-                            delay: 500
+                            target: $(colorPickerEventNotifier),
+                            action: "closeColorPicker"
                         },
                         onStep: function () {
-                            com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
-                            if (!com.capstone.mapStateOpen)
-                                com.capstone.mapController.hideReportView();
-                            if (com.capstone.mapController.sideBySide)
-                                com.capstone.mapController.disableSideBySide();
+                            //com.capstone.UI.closeOpenMenus();
+                            //com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
                             com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
                             if (!settingsDialogOriginalOffset)
                                 settingsDialogOriginalOffset = $(".settingsDialog").offset();
@@ -912,7 +903,6 @@
 
                             $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 100, left: settingsDialogOriginalOffset.left - 100 });
                             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left + 275 });
-                            $('#PickupColor').trigger("click");
                         }
                     }
                 },

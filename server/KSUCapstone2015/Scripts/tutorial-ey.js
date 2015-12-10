@@ -23,6 +23,7 @@ com.eynon.tutorialEy = function (options) {
         "activeStepTitleCSS": {},
         "activeStepBodyCSS": {}
     };
+    this.showPaging = false;
     this.open = false;
     this.options = $.extend(this.options, options);
     this.position = 0;
@@ -47,6 +48,16 @@ com.eynon.tutorialEy = function (options) {
         this.dom['LeftSection'] = $("<div></div>")
         .addClass("tutorialEySectionList")
         .css(this.options.sectionCSS).appendTo(this.tutorialWindow);
+
+        this.dom['LeftSection'].on("wheel", function (e) {
+            console.log("Scroll");
+            if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+                tutorial.scrollUp();
+            }
+            else {
+                tutorial.scrollDown();
+            }
+        });
 
         this.dom['MainSection'] = $("<div></div>")
         .addClass("tutorialEyMainSection")
@@ -159,6 +170,30 @@ com.eynon.tutorialEy = function (options) {
         this.current().current().deactivate();
     }
 
+    this.scrollUp = function () {
+        if (this.sectionStart > 0) {
+            // Scroll up.
+            tutorial.sectionStart--;
+            if (tutorial.sectionStart < 0) {
+                tutorial.sectionStart = 0;
+            }
+
+            tutorial.update();
+        }
+    }
+
+    this.scrollDown = function () {
+        if (this.showPaging) {
+            // Scroll down.
+            tutorial.sectionStart++;
+            if (tutorial.sectionStart >= tutorial.items.length) {
+                tutorial.sectionStart = tutorial.items.length - 1;
+            }
+
+            tutorial.update();
+        }
+    }
+
     this.rebuildSections = function () {
         this.dom['LeftSection'].html("");
         var activeSection = this.current();
@@ -177,7 +212,7 @@ com.eynon.tutorialEy = function (options) {
         }
 
         var windowHeight = this.tutorialWindow.height();
-        var showPaging = false;
+        this.showPaging = false;
         var skip = 0;
 
         for (var i in this.items) {
@@ -206,12 +241,12 @@ com.eynon.tutorialEy = function (options) {
 
             windowHeight -= item.outerHeight();
             if (windowHeight - (item.outerHeight() * 2) <= this.options.sectionSpacer) {
-                showPaging = true;
+                this.showPaging = true;
                 break;
             }
         }
 
-        if (this.sectionStart > 0 || showPaging) {
+        if (this.sectionStart > 0 || this.showPaging) {
             var sectionNav = $("<div></div>")
             .addClass("tutorialEySectionNav")
             .appendTo(this.dom['LeftSection']);
@@ -220,26 +255,14 @@ com.eynon.tutorialEy = function (options) {
                 // Add previous button.
                 $("<button></button>").addClass("tutorialEyScrollUp").appendTo(sectionNav)
                 .on("click", function () {
-                    // Scroll down.
-                    tutorial.sectionStart--;
-                    if (tutorial.sectionStart < 0) {
-                        tutorial.sectionStart = 0;
-                    }
-
-                    tutorial.update();
+                    tutorial.scrollUp();
                 });
             }
 
-            if (showPaging) {
+            if (this.showPaging) {
                 $("<button></button>").addClass("tutorialEyScrollDown").appendTo(sectionNav)
                 .on("click", function () {
-                    // Scroll down.
-                    tutorial.sectionStart++;
-                    if (tutorial.sectionStart >= tutorial.items.length) {
-                        tutorial.sectionStart = tutorial.items.length - 1;
-                    }
-
-                    tutorial.update();
+                    tutorial.scrollDown();
                 });
             }
         }

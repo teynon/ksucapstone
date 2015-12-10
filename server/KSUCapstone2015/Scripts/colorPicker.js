@@ -1,4 +1,5 @@
-;(function($, Colors, undefined){
+var colorPickerEventNotifier = {};
+; (function ($, Colors, undefined) {
 	'use strict';
 
 	var $document = $(document),
@@ -101,12 +102,14 @@
 
 	                preRender(true);
 	            });
+	            $($this).trigger("openColorPicker");
 	        } else {
 	            $(_$UI).hide(_options.animationSpeed, function() {
 	                _$trigger.blur();
 	                _colorPicker.$trigger = null;
 	                preRender(false);
 	            });
+	            $(colorPickerEventNotifier).trigger("closeColorPicker");
 	        }
 	    } catch (e) {
 
@@ -322,6 +325,7 @@
 				mode = value.split('('),
 				$elm = findElement($(this));
  		    $elm.data('alpha', options.opacity).data('renderCallback', options.renderCallback);
+ 		    $elm.data('colorPickerInstance', _instance);
 			$elm.data('colorMode', mode[1] ? mode[0].substr(0, 3) : 'HEX').
 				attr('readonly', _options.preventFocus);
 			options.doRender &&

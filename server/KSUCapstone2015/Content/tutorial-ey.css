@@ -117,6 +117,7 @@
     color: #000000;
     line-height: 20px;
     overflow-y: scroll;
+    max-height: 200px;
 }
 
 .tutorialEyButtons {
