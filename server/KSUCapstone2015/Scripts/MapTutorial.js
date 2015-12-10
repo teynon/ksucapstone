@@ -2,7 +2,8 @@
 
     var tutorial = new com.eynon.tutorialEy({ lockPosition: true });
     var tutorialOriginalOffset = null;
-    var uidialogOriginalOffset = null;
+    var settingsDialogOriginalOffset = null;
+    var saveDialogOriginalOffset = null;
 
     // TIME RANGE 
     // ----------------------------------------------------------------------------
@@ -21,8 +22,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -37,8 +42,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(false);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -53,8 +62,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -69,8 +82,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -85,8 +102,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.mapController.setDrawingMode(true);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 }
@@ -106,8 +127,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.hideMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -122,8 +147,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -138,7 +167,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -153,8 +187,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#timerange"), "timespan");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -165,7 +203,11 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 }
@@ -185,7 +227,11 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -200,8 +246,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selectmode"), "typeselect");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -212,7 +262,11 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 }
@@ -232,7 +286,11 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -252,8 +310,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#selecttype"), "modeselect");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -264,7 +326,11 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 }
@@ -281,6 +347,14 @@
                         eventListeners: {
                             target: $("#map"),
                             action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -295,7 +369,11 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -310,8 +388,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -326,8 +408,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -342,8 +428,12 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -354,8 +444,491 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
                             com.capstone.UI.showMenuForUIButton($("#playback"), "playbackhud");
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Legend",
+            Contents: [
+                {
+                    title: "Run a Query",
+                    body: "Create a new query on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Name a Query",
+                    body: "Click the line that contains \"Query 1\" and replace \"Query 1\" with a new name.",
+                    pointTo: $("#activeQueries"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#query0 input"),
+                            action: "change"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Hide a Query",
+                    body: "Click the eye icon <span style=\"display: inline-block; padding:2px;\"><img src=\"/Content/images/visibleQuery.png\" /></span> next to a query to hide that query on the map.",
+                    pointTo: $("#query0 .queryVisibility"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#query0 .queryVisibility"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Reveal a Query",
+                    body: "Click the eye icon that has a red line running diagonally across it <span style=\"display: inline-block; padding:2px;\"><img src=\"/Content/images/hiddenQuery.png\" /></span> to reveal that hidden query on the map.",
+                    pointTo: $("#query0 .queryVisibility"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#query0 .queryVisibility"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have named a query, hid a query and revealed a query. You may have noticed the number next to the eye icon. This number represents the number of pickups or dropoffs that were found for the query.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Reports",
+            Contents: [
+                {
+                    title: "Run a Query",
+                    body: "Create a new query on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Open the Report View",
+                    body: "Click the graph icon to open the Report View.",
+                    pointTo: $("#reportView"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#reportView"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Open Available Graphs",
+                    body: "Click the small graph icon located at the bottom left corner of the Report View to access a list of available graphs.",
+                    pointTo: $("#graphs"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#graphs"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            if (com.capstone.mapStateOpen) 
+                                com.capstone.mapController.showReportView();
+
+                            
+                        }
+                    }
+                },
+                {
+                    title: "Select a different Report",
+                    body: "Click the displayed dropdown and select a report other than Average Speed to create a second report.",
+                    pointTo: $("#selectChart"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#selectChart"),
+                            action: "change"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                            
+                            com.capstone.UI.showMenuForUIButton($("#graphs"), "graphlist");
+                        }
+                    }
+                },
+                {
+                    title: "Clear the Reports",
+                    body: "Click the garbage can icon to delete the displayed graphs.",
+                    pointTo: $("#clearGraphs"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#clearGraphs"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left - 300 });
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have successfully created a graph and deleted it. Click the large graph icon to close the Report View.",
+                    pointTo: $("#reportView"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#reportView"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                            com.capstone.mapController.ReportController.clearAll();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Side by Side View",
+            Contents: [
+                {
+                    title: "Open the Side by Side Map View",
+                    body: "Click the map icon to open the Side by Side Map View.",
+                    pointTo: $("#sideBySide"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#sideBySide"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Filter: Time Range",
+                    body: "The Side by Side Map View contains an independent Time Range filter which allows you to query a second Time Range using the Side by Side View.",
+                    pointTo: $("#timerangesbs"),
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Filter: Pickups & Dropoffs",
+                    body: "The Side by Side Map View contains an independent Pickups & Dropoffs filter which allows you to have a various combinations of Pickups, Dropoffs, and Pickups & Dropoffs between both maps.",
+                    pointTo: $("#selectmodesbs"),
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Unlock the Side by Side View",
+                    body: "By default the Side by Side View is locked and both views will display the same region. Click the crosshair icon to unlock the Side by Side View and make each view move independently of each other.",
+                    pointTo: $("#sideBySideLocked"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#sideBySideLocked"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                            com.capstone.mapController.sideBySideLocked = true;
+                            com.capstone.mapController.updateMap2();
+                            if (com.capstone.mapController.sideBySideLocked && !$("#sideBySideLocked").attr("class")) {
+                                $("#sideBySideLocked").addClass("active");
+                            }
+                        }
+                    }
+                },
+                {
+                    title: "Lock the Side by Side View",
+                    body: "Click the crosshair icon to lock the Side by Side View and make the Side by Side View dependent on the regular map view.",
+                    pointTo: $("#sideBySideLocked"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#sideBySideLocked"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                            com.capstone.mapController.sideBySideLocked = false;
+                            com.capstone.mapController.updateMap2();
+                            if (com.capstone.mapController.sideBySideLocked && $("#sideBySideLocked").attr("class") == "active") {
+                                $("#sideBySideLocked").removeClass("active");
+                            }
+                        }
+                    }
+                },
+                {
+                    title: "Run a Query",
+                    body: "Click the left map to create a new query on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#map"),
+                            action: "mapQuery"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                            com.capstone.mapController.sideBySideLocked = true;
+                            com.capstone.mapController.updateMap2();
+                            if (com.capstone.mapController.sideBySideLocked && !$("#sideBySideLocked").attr("class")) {
+                                $("#sideBySideLocked").addClass("active");
+                            }
+                        }
+                    }
+                },
+                {
+                    title: "Open the Report View",
+                    body: "Click the graph icon to open the Report View.",
+                    pointTo: $("#reportView"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#reportView"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (!com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.enableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have successfully created a Side by Side query. You will notice on the Reports a second column for each query. The second column is the reporting for the query on the Side by Side map. You will also notice on the legend to the right of your query name there are now two numbers. The second number is number of Pickups and/or Dropoffs for the Side by Side map query.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            if (com.capstone.mapStateOpen)
+                                com.capstone.mapController.showReportView();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Settings",
+            Contents: [
+                {
+                    title: "Open Settings Menu",
+                    body: "Click the settings icon to open the Settings menu.",
+                    pointTo: $("#settings"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#settings"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            com.capstone.UI.hideColorPicker();
+                        }
+                    }
+                },
+                {
+                    title: "Edit the Pickup Point Border Color",
+                    body: "Click the colored rectangle next to where it says Pickup Point Border Color to open the color selector.",
+                    pointTo: $('#PickupColor'),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#PickupColor"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            com.capstone.UI.hideColorPicker();
+                            com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
+                            if (!settingsDialogOriginalOffset)
+                                settingsDialogOriginalOffset = $(".settingsDialog").offset();
+
+                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 100, left: settingsDialogOriginalOffset.left - 100 });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left + 275 });
+                        }
+                    }
+                },
+                {
+                    title: "Choose a Color",
+                    body: "Select a color by clicking a color in the color selector then click outside of the color selector to set the color.",
+                    pointTo: $(".cp-color-picker"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#PickupColor"),
+                            action: "updated",
+                            delay: 500
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset)
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            com.capstone.UI.showSettingsMenu($("#settings"), 'settingsMenu', 'settingsMenuTabs');
+                            if (!settingsDialogOriginalOffset)
+                                settingsDialogOriginalOffset = $(".settingsDialog").offset();
+
+                            
+
+                            $(".settingsDialog").offset({ top: settingsDialogOriginalOffset.top - 100, left: settingsDialogOriginalOffset.left - 100 });
+                            $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left + 275 });
+                            $('#PickupColor').trigger("click");
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have edited the marker settings. You can see your changes on the map when you run a query.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            com.capstone.UI.hideColorPicker();
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 }
@@ -375,7 +948,11 @@
                         },
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                         }
                     }
                 },
@@ -394,9 +971,16 @@
                         }],
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
                             $("#share").trigger("click");
-                            uidialogOriginalOffset = $(".ui-dialog").offset();
-                            $(".ui-dialog").offset({ top: uidialogOriginalOffset.top - 125, left: uidialogOriginalOffset.left });
+                            if (!saveDialogOriginalOffset)
+                                saveDialogOriginalOffset = $(".saveDialog").offset();
+
+                            $(".saveDialog").offset({ top: saveDialogOriginalOffset.top - 125, left: saveDialogOriginalOffset.left });
                             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top + 180, left: tutorialOriginalOffset.left - 10 });
                         }
                     }
@@ -408,7 +992,51 @@
                     advanceOptions: {
                         onStep: function () {
                             com.capstone.UI.closeOpenMenus();
-                            com.capstone.mapController.closeSaveQueriesDialog(tutorialOriginalOffset);
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            Section: "Clear the Map",
+            Contents: [
+                {
+                    title: "Clear the Map",
+                    body: "Click the garbage can icon to remove all the active queries from the map.",
+                    pointTo: $("#btnClear"),
+                    advanceOptions: {
+                        eventListeners: {
+                            target: $("#btnClear"),
+                            action: "click"
+                        },
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                        }
+                    }
+                },
+                {
+                    title: "Summary",
+                    body: "Congratulations! You have cleared your current map. Now there are no active queries on the map.",
+                    pointTo: null,
+                    advanceOptions: {
+                        onStep: function () {
+                            com.capstone.UI.closeOpenMenus();
+                            com.capstone.mapController.closeUiDialogs(tutorialOriginalOffset);
+                            if (!com.capstone.mapStateOpen)
+                                com.capstone.mapController.hideReportView();
+                            if (com.capstone.mapController.sideBySide)
+                                com.capstone.mapController.disableSideBySide();
+                            com.capstone.mapController.clear();
                         }
                     }
                 }

@@ -523,7 +523,7 @@ com.capstone.MapController = function (mapid) {
         $("#activeQueries").empty();
 
         for (var i in queries) {
-            var container = $("<div></div>").addClass("activeQuery");
+            var container = $("<div></div>").attr('id', 'query' + i.toString()).addClass("activeQuery");
             var borderContainer = $("<div></div>").addClass("activeQueryContainer");
             var borderDiv = $("<div></div>").data("query", queries[i].uniqueID).data("type", "border").addClass("trigger activeTrigger").prop("value", queries[i].BorderColor).appendTo(borderContainer);
             var mainContainer = $("<div></div>").addClass("queryInner").appendTo(borderDiv);
@@ -899,6 +899,7 @@ com.capstone.MapController = function (mapid) {
 
         $("#shareLink").val("Retrieving Sharable Key...");
         $("#saveLink").dialog({
+            dialogClass: "saveDialog",
             title: "Save & Share",
             width: "50%"
         });
@@ -909,9 +910,11 @@ com.capstone.MapController = function (mapid) {
         }, "json");
     }
 
-    this.closeSaveQueriesDialog = function (tutorialOriginalOffset) {
+    this.closeUiDialogs = function (tutorialOriginalOffset) {
         if (tutorialOriginalOffset) {
-            $(".ui-button-icon-primary").trigger("click");
+            $("[title='close']").each (function (index) {
+                $(this).trigger("click");
+            });
             $(".tutorialEy").offset({ top: tutorialOriginalOffset.top, left: tutorialOriginalOffset.left });
         }
     }

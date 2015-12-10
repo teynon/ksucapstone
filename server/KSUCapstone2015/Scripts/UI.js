@@ -130,6 +130,7 @@ com.capstone.UI = {
 
     showSettingsMenu: function (target, menuid, tabsectionid) {
         $("#" + menuid).dialog({
+            dialogClass: "settingsDialog",
             modal: true,
             "minWidth": 500,
             "width": "50%",
@@ -169,13 +170,19 @@ com.capstone.UI = {
         com.capstone.UI.mapUpdateTimeout = setTimeout(function () {
             com.capstone.mapController.RefreshResults();
         }, 1000);
+    },
+
+    hideColorPicker: function () {
+        if ($('.cp-color-picker').length)
+            $('.cp-color-picker').hide();
     }
 };
 
 $(document).ready(function () {
     $.fn.button.noConflict();
     $(".color").colorPicker({
-        renderCallback: function () {
+        renderCallback: function (e) {
+            $(e).trigger("updated");
             com.capstone.UI.refreshMapDelayed();
         },
         opacity: false
